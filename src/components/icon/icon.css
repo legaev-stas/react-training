@@ -1,0 +1,17 @@
+.icon{
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+}
+.icon.clear-left{
+    background: url('/icon-clear-left.png') no-repeat 0 0;;
+}
+.icon.edit{
+    background: url('/icon-edit.png') no-repeat 0 0;;
+}
+.icon.delete{
+    background: url('/icon-delete.png') no-repeat 0 0;;
+}
+.icon.add{
+    background: url('/icon-add.png') no-repeat 0 0;;
+}

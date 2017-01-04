@@ -1,0 +1,22 @@
+.App{
+    width: 800px;
+    margin: 0 auto;
+}
+
+.header h1{
+    margin: 5px 0 0;
+}
+
+.header .css-checkbox{
+    margin-right: 10px;
+}
+
+.header .search-bar{
+    margin: 5px 0 0;
+}
+.category-bar{
+    width:30%;
+}
+.todo-list{
+    width: 65%;
+}
