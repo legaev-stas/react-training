@@ -9,6 +9,6 @@ const Input = ({type, id, value, disabled, placeholder, onChange}) => (
         placeholder={placeholder}
         onChange={onChange}
     />
-)
+);
 
 export default Input;

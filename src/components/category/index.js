@@ -1,11 +1,12 @@
 import React from 'react';
 import './category.css';
 import Icon from '../icon';
+import {Link} from 'react-router'
 
-const Category = ({categoryList, activeCategoryId, id, name, parent, setActive, editHandler, deleteHandler, addHandler}) => (
+const Category = ({categoryList, activeCategoryId, id, name, parent, editHandler, deleteHandler, addHandler}) => (
     <div className={"category " + (activeCategoryId === id ? 'active' : '')}>
 
-        <div className="name" onClick={() => setActive(id)}>{name}</div>
+        <Link to={"/" + id} className="name" activeClassName="active">{name}</Link>
         <div className="icons">
             <Icon type="edit" onClick={editHandler} eventRef={id}/>
             <Icon type="delete" onClick={deleteHandler} eventRef={id}/>
@@ -20,7 +21,6 @@ const Category = ({categoryList, activeCategoryId, id, name, parent, setActive, 
                 editHandler={editHandler}
                 deleteHandler={deleteHandler}
                 addHandler={addHandler}
-                setActive={setActive}
             />)}
         </div>
     </div>

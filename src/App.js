@@ -3,10 +3,36 @@ import Checkbox from './components/forms/checkbox';
 import InputGroup from './components/forms/input-group';
 import Button from './components/forms/button';
 import ProgressBar from './components/progress-bar';
-import CategoryContainer from './components/category-container';
 import './App.css';
+import globalState from './state';
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = globalState.get();
+
+        this.filterShowDone = this.filterShowDone.bind(this);
+        this.filterSearch = this.filterSearch.bind(this);
+        this.onFilterSearchReset = this.onFilterSearchReset.bind(this);
+    }
+
+    componentDidMount(){
+        globalState.onChange(this.setState.bind(this));
+    }
+
+    filterShowDone(e){
+        globalState.set('state.filterShowDone', e.target.checked);
+    }
+
+    filterSearch(e){
+        globalState.set('state.filterSearch', e.target.value);
+    }
+
+    onFilterSearchReset (){
+        globalState.set('state.filterSearch', '');
+    }
+
     render() {
         return (
             <div className="App">
@@ -14,8 +40,19 @@ class App extends Component {
                     <h1 className="left">To-Do List</h1>
 
                     <div className="search-bar right">
-                        <Checkbox>Show done</Checkbox>
-                        <InputGroup type="text" icon="clear-left"/>
+                        <Checkbox
+                            id="filter-show-done"
+                            checked={this.state.state.filterShowDone}
+                            onClick={this.filterShowDone}
+                        >Show done</Checkbox>
+                        <InputGroup
+                            type="text"
+                            icon="clear-left"
+                            placeholder="Search"
+                            value={this.state.state.filterSearch}
+                            onChange={this.filterSearch}
+                            onReset={this.onFilterSearchReset}
+                        />
                     </div>
                 </div>
 
@@ -23,7 +60,7 @@ class App extends Component {
 
                 <div className="cf">
                     <div className="left category-bar">
-                        <CategoryContainer/>
+                        {this.props.CategoryContainer}
                     </div>
                     <div className="todo-list right">
                         <InputGroup type="text" placeholder="Add item"/>

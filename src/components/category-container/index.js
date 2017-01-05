@@ -16,15 +16,10 @@ class CategoryContainer extends Component {
         this.addInCategoryHandler = this.addInCategoryHandler.bind(this);
         this.addHandler = this.addHandler.bind(this);
         this.inputChange = this.inputChange.bind(this);
-        this.setActive = this.setActive.bind(this);
     }
 
     componentDidMount(){
         globalState.onChange(this.setState.bind(this));
-    }
-
-    setActive(id){
-        globalState.set('state.activeCategoryId', id);
     }
 
     addHandler() {
@@ -121,11 +116,10 @@ class CategoryContainer extends Component {
                         key={props.id}
                         {...props}
                         categoryList={this.state.data.categoryList}
-                        activeCategoryId={this.state.state.activeCategoryId}
+                        activeCategoryId={this.props.params.activeCategoryId}
                         editHandler={this.editHandler}
                         deleteHandler={this.deleteHandler}
                         addHandler={this.addInCategoryHandler}
-                        setActive={this.setActive}
                     />
                 )}
             </div>

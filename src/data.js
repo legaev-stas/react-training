@@ -1,7 +1,8 @@
 export default {
     state: {
         addCategoryInput: '',
-        activeCategoryId: null
+        filterShowDone: false,
+        filterSearch: ''
     },
     data: {
         categoryList: [
@@ -39,6 +40,14 @@ export default {
                 id: 'd7c95788-7a69-45f8-b223-a23bee98ce7d',
                 name: 'Category 2',
                 parent: null
+            }
+        ],
+        taskList: [
+            {
+                category: '6de2c350-6aee-4c14-8f97-428e5bc69692',
+                title: 'Title',
+                description: 'Description',
+                done: false
             }
         ]
     }

@@ -6,6 +6,8 @@
     margin: 0 0 2px;
     padding-right: 50px;
     cursor: pointer;
+    display: block;
+    text-decoration: none;
 }
 .category.active > .name{
     background-color: aquamarine;
