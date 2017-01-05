@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Checkbox from './components/forms/checkbox';
 import InputGroup from './components/forms/input-group';
-import Button from './components/forms/button';
 import ProgressBar from './components/progress-bar';
 import './App.css';
 import globalState from './state';
@@ -63,8 +62,7 @@ class App extends Component {
                         {this.props.CategoryContainer}
                     </div>
                     <div className="todo-list right">
-                        <InputGroup type="text" placeholder="Add item"/>
-                        <Button>Add</Button>
+                        {this.props.TasksContainer}
                     </div>
                 </div>
             </div>
