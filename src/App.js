@@ -40,9 +40,8 @@ class App extends Component {
 
                     <div className="search-bar right">
                         <Checkbox
-                            id="filter-show-done"
                             checked={this.state.state.filterShowDone}
-                            onClick={this.filterShowDone}
+                            onChange={this.filterShowDone}
                         >Show done</Checkbox>
                         <InputGroup
                             type="text"

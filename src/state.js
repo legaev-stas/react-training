@@ -38,7 +38,7 @@ export default {
     },
 
     get (path){
-        return state;
+        return cloneState();
     },
 
     onChange(cb) {
