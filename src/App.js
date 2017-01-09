@@ -37,6 +37,12 @@ class App extends Component {
         globalState.set('state.filterSearch', '');
     }
 
+    getProgress(){
+        const taskNumber = this.state.data.taskList.length;
+        const completeTaskNumber = this.state.data.taskList.filter((task) => task.done).length;
+        return completeTaskNumber/taskNumber;
+    }
+
     render() {
         return (
             <div className="App">
@@ -59,7 +65,7 @@ class App extends Component {
                     </div>
                 </div>
 
-                <ProgressBar value="0.7"/>
+                <ProgressBar value={this.getProgress()}/>
 
                 <div className="cf">
                     <div className="left category-bar">
