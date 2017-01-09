@@ -19,11 +19,11 @@ class CategoryContainer extends Component {
         this.inputChange = this.inputChange.bind(this);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         globalState.onChange(this.setState);
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         globalState.offChange(this.setState);
     }
 
@@ -80,9 +80,10 @@ class CategoryContainer extends Component {
 
         var clonedState = this._cloneState();
         var categoriesIdToDelete = clonedState.data.categoryList.filter(category => category.id === categoryId);
+        var taskIdToDelete = [];
 
         function findAllCategoriesIdToDelete(category) {
-            var parentId = category.parentId;
+            var parentId = category.id;
             let nestedCategories = clonedState.data.categoryList.filter(category => category.parent === parentId);
 
             nestedCategories.forEach(function (category) {
@@ -93,11 +94,17 @@ class CategoryContainer extends Component {
 
         findAllCategoriesIdToDelete(categoriesIdToDelete[0]);
 
-        categoriesIdToDelete.forEach(function(category){
+        categoriesIdToDelete.forEach(function (category) {
             clonedState.data.categoryList.splice(clonedState.data.categoryList.indexOf(category), 1);
         });
 
-        globalState.set('data.categoryList', clonedState.data.categoryList);
+        // remove all related tasks
+        taskIdToDelete = clonedState.data.taskList.filter(task => categoriesIdToDelete.map(category => category.id).indexOf(task.category) !== -1);
+        taskIdToDelete.forEach(function (task) {
+            clonedState.data.taskList.splice(clonedState.data.taskList.indexOf(task), 1);
+        });
+
+        globalState.set(clonedState);
     }
 
     _cloneState() {
