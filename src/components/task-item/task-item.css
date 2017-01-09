@@ -3,3 +3,16 @@
     border: 1px solid #777;
     border-radius: 3px;
 }
+
+.task-checkbox-wrapper{
+    float: left;
+    width: 5%;
+}
+.task-title{
+    float: left;
+    width: 85%;
+}
+.task-icon-wrapper{
+    float: right;
+    width: 5%;
+}

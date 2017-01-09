@@ -1,0 +1,20 @@
+.task-edit-buttons{
+    float: right;
+}
+
+.task-edit button{
+    margin-left: 10px;
+}
+
+.task-edit-title{
+    margin: 15px 0;
+}
+
+.task-edit-checkbox{
+    margin: 15px 0;
+}
+
+.task-edit-textarea textarea{
+    width: 100%;
+    height: 150px;
+}

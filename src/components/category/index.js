@@ -1,7 +1,7 @@
 import React from 'react';
 import './category.css';
 import Icon from '../icon';
-import {Link} from 'react-router'
+import {Link} from 'react-router';
 
 const Category = ({categoryList, activeCategoryId, id, name, parent, editHandler, deleteHandler, addHandler}) => (
     <div className={"category " + (activeCategoryId === id ? 'active' : '')}>

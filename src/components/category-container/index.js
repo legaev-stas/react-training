@@ -11,6 +11,7 @@ class CategoryContainer extends Component {
 
         this.state = globalState.get();
 
+        this.setState = this.setState.bind(this);
         this.editHandler = this.editHandler.bind(this);
         this.deleteHandler = this.deleteHandler.bind(this);
         this.addInCategoryHandler = this.addInCategoryHandler.bind(this);
@@ -19,7 +20,11 @@ class CategoryContainer extends Component {
     }
 
     componentDidMount(){
-        globalState.onChange(this.setState.bind(this));
+        globalState.onChange(this.setState);
+    }
+
+    componentWillUnmount(){
+        globalState.offChange(this.setState);
     }
 
     addHandler() {

@@ -43,5 +43,8 @@ export default {
 
     onChange(cb) {
         cbArray.push(cb);
+    },
+    offChange(cb){
+        cbArray.splice(cbArray.indexOf(cb), 1);
     }
 }

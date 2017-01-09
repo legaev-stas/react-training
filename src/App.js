@@ -11,13 +11,18 @@ class App extends Component {
 
         this.state = globalState.get();
 
+        this.setState = this.setState.bind(this);
         this.filterShowDone = this.filterShowDone.bind(this);
         this.filterSearch = this.filterSearch.bind(this);
         this.onFilterSearchReset = this.onFilterSearchReset.bind(this);
     }
 
     componentDidMount(){
-        globalState.onChange(this.setState.bind(this));
+        globalState.onChange(this.setState);
+    }
+
+    componentWillUnmount(){
+        globalState.offChange(this.setState);
     }
 
     filterShowDone(e){
@@ -62,6 +67,7 @@ class App extends Component {
                     </div>
                     <div className="todo-list right">
                         {this.props.TasksContainer}
+                        {this.props.EditTask}
                     </div>
                 </div>
             </div>

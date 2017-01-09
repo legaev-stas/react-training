@@ -11,13 +11,18 @@ class TasksContainer extends Component {
 
         this.state = globalState.get();
 
+        this.setState = this.setState.bind(this);
         this.onChangeStatus = this.onChangeStatus.bind(this);
         this.addTask = this.addTask.bind(this);
         this.taskFilter = this.taskFilter.bind(this);
     }
 
     componentDidMount() {
-        globalState.onChange(this.setState.bind(this));
+        globalState.onChange(this.setState);
+    }
+
+    componentWillUnmount(){
+        globalState.offChange(this.setState);
     }
 
     onChangeStatus(id) {
