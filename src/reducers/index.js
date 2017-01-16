@@ -1,10 +1,10 @@
 import {combineReducers} from 'redux'
-import uiStateReducer from './ui-state'
-import dataReducer from './data-reducer'
+import filter from './filter'
+import category from './category'
 
 const reducer = combineReducers({
-    state: uiStateReducer,
-    data: dataReducer
+    filter,
+    category
 });
 
 export default reducer;

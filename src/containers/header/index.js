@@ -3,11 +3,8 @@ import Header from '../../components/header';
 import {changeFilterSearch, resetFilterSearch, changeFilterShowDone} from '../../actions/header';
 
 const mapStateToProps = (state) => {
-    return {
-        searchText: state.state.filterSearch,
-        showDone: state.state.filterShowDone
-    }
-}
+    return state.filter;
+};
 
 const mapDispatchToProps = (dispatch) => {
     return {

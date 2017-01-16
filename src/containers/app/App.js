@@ -36,7 +36,7 @@ class App extends Component {
 
                 <div className="cf">
                     <div className="left category-bar">
-                        {this.props.CategoryContainer}
+                        {this.props.CategoryBarContainer}
                     </div>
                     <div className="todo-list right">
                         {this.props.TasksContainer}

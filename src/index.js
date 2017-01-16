@@ -6,7 +6,7 @@ import {Provider} from 'react-redux'
 import reducer from './reducers'
 
 import App from './containers/app/App';
-import CategoryContainer from './components/category-container';
+import CategoryBarContainer from './containers/category-bar';
 import TasksContainer from './components/tasks-container';
 import EditTask from './components/task-edit';
 import './index.css';
@@ -20,18 +20,18 @@ ReactDOM.render((
     <Provider store={store}>
         <Router history={browserHistory}>
             <Route path="/" component={App}>
-                <IndexRoute components={{CategoryContainer: CategoryContainer}}/>
+                <IndexRoute components={{CategoryBarContainer: CategoryBarContainer}}/>
                 <Route
                     path=":activeCategoryId"
                     components={{
-                        CategoryContainer: CategoryContainer,
+                        CategoryBarContainer: CategoryBarContainer,
                         TasksContainer: TasksContainer
                     }}
                 />
                 <Route
                     path=":activeCategoryId/:editTaskId"
                     components={{
-                        CategoryContainer: CategoryContainer,
+                        CategoryBarContainer: CategoryBarContainer,
                         EditTask: EditTask
                     }}
                 />

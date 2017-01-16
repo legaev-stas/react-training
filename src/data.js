@@ -1,11 +1,11 @@
 export default {
-    state: {
-        addCategoryInput: '',
-        filterShowDone: false,
-        filterSearch: ''
+    filter: {
+        showDone: false,
+        title: ''
     },
-    data: {
-        categoryList: [
+    category: {
+        addCategoryTitle: '',
+        list: [
             {
                 id: '6de2c350-6aee-4c14-8f97-428e5bc69692',
                 name: 'Category 1',
@@ -41,7 +41,9 @@ export default {
                 name: 'Category 2',
                 parent: null
             }
-        ],
+        ]
+    },
+    data: {
         taskList: [
             {
                 category: '6de2c350-6aee-4c14-8f97-428e5bc69692',

@@ -61,7 +61,7 @@ class TasksContainer extends Component {
 
     taskFilter(task){
         return task.category === this.props.params.activeCategoryId &&
-            (task.done ? this.state.state.filterShowDone : true) &&
+            (task.done ? this.state.state.showDone : true) &&
             (this.state.state.taskFilterTitle ? task.title.indexOf(this.state.state.taskFilterTitle) !== -1 : true);
     }
 

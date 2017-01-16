@@ -2,7 +2,7 @@ import React from 'react';
 import Checkbox from '../../components/forms/checkbox';
 import InputGroup from '../../components/forms/input-group';
 
-const Header = ({searchText, showDone, changeFilterShowDone, changeFilterSearch, resetFilterSearch}) => (
+const Header = ({title, showDone, changeFilterShowDone, changeFilterSearch, resetFilterSearch}) => (
     <div className="header cf">
         <h1 className="left">To-Do List</h1>
 
@@ -15,7 +15,7 @@ const Header = ({searchText, showDone, changeFilterShowDone, changeFilterSearch,
                 type="text"
                 icon="clear-left"
                 placeholder="Search"
-                value={searchText}
+                value={title}
                 onChange={(e) => changeFilterSearch(e.target.value)}
                 onReset={resetFilterSearch}
             />

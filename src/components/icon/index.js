@@ -1,10 +1,10 @@
 import React from 'react';
 import './icon.css';
 
-const Icon = ({type, onClick, eventRef}) => (
+const Icon = ({type, onClick}) => (
     <div
         className={'icon ' + type}
-        onClick={(e) => onClick && eventRef ? onClick(eventRef) : onClick(e)}
+        onClick={onClick}
     ></div>
 )
 
