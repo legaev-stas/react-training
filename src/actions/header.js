@@ -1,4 +1,4 @@
-export const changeFilterSearch = (text) => {
+export const changeSearch = (text) => {
     return {
         type: 'CHANGE_FILTER_SEARCH',
         payload: {
@@ -6,12 +6,12 @@ export const changeFilterSearch = (text) => {
         }
     }
 };
-export const resetFilterSearch = () => {
+export const resetSearch = () => {
     return {
         type: 'RESET_FILTER_SEARCH'
     }
 };
-export const changeFilterShowDone = (checked) => {
+export const doneToggle = (checked) => {
     return {
         type: 'CHANGE_FILTER_SHOW_DONE',
         payload: {

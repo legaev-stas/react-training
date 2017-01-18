@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Header from '../../components/header';
-import {changeFilterSearch, resetFilterSearch, changeFilterShowDone} from '../../actions/header';
+import {changeSearch, resetSearch, doneToggle} from '../../actions/header';
 
 const mapStateToProps = (state) => {
     return state.filter;
@@ -8,14 +8,14 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        changeFilterSearch: (text) => {
-            dispatch(changeFilterSearch(text));
+        changeSearch: (text) => {
+            dispatch(changeSearch(text));
         },
-        resetFilterSearch: () => {
-            dispatch(resetFilterSearch());
+        resetSearch: () => {
+            dispatch(resetSearch());
         },
-        changeFilterShowDone: (checked) => {
-            dispatch(changeFilterShowDone(checked));
+        doneToggle: (checked) => {
+            dispatch(doneToggle(checked));
         }
     }
 }

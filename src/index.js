@@ -1,20 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, IndexRoute, browserHistory} from 'react-router';
-import {createStore} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux'
-import reducer from './reducers'
+import {composeWithDevTools} from 'redux-devtools-extension';
 
+import reducer from './reducers'
 import App from './containers/app/App';
 import CategoryBarContainer from './containers/category-bar';
-import TasksContainer from './components/tasks-container';
+import TasksListContainer from './containers/task-list';
 import EditTask from './components/task-edit';
 import './index.css';
 import initialStoreState from './data'
+import syncMultipleActions from './middleware/sync-multiple-actions';
 
-const store = createStore(reducer, initialStoreState,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+const composeEnhancers = composeWithDevTools({
+    // Specify here name, actionsBlacklist, actionsCreators and other options
+});
+
+const store = createStore(reducer, initialStoreState, composeEnhancers(applyMiddleware(syncMultipleActions)));
 
 ReactDOM.render((
     <Provider store={store}>
@@ -25,7 +29,7 @@ ReactDOM.render((
                     path=":activeCategoryId"
                     components={{
                         CategoryBarContainer: CategoryBarContainer,
-                        TasksContainer: TasksContainer
+                        TasksListContainer: TasksListContainer
                     }}
                 />
                 <Route

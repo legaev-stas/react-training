@@ -3,9 +3,9 @@ export default {
         showDone: false,
         title: ''
     },
+    addCategoryTitle: '',
     category: {
-        addCategoryTitle: '',
-        list: [
+        collection: [
             {
                 id: '6de2c350-6aee-4c14-8f97-428e5bc69692',
                 name: 'Category 1',
@@ -43,8 +43,9 @@ export default {
             }
         ]
     },
-    data: {
-        taskList: [
+    newTaskTitle: '',
+    task: {
+        collection: [
             {
                 category: '6de2c350-6aee-4c14-8f97-428e5bc69692',
                 id: 'd7c95788-7a69-45f8-b223-a23bee98ce7x',
@@ -58,6 +59,13 @@ export default {
                 title: 'Title 2',
                 description: 'Description 2',
                 done: true
+            },
+            {
+                category: 'd7c95788-7a69-45f8-b223-a23bee98ce7d',
+                id: 'd7c95788-7a69-45f8-b223-a23bee98ce7z',
+                title: 'Title 3',
+                description: 'Description 3',
+                done: false
             }
         ]
     }

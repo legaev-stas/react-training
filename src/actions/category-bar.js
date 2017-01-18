@@ -1,6 +1,9 @@
-export const addCategory = () => {
+export const addCategory = (title) => {
     return {
-        type: 'ADD_CATEGORY'
+        type: 'ADD_CATEGORY',
+        payload: {
+            title
+        }
     }
 };
 
@@ -18,6 +21,15 @@ export const editHandler = (editCategoryId) => {
         type: 'EDIT_CATEGORY',
         payload: {
             editCategoryId
+        }
+    }
+};
+
+export const initialDeleteHandler = (deleteCategoryId) => {
+    return {
+        type: 'INITIAL_DELETE_CATEGORY',
+        payload: {
+            deleteCategoryId
         }
     }
 };

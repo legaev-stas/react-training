@@ -3,7 +3,7 @@ import Input from '../forms/input';
 import Button from '../forms/button';
 import Category from '../category';
 
-const CategoryBar = ({params, addCategoryTitle, list, addCategory, addNestedCategory, editHandler, deleteHandler, changeNewCategoryTitle}) => (
+const CategoryBar = ({params, addCategoryTitle, collection, addCategory, addNestedCategory, editHandler, deleteHandler, changeNewCategoryTitle}) => (
     <div>
         <Input
             type="text"
@@ -12,13 +12,13 @@ const CategoryBar = ({params, addCategoryTitle, list, addCategory, addNestedCate
             onChange={changeNewCategoryTitle}
         />
 
-        <Button onClick={addCategory}>Add</Button>
+        <Button onClick={() => addCategory(addCategoryTitle)}>Add</Button>
 
-        {list.filter(category => category.parent === null).map((props) =>
+        {collection.filter(category => category.parent === null).map((props) =>
             <Category
                 key={props.id}
                 {...props}
-                list={list}
+                collection={collection}
                 activeCategoryId={params.activeCategoryId}
                 editHandler={editHandler}
                 deleteHandler={deleteHandler}

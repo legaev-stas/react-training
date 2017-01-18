@@ -3,7 +3,7 @@ import './category.css';
 import Icon from '../icon';
 import {Link} from 'react-router';
 
-const Category = ({list, activeCategoryId, id, name, parent, editHandler, deleteHandler, addNestedCategory}) => (
+const Category = ({collection, activeCategoryId, id, name, parent, editHandler, deleteHandler, addNestedCategory}) => (
     <div className={"category " + (activeCategoryId === id ? 'active' : '')}>
 
         <Link to={"/" + id} className="name" activeClassName="active">{name}</Link>
@@ -13,10 +13,10 @@ const Category = ({list, activeCategoryId, id, name, parent, editHandler, delete
             <Icon type="add" onClick={() => addNestedCategory(id)}/>
         </div>
         <div className="sub">
-            {list.filter(category => category.parent === id).map((props) => <Category
+            {collection.filter(category => category.parent === id).map((props) => <Category
                 key={props.id}
                 {...props}
-                list={list}
+                collection={collection}
                 activeCategoryId={activeCategoryId}
                 editHandler={editHandler}
                 deleteHandler={deleteHandler}
