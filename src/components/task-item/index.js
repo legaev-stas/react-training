@@ -9,7 +9,7 @@ const TaskItem = ({id, category, title, description, done, onChangeStatus}) => (
         <div className="task-checkbox-wrapper">
             <Checkbox
                 checked={done}
-                onChange={(e) => onChangeStatus(e, id)}
+                onChange={() => onChangeStatus(id)}
             />
         </div>
         <div className="task-title">{title}</div>

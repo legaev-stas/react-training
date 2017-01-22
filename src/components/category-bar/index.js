@@ -3,13 +3,13 @@ import Input from '../forms/input';
 import Button from '../forms/button';
 import Category from '../category';
 
-const CategoryBar = ({params, addCategoryTitle, collection, addCategory, addNestedCategory, editHandler, deleteHandler, changeNewCategoryTitle}) => (
+const CategoryBar = ({params, addCategoryTitle, collection, addCategory, addNestedCategory, editHandler, deleteHandler, setNewCategoryTitleValue}) => (
     <div>
         <Input
             type="text"
             placeholder="Enter category title"
             value={addCategoryTitle}
-            onChange={changeNewCategoryTitle}
+            onChange={setNewCategoryTitleValue}
         />
 
         <Button onClick={() => addCategory(addCategoryTitle)}>Add</Button>

@@ -43,7 +43,7 @@ export const deleteHandler = (deleteCategoryId) => {
     }
 };
 
-export const changeNewCategoryTitle = (e) => {
+export const setNewCategoryTitleValue = (e) => {
     return {
         type: 'CHANGE_NEW_CATEGORY_TITLE',
         payload: {

@@ -1,26 +1,27 @@
-export const changeInputNewTaskTitle = (e) => {
+export const setNewTaskTitleValue = (value) => {
     return {
         type: 'CHANGE_INPUT_NEW_TASK_TITLE',
         payload: {
-            text: e.target.value
+            value
         }
     }
 };
 
-export const addTask = (text) => {
+export const addTask = (categoryId, title) => {
     return {
         type: 'ADD_TASK',
         payload: {
-            text
+            categoryId,
+            title
         }
     }
 };
 
-export const toggleTaskStatus = (text) => {
+export const toggleTaskStatus = (id) => {
     return {
         type: 'TOGGLE_TASK_STATUS',
         payload: {
-            text
+            id
         }
     }
 };

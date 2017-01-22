@@ -1,16 +1,16 @@
-import createReducer from './reducer-utilities'
+import createReducer from '../reducer-utilities';
 
 const addCategory = () => {
     return '';
-}
+};
 
-const changeNewCategoryTitle = (state, action) => {
+const setNewCategoryTitleValue = (state, action) => {
     return action.payload.text;
-}
+};
 
 const addCategoryReducer = createReducer('', {
     'ADD_CATEGORY' : addCategory,
-    'CHANGE_NEW_CATEGORY_TITLE' : changeNewCategoryTitle
+    'CHANGE_NEW_CATEGORY_TITLE' : setNewCategoryTitleValue
 });
 
 export default addCategoryReducer;

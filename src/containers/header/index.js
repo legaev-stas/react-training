@@ -1,18 +1,15 @@
 import { connect } from 'react-redux';
 import Header from '../../components/header';
-import {changeSearch, resetSearch, doneToggle} from '../../actions/header';
+import {setSearchValue, doneToggle} from '../../actions/task-filter';
 
 const mapStateToProps = (state) => {
-    return state.filter;
+    return state.uiState.filter;
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        changeSearch: (text) => {
-            dispatch(changeSearch(text));
-        },
-        resetSearch: () => {
-            dispatch(resetSearch());
+        setSearchValue: (text) => {
+            dispatch(setSearchValue(text));
         },
         doneToggle: (checked) => {
             dispatch(doneToggle(checked));

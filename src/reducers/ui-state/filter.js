@@ -1,18 +1,13 @@
-import createReducer from './reducer-utilities'
+import createReducer from '../reducer-utilities'
 
 const initialState = {
     showDone: false,
     title: ''
 };
 
-const changeSearch = (state, action) => {
+const setSearchValue = (state, action) => {
     return Object.assign({}, state, {
         title: action.payload.text
-    });
-}
-const resetSearch = (state, action) => {
-    return Object.assign({}, state, {
-        title: ''
     });
 }
 const doneToggle = (state, action) => {
@@ -22,8 +17,7 @@ const doneToggle = (state, action) => {
 }
 
 const filterReducer = createReducer(initialState, {
-    'CHANGE_FILTER_SEARCH' : changeSearch,
-    'RESET_FILTER_SEARCH' : resetSearch,
+    'CHANGE_FILTER_SEARCH' : setSearchValue,
     'CHANGE_FILTER_SHOW_DONE' : doneToggle
 });
 

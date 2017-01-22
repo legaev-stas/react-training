@@ -2,8 +2,10 @@ import {connect} from 'react-redux';
 import App from '../../components/app/App';
 
 const getProgress = (state) => {
-    const taskNumber = state.task.collection.length;
-    const completeTaskNumber = state.task.collection.filter((task) => task.done).length;
+    const order = state.task.order;
+    const byId = state.task.byId;
+    const taskNumber = order.length;
+    const completeTaskNumber = order.map(id => byId[id]).filter(task => task.done).length;
     return completeTaskNumber/taskNumber;
 }
 

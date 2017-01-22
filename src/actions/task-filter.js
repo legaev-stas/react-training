@@ -1,14 +1,9 @@
-export const changeSearch = (text) => {
+export const setSearchValue = (text) => {
     return {
         type: 'CHANGE_FILTER_SEARCH',
         payload: {
             text
         }
-    }
-};
-export const resetSearch = () => {
-    return {
-        type: 'RESET_FILTER_SEARCH'
     }
 };
 export const doneToggle = (checked) => {

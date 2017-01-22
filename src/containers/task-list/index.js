@@ -1,35 +1,45 @@
 import { connect } from 'react-redux';
 import TaskList from '../../components/tasks-list';
-import {changeInputNewTaskTitle, addTask, toggleTaskStatus} from '../../actions/header';
+import {setNewTaskTitleValue, addTask, toggleTaskStatus} from '../../actions/task';
 
 const filterCollection = (state, ownProps) => {
-    var collection = state.task.collection;
+    var byId = state.task.byId;
+    var order = state.task.order;
+    var filterShowDone = state.uiState.filter.showDone;
+    var filterTitle = state.uiState.filter.title;
     var activeCategoryId = ownProps.params.activeCategoryId;
 
-    return collection.filter(task => {
+    var filteredTaskIds = order.filter(id => {
+        var task = byId[id];
+
         return task.category === activeCategoryId &&
-        (task.done ? state.filter.showDone : true) &&
-        (state.filter.title ? task.title.indexOf(state.filter.title) !== -1 : true);
+            (task.done ? filterShowDone : true) &&
+            (filterTitle ? task.title.toLocaleLowerCase().indexOf(filterTitle.toLocaleLowerCase()) !== -1 : true);
+    });
+
+    return filteredTaskIds.map(id => {
+        return byId[id];
     });
 }
 
 const mapStateToProps = (state, ownProps) => {
     return {
         collection: filterCollection(state, ownProps),
-        newTaskTitle: state.newTaskTitle
+        newTaskTitle: state.uiState.newTaskTitle
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        changeInputNewTaskTitle: (e) => {
-            dispatch(changeInputNewTaskTitle(e));
+        setNewTaskTitleValue: (e) => {
+            dispatch(setNewTaskTitleValue(e.target.value));
         },
-        addTask: (text) => {
-            dispatch(addTask(text));
+        addTask: (categoryId, title) => {
+            dispatch(addTask(categoryId, title));
+            dispatch(setNewTaskTitleValue(''));
         },
-        toggleTaskStatus: (text) => {
-            dispatch(toggleTaskStatus(text));
+        toggleTaskStatus: (id) => {
+            dispatch(toggleTaskStatus(id));
         }
     }
 }

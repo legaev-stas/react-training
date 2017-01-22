@@ -1,11 +1,11 @@
 import {connect} from 'react-redux';
 import CategoryBar from '../../components/category-bar';
-import {addCategory, addNestedCategory, editHandler, initialDeleteHandler, changeNewCategoryTitle} from '../../actions/category-bar';
+import {addCategory, addNestedCategory, editHandler, initialDeleteHandler, setNewCategoryTitleValue} from '../../actions/category';
 
 const mapStateToProps = (state) => {
     return {
         collection: state.category.collection,
-        addCategoryTitle: state.addCategoryTitle
+        addCategoryTitle: state.uiState.addCategoryTitle
     }
 };
 
@@ -23,8 +23,8 @@ const mapDispatchToProps = (dispatch) => {
         deleteHandler: (id) => {
             dispatch(initialDeleteHandler(id));
         },
-        changeNewCategoryTitle: (text) => {
-            dispatch(changeNewCategoryTitle(text));
+        setNewCategoryTitleValue: (text) => {
+            dispatch(setNewCategoryTitleValue(text));
         }
     }
 };
