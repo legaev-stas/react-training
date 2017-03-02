@@ -65,10 +65,26 @@ const toggleTaskStatus = (state, action) => {
     });
 };
 
+const updateTask = () => {
+    //         var editTask = globalState.get().state.editTask;
+//         var taskList = globalState.get().data.taskList;
+//
+//         var updatedTaskList = taskList.map((task) => {
+//             if(task.id === editTask.id){
+//                 return editTask;
+//             }
+//             return task;
+//         });
+//
+//         globalState.set('data.taskList', updatedTaskList);
+//         browserHistory.push('/' + this.props.params.activeCategoryId);
+}
+
 const taskReducer = createReducer(initialState, {
     'DELETE_TASKS_OF_CATEGORY': deleteTasksOfCategory,
     'ADD_TASK': addTask,
-    'TOGGLE_TASK_STATUS': toggleTaskStatus
+    'TOGGLE_TASK_STATUS': toggleTaskStatus,
+    'UPDATE_TASK': updateTask
 });
 
 export default taskReducer;

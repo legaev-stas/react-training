@@ -15,7 +15,7 @@ const App = ({completionProgress, CategoryBarContainer, TasksListContainer, Edit
             </div>
             <div className="todo-list right">
                 {TasksListContainer}
-                {/*{EditTask}*/}
+                {EditTask}
             </div>
         </div>
     </div>

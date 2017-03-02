@@ -9,7 +9,7 @@ import reducer from './reducers'
 import App from './containers/app/App';
 import CategoryBarContainer from './containers/category-bar';
 import TasksListContainer from './containers/task-list';
-import EditTask from './components/task-edit';
+import EditTaskContainer from './containers/task-edit';
 import './index.css';
 import initialStoreState from './data'
 import syncMultipleActions from './middleware/sync-multiple-actions';
@@ -36,7 +36,7 @@ ReactDOM.render((
                     path=":activeCategoryId/:editTaskId"
                     components={{
                         CategoryBarContainer: CategoryBarContainer,
-                        EditTask: EditTask
+                        EditTask: EditTaskContainer
                     }}
                 />
             </Route>

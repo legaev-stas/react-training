@@ -5,7 +5,13 @@ export default {
             title: ''
         },
         addCategoryTitle: '',
-        newTaskTitle: ''
+        newTaskTitle: '',
+        taskEdit: {
+            category: '',
+            title: '',
+            done: false,
+            description: ''
+        }
     },
     category: {
         collection: [

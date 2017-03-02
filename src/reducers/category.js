@@ -5,7 +5,7 @@ const initialState = {collection: []};
 
 const addCategory = (state, action) => {
     let collection = state.collection.slice(0);
-    collection.push({
+    collection.unshift({
         id: uuid(),
         name: action.payload.title,
         parent: null
@@ -20,7 +20,7 @@ const addNestedCategory = (state, action) => {
     const name = prompt('Please enter category title');
     if (name) {
         let collection = state.collection.slice(0);
-        collection.push({
+        collection.unshift({
             id: uuid(),
             name: name,
             parent: action.payload.addToCategoryId

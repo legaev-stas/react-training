@@ -25,3 +25,37 @@ export const toggleTaskStatus = (id) => {
         }
     }
 };
+
+export const editTaskTitle = (value) => {
+    return {
+        type: 'EDIT_TASK_CHANGE_TITLE',
+        payload: {
+            value
+        }
+    }
+};
+
+export const editTaskDescription = (value) => {
+    return {
+        type: 'EDIT_TASK_CHANGE_DESCRIPTION',
+        payload: {
+            value
+        }
+    }
+};
+
+export const editTaskToggleStatus = (value) => {
+    return {
+        type: 'EDIT_TASK_TOGGLE_STATUS',
+        payload: {
+            value
+        }
+    }
+};
+
+export const updateTask = (task) => {
+    return {
+        type: 'UPDATE_TASK',
+        payload: task
+    }
+};
