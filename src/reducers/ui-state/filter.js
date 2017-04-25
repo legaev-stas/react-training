@@ -1,4 +1,8 @@
 import createReducer from '../reducer-utilities'
+import {
+    TASK_FILTER_SEARCH_CHANGE,
+    TASK_FILTER_SHOW_DONE_CHANGE
+} from '../../actions/task-filter/constants';
 
 const initialState = {
     showDone: false,
@@ -17,8 +21,8 @@ const doneToggle = (state, action) => {
 }
 
 const filterReducer = createReducer(initialState, {
-    'CHANGE_FILTER_SEARCH' : setSearchValue,
-    'CHANGE_FILTER_SHOW_DONE' : doneToggle
+    [TASK_FILTER_SEARCH_CHANGE] : setSearchValue,
+    [TASK_FILTER_SHOW_DONE_CHANGE] : doneToggle
 });
 
 export default filterReducer;

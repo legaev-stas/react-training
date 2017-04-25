@@ -1,6 +1,14 @@
 import createReducer from './reducer-utilities';
 import uuid from 'uuid/v4';
 
+import {
+    DELETE_TASKS_OF_CATEGORY,
+    NEW_TASK_ADD,
+    TASK_STATUS_TOGGLE,
+    EDIT_TASK_SAVE
+} from '../actions/task/constants';
+
+
 const initialState = {collection: []};
 
 const deleteTasksOfCategory = (state, action) => {
@@ -81,10 +89,10 @@ const updateTask = () => {
 }
 
 const taskReducer = createReducer(initialState, {
-    'DELETE_TASKS_OF_CATEGORY': deleteTasksOfCategory,
-    'ADD_TASK': addTask,
-    'TOGGLE_TASK_STATUS': toggleTaskStatus,
-    'UPDATE_TASK': updateTask
+    [DELETE_TASKS_OF_CATEGORY]: deleteTasksOfCategory,
+    [NEW_TASK_ADD]: addTask,
+    [TASK_STATUS_TOGGLE]: toggleTaskStatus,
+    [EDIT_TASK_SAVE]: updateTask
 });
 
 export default taskReducer;

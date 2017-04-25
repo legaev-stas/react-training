@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import TaskList from '../../components/tasks-list';
-import {setNewTaskTitleValue, addTask, toggleTaskStatus} from '../../actions/task';
+import {setNewTaskTitleValue, addTask, toggleTaskStatus} from '../../actions/task/index';
 
 const filterCollection = (state, ownProps) => {
     var byId = state.task.byId;

@@ -1,6 +1,13 @@
 import uuid from 'uuid/v4';
 import createReducer from './reducer-utilities';
 
+import {
+    CATEGORY_ADD,
+    CATEGORY_ADD_NESTED,
+    CATEGORY_EDIT,
+    CATEGORY_DELETE
+} from '../actions/category/constants';
+
 const initialState = {collection: []};
 
 const addCategory = (state, action) => {
@@ -74,10 +81,10 @@ const deleteHandler = (state, action) => {
 }
 
 const categoryReducer = createReducer(initialState, {
-    'ADD_CATEGORY': addCategory,
-    'ADD_NESTED_CATEGORY': addNestedCategory,
-    'EDIT_CATEGORY': editHandler,
-    'DELETE_CATEGORY': deleteHandler
+    [CATEGORY_ADD]: addCategory,
+    [CATEGORY_ADD_NESTED]: addNestedCategory,
+    [CATEGORY_EDIT]: editHandler,
+    [CATEGORY_DELETE]: deleteHandler
 });
 
 export default categoryReducer;

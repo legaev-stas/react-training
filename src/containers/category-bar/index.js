@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import CategoryBar from '../../components/category-bar';
-import {addCategory, addNestedCategory, editHandler, initialDeleteHandler, setNewCategoryTitleValue} from '../../actions/category';
+import {addCategory, addNestedCategory, editHandler, initialDeleteHandler, setNewCategoryTitleValue} from '../../actions/category/index';
 
 const mapStateToProps = (state) => {
     return {

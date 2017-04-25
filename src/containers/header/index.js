@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Header from '../../components/header';
-import {setSearchValue, doneToggle} from '../../actions/task-filter';
+import {setSearchValue, doneToggle} from '../../actions/task-filter/index';
 
 const mapStateToProps = (state) => {
     return state.uiState.filter;

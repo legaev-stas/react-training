@@ -1,6 +1,15 @@
+import {
+    CATEGORY_ADD,
+    CATEGORY_ADD_NESTED,
+    CATEGORY_EDIT,
+    CATEGORY_INITIAL_DELETE,
+    CATEGORY_DELETE,
+    CATEGORY_TITLE_CHANGE
+} from './constants';
+
 export const addCategory = (title) => {
     return {
-        type: 'ADD_CATEGORY',
+        type: CATEGORY_ADD,
         payload: {
             title
         }
@@ -9,7 +18,7 @@ export const addCategory = (title) => {
 
 export const addNestedCategory = (addToCategoryId) => {
     return {
-        type: 'ADD_NESTED_CATEGORY',
+        type: CATEGORY_ADD_NESTED,
         payload: {
             addToCategoryId
         }
@@ -18,7 +27,7 @@ export const addNestedCategory = (addToCategoryId) => {
 
 export const editHandler = (editCategoryId) => {
     return {
-        type: 'EDIT_CATEGORY',
+        type: CATEGORY_EDIT,
         payload: {
             editCategoryId
         }
@@ -27,7 +36,7 @@ export const editHandler = (editCategoryId) => {
 
 export const initialDeleteHandler = (deleteCategoryId) => {
     return {
-        type: 'INITIAL_DELETE_CATEGORY',
+        type: CATEGORY_INITIAL_DELETE,
         payload: {
             deleteCategoryId
         }
@@ -36,7 +45,7 @@ export const initialDeleteHandler = (deleteCategoryId) => {
 
 export const deleteHandler = (deleteCategoryId) => {
     return {
-        type: 'DELETE_CATEGORY',
+        type: CATEGORY_DELETE,
         payload: {
             deleteCategoryId
         }
@@ -45,7 +54,7 @@ export const deleteHandler = (deleteCategoryId) => {
 
 export const setNewCategoryTitleValue = (e) => {
     return {
-        type: 'CHANGE_NEW_CATEGORY_TITLE',
+        type: CATEGORY_TITLE_CHANGE,
         payload: {
             text: e.target.value
         }

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import TaskEdit from '../../components/task-edit';
-import {editTaskTitle, editTaskDescription, editTaskToggleStatus, updateTask} from '../../actions/task';
+import {editTaskTitle, editTaskDescription, editTaskToggleStatus, updateTask} from '../../actions/task/index';
 
 const mapStateToProps = (state, ownProps) => {
     return state.uiState.taskEdit;

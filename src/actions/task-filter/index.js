@@ -1,6 +1,11 @@
+import {
+    TASK_FILTER_SEARCH_CHANGE,
+    TASK_FILTER_SHOW_DONE_CHANGE
+} from './constants';
+
 export const setSearchValue = (text) => {
     return {
-        type: 'CHANGE_FILTER_SEARCH',
+        type: TASK_FILTER_SEARCH_CHANGE,
         payload: {
             text
         }
@@ -8,7 +13,7 @@ export const setSearchValue = (text) => {
 };
 export const doneToggle = (checked) => {
     return {
-        type: 'CHANGE_FILTER_SHOW_DONE',
+        type: TASK_FILTER_SHOW_DONE_CHANGE,
         payload: {
             checked
         }
