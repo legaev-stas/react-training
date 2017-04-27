@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux'
+import {combineReducers} from 'redux-immutable'
 
 import filter from './ui-state/filter'
 import addCategory from './ui-state/add-category'

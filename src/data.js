@@ -1,4 +1,6 @@
-export default {
+import {fromJS} from 'immutable';
+
+export default fromJS({
     uiState: {
         filter: {
             showDone: false,
@@ -82,4 +84,4 @@ export default {
             'd7c95788-7a69-45f8-b223-a23bee98ce7z'
         ]
     }
-}
+});

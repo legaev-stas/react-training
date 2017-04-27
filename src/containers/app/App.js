@@ -1,23 +1,36 @@
-import {connect} from 'react-redux';
-import App from '../../components/app/App';
+import React from 'react';
+import {withRouter} from 'react-router';
+import './App.css';
 
-const getProgress = (state) => {
-    const order = state.task.order;
-    const byId = state.task.byId;
-    const taskNumber = order.length;
-    const completeTaskNumber = order.map(id => byId[id]).filter(task => task.done).length;
-    return completeTaskNumber/taskNumber;
-}
+import Header from '../../components/header';
+import {headerConnector} from '../../connector/header';
 
-const mapStateToProps = (state) => {
-    return {
-        completionProgress: getProgress(state)
-    }
-};
+import ProgressBar from '../../components/progress-bar';
+import {progressBarConnector} from '../../connector/progress-bar';
 
-const AppContainer = connect(
-    mapStateToProps
-)(App);
+import {AddCategoryForm, CategoryList} from '../../components/category';
+import {addCategoryFormConnector, categoryListConnector} from '../../connector/category-bar';
 
-export default AppContainer;
+const HeaderContainer = headerConnector(Header);
+const ProgressBarContainer = progressBarConnector(ProgressBar);
+const AddCategoryFormContainer = addCategoryFormConnector(AddCategoryForm);
+const CategoryListContainer = withRouter(categoryListConnector(CategoryList));
+
+export default () => (
+    <div className="App">
+        <HeaderContainer/>
+        <ProgressBarContainer/>
+
+        <div className="cf">
+            <div className="left category-bar">
+                <AddCategoryFormContainer/>
+                <CategoryListContainer/>
+            </div>
+            <div className="todo-list right">
+                {/*{TasksListContainer}*/}
+                {/*{EditTask}*/}
+            </div>
+        </div>
+    </div>
+);
 

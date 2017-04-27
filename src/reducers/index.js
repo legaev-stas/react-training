@@ -1,8 +1,8 @@
-import {combineReducers} from 'redux'
+import {combineReducers} from 'redux-immutable';
 
-import uiState from './ui-state'
-import category from './category'
-import task from './task'
+import uiState from './ui-state';
+import category from './category';
+import task from './task';
 
 const reducer = combineReducers({
     uiState,

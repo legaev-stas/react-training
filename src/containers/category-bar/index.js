@@ -1,19 +1,9 @@
-import {connect} from 'react-redux';
-import CategoryBar from '../../components/category-bar';
-import {addCategory, addNestedCategory, editHandler, initialDeleteHandler, setNewCategoryTitleValue} from '../../actions/category/index';
+import {addNestedCategory, editHandler, deleteHandler} from '../../actions/category/index';
+import {deleteAllTasksOfCategory} from '../../actions/task/index';
 
-const mapStateToProps = (state) => {
-    return {
-        collection: state.category.collection,
-        addCategoryTitle: state.uiState.addCategoryTitle
-    }
-};
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addCategory: (text) => {
-            dispatch(addCategory(text));
-        },
         addNestedCategory: (text) => {
             dispatch(addNestedCategory(text));
         },
@@ -21,17 +11,9 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(editHandler(text));
         },
         deleteHandler: (id) => {
-            dispatch(initialDeleteHandler(id));
-        },
-        setNewCategoryTitleValue: (text) => {
-            dispatch(setNewCategoryTitleValue(text));
+            dispatch(deleteAllTasksOfCategory(id));
+            dispatch(deleteHandler(id));
         }
     }
 };
 
-const CategoryBarContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(CategoryBar);
-
-export default CategoryBarContainer;

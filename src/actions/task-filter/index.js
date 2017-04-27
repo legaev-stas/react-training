@@ -1,21 +1,10 @@
+import {createAction} from '../../helpers/action';
 import {
     TASK_FILTER_SEARCH_CHANGE,
-    TASK_FILTER_SHOW_DONE_CHANGE
+    TASK_FILTER_SHOW_DONE_CHANGE,
+    TASK_FILTER_SEARCH_RESET
 } from './constants';
 
-export const setSearchValue = (text) => {
-    return {
-        type: TASK_FILTER_SEARCH_CHANGE,
-        payload: {
-            text
-        }
-    }
-};
-export const doneToggle = (checked) => {
-    return {
-        type: TASK_FILTER_SHOW_DONE_CHANGE,
-        payload: {
-            checked
-        }
-    }
-};
+export const setSearchValue = createAction(TASK_FILTER_SEARCH_CHANGE);
+export const doneToggle = createAction(TASK_FILTER_SHOW_DONE_CHANGE);
+export const resetSearchValue = createAction(TASK_FILTER_SEARCH_RESET);

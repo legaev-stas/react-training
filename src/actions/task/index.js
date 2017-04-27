@@ -1,3 +1,4 @@
+import {getState} from '../../helpers/store';
 import {
     NEW_TASK_TITLE_CHANGE,
     NEW_TASK_ADD,
@@ -5,7 +6,8 @@ import {
     EDIT_TASK_TITLE_CHANGE,
     EDIT_TASK_DESCRIPTION_CHANGE,
     EDIT_TASK_STATUS_TOGGLE,
-    EDIT_TASK_SAVE
+    EDIT_TASK_SAVE,
+    CATEGORY_DELETE_TASKS
 } from './constants';
 
 export const setNewTaskTitleValue = (value) => {
@@ -67,5 +69,15 @@ export const updateTask = (task) => {
     return {
         type: EDIT_TASK_SAVE,
         payload: task
+    }
+};
+
+export const deleteAllTasksOfCategory = (deleteCategoryId) => {
+    return {
+        type: CATEGORY_DELETE_TASKS,
+        payload: {
+            deleteCategoryId: deleteCategoryId,
+            categoryCollection: getState().getIn(['category','collection'])
+        }
     }
 };

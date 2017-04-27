@@ -24,7 +24,7 @@ const addCategory = (state, action) => {
 }
 const addNestedCategory = (state, action) => {
 // TODO: rework browser modals with components
-    const name = prompt('Please enter category title');
+    const name = prompt('Please enter category-bar title');
     if (name) {
         let collection = state.collection.slice(0);
         collection.unshift({
@@ -42,7 +42,7 @@ const addNestedCategory = (state, action) => {
 }
 const editHandler = (state, action) => {
 // TODO: rework browser modals with components
-    const name = prompt('Please enter category title');
+    const name = prompt('Please enter category-bar title');
     if (name) {
         var collection = JSON.parse(JSON.stringify(state.collection));
 
