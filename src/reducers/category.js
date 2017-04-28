@@ -1,5 +1,4 @@
-import uuid from 'uuid/v4';
-import createReducer from './reducer-utilities';
+import {fromJS} from 'immutable';
 
 import {
     CATEGORY_ADD,
@@ -8,83 +7,67 @@ import {
     CATEGORY_DELETE
 } from '../actions/category/constants';
 
-const initialState = {collection: []};
+const initialState = fromJS({collection: []});
 
-const addCategory = (state, action) => {
-    let collection = state.collection.slice(0);
-    collection.unshift({
-        id: uuid(),
-        name: action.payload.title,
-        parent: null
-    });
+export default (state = initialState, action) => {
+    const {type, payload} = action;
+    var collection;
 
-    return Object.assign({}, state, {
-        collection: collection
-    });
-}
-const addNestedCategory = (state, action) => {
-// TODO: rework browser modals with components
-    const name = prompt('Please enter category-bar title');
-    if (name) {
-        let collection = state.collection.slice(0);
-        collection.unshift({
-            id: uuid(),
-            name: name,
-            parent: action.payload.addToCategoryId
-        });
+    switch (type) {
+        case CATEGORY_ADD:
+            collection = state.get('collection');
 
-        return Object.assign({}, state, {
-            collection: collection
-        });
-    } else {
-        return state;
+            collection = fromJS([payload]).concat(collection);
+
+            return state.set('collection', collection);
+
+
+        case CATEGORY_ADD_NESTED:
+            collection = state.get('collection');
+
+            collection = fromJS([payload]).concat(collection);
+
+            return state.set('collection', collection);
+
+
+        case CATEGORY_EDIT:
+            collection = state.get('collection');
+
+            collection = collection.map(item => {
+                if (item.get('id') === payload.id) {
+                    return item.set('name', payload.name);
+                }
+                return item;
+            });
+
+            return state.set('collection', collection);
+
+
+        case CATEGORY_DELETE:
+            collection = state.get('collection').toJS();
+            var categoriesIdToDelete = collection
+                .filter(category => category.id === payload)
+                .map(item => item.id);
+
+            function findAllCategoriesIdToDelete(parentId) {
+                let nestedCategories = collection
+                    .filter(category => category.parent === parentId)
+                    .map(item => item.id);
+
+                nestedCategories.forEach(function (category) {
+                    categoriesIdToDelete.push(category);
+                    findAllCategoriesIdToDelete(category);
+                });
+            }
+
+            findAllCategoriesIdToDelete(categoriesIdToDelete[0]);
+
+            collection = state.get('collection').filterNot(item => categoriesIdToDelete.includes(item.get('id')));
+
+            return state.set('collection', collection);
+
+
+        default:
+            return state;
     }
-}
-const editHandler = (state, action) => {
-// TODO: rework browser modals with components
-    const name = prompt('Please enter category-bar title');
-    if (name) {
-        var collection = JSON.parse(JSON.stringify(state.collection));
-
-        collection.filter(category => category.id === action.payload.editCategoryId)[0].name = name;
-
-        return Object.assign({}, state, {
-            collection: collection
-        });
-    } else {
-        return state;
-    }
-}
-const deleteHandler = (state, action) => {
-    var collection = JSON.parse(JSON.stringify(state.collection));
-    var categoriesIdToDelete = collection.filter(category => category.id === action.payload.deleteCategoryId);
-
-    function findAllCategoriesIdToDelete(category) {
-        var parentId = category.id;
-        let nestedCategories = collection.filter(category => category.parent === parentId);
-
-        nestedCategories.forEach(function (category) {
-            categoriesIdToDelete.push(category);
-            findAllCategoriesIdToDelete(category);
-        });
-    }
-
-    findAllCategoriesIdToDelete(categoriesIdToDelete[0]);
-
-    categoriesIdToDelete.forEach(function (category) {
-        collection.splice(collection.indexOf(category), 1);
-    });
-
-    return Object.assign({}, state, {
-        collection: collection
-    });
-}
-
-const categoryReducer = createReducer(initialState, {
-    [CATEGORY_ADD]: addCategory,
-    [CATEGORY_ADD_NESTED]: addNestedCategory,
-    [CATEGORY_EDIT]: editHandler,
-    [CATEGORY_DELETE]: deleteHandler
-});
-
-export default categoryReducer;
+};

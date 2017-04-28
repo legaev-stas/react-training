@@ -1,3 +1,5 @@
+import {createAction} from '../../helpers/action';
+import uuid from 'uuid/v4';
 import {getState} from '../../helpers/store';
 import {
     NEW_TASK_TITLE_CHANGE,
@@ -10,67 +12,28 @@ import {
     CATEGORY_DELETE_TASKS
 } from './constants';
 
-export const setNewTaskTitleValue = (value) => {
-    return {
-        type: NEW_TASK_TITLE_CHANGE,
-        payload: {
-            value
-        }
-    }
-};
 
-export const addTask = (categoryId, title) => {
+export const toggleTaskStatus = createAction(TASK_STATUS_TOGGLE);
+export const editTaskTitle = createAction(EDIT_TASK_TITLE_CHANGE);
+export const editTaskDescription = createAction(EDIT_TASK_DESCRIPTION_CHANGE);
+export const editTaskToggleStatus = createAction(EDIT_TASK_STATUS_TOGGLE);
+export const updateTask = createAction(EDIT_TASK_SAVE);
+export const setNewTaskTitleValue = createAction(NEW_TASK_TITLE_CHANGE);
+
+
+export const addTask = (category, title) => {
     return {
         type: NEW_TASK_ADD,
         payload: {
-            categoryId,
-            title
+            category,
+            title,
+            id: uuid(),
+            description: '',
+            done: false
         }
     }
 };
 
-export const toggleTaskStatus = (id) => {
-    return {
-        type: TASK_STATUS_TOGGLE,
-        payload: {
-            id
-        }
-    }
-};
-
-export const editTaskTitle = (value) => {
-    return {
-        type: EDIT_TASK_TITLE_CHANGE,
-        payload: {
-            value
-        }
-    }
-};
-
-export const editTaskDescription = (value) => {
-    return {
-        type: EDIT_TASK_DESCRIPTION_CHANGE,
-        payload: {
-            value
-        }
-    }
-};
-
-export const editTaskToggleStatus = (value) => {
-    return {
-        type: EDIT_TASK_STATUS_TOGGLE,
-        payload: {
-            value
-        }
-    }
-};
-
-export const updateTask = (task) => {
-    return {
-        type: EDIT_TASK_SAVE,
-        payload: task
-    }
-};
 
 export const deleteAllTasksOfCategory = (deleteCategoryId) => {
     return {

@@ -1,5 +1,5 @@
-import createReducer from './reducer-utilities';
-import uuid from 'uuid/v4';
+import {fromJS} from 'immutable';
+import {getState} from '../helpers/store';
 
 import {
     CATEGORY_DELETE_TASKS,
@@ -8,73 +8,63 @@ import {
     EDIT_TASK_SAVE
 } from '../actions/task/constants';
 
+const initialState = fromJS({collection: []});
 
-const initialState = {collection: []};
+export default (state = initialState, action) => {
+    const {type, payload} = action;
 
-const deleteTasksOfCategory = (state, action) => {
-    var taskCollection = JSON.parse(JSON.stringify(state.collection));
-    var categoryCollection = JSON.parse(JSON.stringify(action.payload.categoryCollection));
-    var categoriesIdToDelete = categoryCollection.filter(category => category.id === action.payload.deleteCategoryId);
-    var taskIdToDelete = [];
+    switch (type) {
+        case CATEGORY_DELETE_TASKS:
+            let tasksOrder = state.get('order').toJS();
+            let tasksById = state.get('byId').toJS();
+            let categoryCollection = getState().getIn(['category', 'collection']).toJS();
+            let categoriesIdToDelete = categoryCollection
+                .filter(category => category.id === payload)
+                .map(item => item.id);
 
-    function findAllCategoriesIdToDelete(category) {
-        var parentId = category.id;
-        let nestedCategories = categoryCollection.filter(category => category.parent === parentId);
+        function findAllCategoriesIdToDelete(parentId) {
+            let nestedCategories = categoryCollection
+                .filter(category => category.parent === parentId)
+                .map(item => item.id);
 
-        nestedCategories.forEach(function (category) {
-            categoriesIdToDelete.push(category);
-            findAllCategoriesIdToDelete(category);
-        });
-    }
-
-    findAllCategoriesIdToDelete(categoriesIdToDelete[0]);
-
-    taskIdToDelete = taskCollection.filter(task => categoriesIdToDelete.map(category => category.id).indexOf(task.category) !== -1);
-    taskIdToDelete.forEach(function (task) {
-        taskCollection.splice(taskCollection.indexOf(task), 1);
-    });
-
-    return Object.assign({}, state, {
-        collection: taskCollection
-    });
-};
-
-const addTask = (state, action) => {
-    if (action.payload.title.length) {
-        var newId = uuid()
-        var byIdPatch = {};
-        byIdPatch[newId] = {
-            category: action.payload.categoryId,
-            id: newId,
-            title: action.payload.title,
-            description: '',
-            done: false
+            nestedCategories.forEach(function (category) {
+                categoriesIdToDelete.push(category);
+                findAllCategoriesIdToDelete(category);
+            });
         }
 
-        return Object.assign({}, state, {
-            byId: Object.assign({}, state.byId, byIdPatch),
-            order: [newId].concat(state.order)
-        });
-    } else {
-        return state;
-    }
-};
+            findAllCategoriesIdToDelete(categoriesIdToDelete[0]);
 
-const toggleTaskStatus = (state, action) => {
-    var byIdPatch = {};
-    var taskToEdit = state.byId[action.payload.id];
+            tasksOrder = tasksOrder.filter(id => !categoriesIdToDelete.includes(tasksById[id].category));
+            tasksById = state.get('byId').filter(task => tasksOrder.includes(task.get('id')));
 
-    byIdPatch[action.payload.id] = Object.assign({}, taskToEdit, {
-        done: !taskToEdit.done
-    })
+            return state
+                .set('order', fromJS(tasksOrder))
+                .set('byId', tasksById);
 
-    return Object.assign({}, state, {
-        byId: Object.assign({}, state.byId, byIdPatch)
-    });
-};
 
-const updateTask = () => {
-    //         var editTask = globalState.get().state.editTask;
+        case NEW_TASK_ADD:
+            if (payload.title.length) {
+                let byIdPatch = {};
+                byIdPatch[payload.id] = payload;
+
+                return state
+                    .setIn('byId', state.get('byId').merge(byIdPatch))
+                    .setIn('order', fromJS([payload.id]).concat(state.get('order')));
+            } else {
+                return state;
+            }
+
+
+        case TASK_STATUS_TOGGLE:
+            var currentStatus = state.getIn(['byId', payload, 'done']);
+
+            return state.setIt(['byId', payload, 'done'], !currentStatus);
+
+
+        case EDIT_TASK_SAVE:
+            return state;
+        // var editTask = globalState.get().state.editTask;
 //         var taskList = globalState.get().data.taskList;
 //
 //         var updatedTaskList = taskList.map((task) => {
@@ -86,13 +76,9 @@ const updateTask = () => {
 //
 //         globalState.set('data.taskList', updatedTaskList);
 //         browserHistory.push('/' + this.props.params.activeCategoryId);
-}
 
-const taskReducer = createReducer(initialState, {
-    [CATEGORY_DELETE_TASKS]: deleteTasksOfCategory,
-    [NEW_TASK_ADD]: addTask,
-    [TASK_STATUS_TOGGLE]: toggleTaskStatus,
-    [EDIT_TASK_SAVE]: updateTask
-});
 
-export default taskReducer;
+        default:
+            return state;
+    }
+};
