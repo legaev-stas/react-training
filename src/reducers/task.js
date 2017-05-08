@@ -86,7 +86,7 @@ export default (state = initialState, action) => {
         case TASK_STATUS_TOGGLE:
             var currentStatus = state.getIn(['byId', payload, 'done']);
 
-            return state.setIt(['byId', payload, 'done'], !currentStatus);
+            return state.setIn(['byId', payload, 'done'], !currentStatus);
 
 
         case EDIT_TASK_SAVE:
