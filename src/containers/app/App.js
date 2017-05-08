@@ -16,7 +16,7 @@ const ProgressBarContainer = progressBarConnector(ProgressBar);
 const AddCategoryFormContainer = addCategoryFormConnector(AddCategoryForm);
 const CategoryListContainer = withRouter(categoryListConnector(CategoryList));
 
-export default () => (
+export default ({TaskContainer}) => (
     <div className="App">
         <HeaderContainer/>
         <ProgressBarContainer/>
@@ -27,8 +27,7 @@ export default () => (
                 <CategoryListContainer/>
             </div>
             <div className="todo-list right">
-                {/*{TasksListContainer}*/}
-                {/*{EditTask}*/}
+                { TaskContainer ? TaskContainer : null }
             </div>
         </div>
     </div>

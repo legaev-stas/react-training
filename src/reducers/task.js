@@ -5,15 +5,41 @@ import {
     CATEGORY_DELETE_TASKS,
     NEW_TASK_ADD,
     TASK_STATUS_TOGGLE,
-    EDIT_TASK_SAVE
+    EDIT_TASK_SAVE,
+    NEW_TASK_TITLE_CHANGE,
+    TASK_FILTER_SEARCH_CHANGE,
+    TASK_FILTER_SHOW_DONE_CHANGE,
+    TASK_FILTER_SEARCH_RESET
 } from '../actions/task/constants';
 
-const initialState = fromJS({collection: []});
+const initialState = fromJS({
+    ui: {
+        newTaskTitle: '',
+        filter: {
+            showDone: false,
+            title: ''
+        }
+    },
+    byId: {},
+    order: []
+});
 
 export default (state = initialState, action) => {
     const {type, payload} = action;
 
     switch (type) {
+        case NEW_TASK_TITLE_CHANGE:
+            return state.setIn(['ui', 'newTaskTitle'], payload);
+
+        case TASK_FILTER_SEARCH_CHANGE:
+            return state.setIn(['ui','filter', 'title'], payload);
+
+        case TASK_FILTER_SEARCH_RESET:
+            return state.setIn(['ui','filter', 'title'], '');
+
+        case TASK_FILTER_SHOW_DONE_CHANGE:
+            return state.setIn(['ui','filter', 'showDone'], payload);
+
         case CATEGORY_DELETE_TASKS:
             let tasksOrder = state.get('order').toJS();
             let tasksById = state.get('byId').toJS();
@@ -49,8 +75,9 @@ export default (state = initialState, action) => {
                 byIdPatch[payload.id] = payload;
 
                 return state
-                    .setIn('byId', state.get('byId').merge(byIdPatch))
-                    .setIn('order', fromJS([payload.id]).concat(state.get('order')));
+                    .set('byId', state.get('byId').merge(byIdPatch))
+                    .set('order', fromJS([payload.id]).concat(state.get('order')))
+                    .setIn(['ui', 'newTaskTitle'], '');
             } else {
                 return state;
             }

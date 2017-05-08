@@ -9,7 +9,7 @@ import thunk from 'redux-thunk';
 import reducer from './reducers'
 import {setStore} from './helpers/store'
 import App from './containers/app/App';
-import TasksListContainer from './containers/task-list';
+import {TaskListContainer} from './containers/task-list';
 import EditTaskContainer from './containers/task-edit';
 import './index.css';
 import initialStoreState from './data'
@@ -28,13 +28,13 @@ ReactDOM.render((
                 <Route
                     path=":activeCategoryId"
                     components={{
-                        TasksListContainer: TasksListContainer
+                        TaskContainer: TaskListContainer
                     }}
                 />
                 <Route
                     path=":activeCategoryId/:editTaskId"
                     components={{
-                        EditTask: EditTaskContainer
+                        TaskContainer: EditTaskContainer
                     }}
                 />
             </Route>

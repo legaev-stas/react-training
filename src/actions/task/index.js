@@ -9,7 +9,10 @@ import {
     EDIT_TASK_DESCRIPTION_CHANGE,
     EDIT_TASK_STATUS_TOGGLE,
     EDIT_TASK_SAVE,
-    CATEGORY_DELETE_TASKS
+    CATEGORY_DELETE_TASKS,
+    TASK_FILTER_SEARCH_CHANGE,
+    TASK_FILTER_SHOW_DONE_CHANGE,
+    TASK_FILTER_SEARCH_RESET
 } from './constants';
 
 
@@ -19,6 +22,9 @@ export const editTaskDescription = createAction(EDIT_TASK_DESCRIPTION_CHANGE);
 export const editTaskToggleStatus = createAction(EDIT_TASK_STATUS_TOGGLE);
 export const updateTask = createAction(EDIT_TASK_SAVE);
 export const setNewTaskTitleValue = createAction(NEW_TASK_TITLE_CHANGE);
+export const setSearchValue = createAction(TASK_FILTER_SEARCH_CHANGE);
+export const doneToggle = createAction(TASK_FILTER_SHOW_DONE_CHANGE);
+export const resetSearchValue = createAction(TASK_FILTER_SEARCH_RESET);
 
 
 export const addTask = (category, title) => {
