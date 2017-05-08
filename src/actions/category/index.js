@@ -1,4 +1,4 @@
-import {createAction} from '../../helpers/action';
+import {createAction, createParallelActions} from '../../helpers/action';
 import uuid from 'uuid/v4';
 
 import {
@@ -53,11 +53,5 @@ export const editHandler = (editCategoryId) => {
         };
     }
 };
-// TODO: create parallel action creator
-export const deleteHandler = (payload) => {
-    return dispatch => {
-        dispatch({type: CATEGORY_DELETE_TASKS, payload});
-        dispatch({type: CATEGORY_DELETE, payload});
-    }
-}
+export const deleteHandler = createParallelActions([CATEGORY_DELETE_TASKS, CATEGORY_DELETE]);
 export const setNewCategoryTitleValue = createAction(CATEGORY_TITLE_CHANGE);
