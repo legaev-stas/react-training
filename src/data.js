@@ -2,7 +2,6 @@ import {fromJS} from 'immutable';
 
 export default fromJS({
     uiState: {
-        addCategoryTitle: '',
         taskEdit: {
             category: '',
             title: '',
@@ -11,6 +10,9 @@ export default fromJS({
         }
     },
     category: {
+        ui: {
+            addCategoryTitle: ''
+        },
         collection: [
             {
                 id: '6de2c350-6aee-4c14-8f97-428e5bc69692',

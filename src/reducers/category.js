@@ -4,22 +4,31 @@ import {
     CATEGORY_ADD,
     CATEGORY_ADD_NESTED,
     CATEGORY_EDIT,
-    CATEGORY_DELETE
+    CATEGORY_DELETE,
+    CATEGORY_TITLE_CHANGE
 } from '../actions/category/constants';
 
-const initialState = fromJS({collection: []});
+const initialState = fromJS({
+    ui: {addCategoryTitle: ''},
+    collection: []
+});
 
 export default (state = initialState, action) => {
     const {type, payload} = action;
     var collection;
 
     switch (type) {
+        case CATEGORY_TITLE_CHANGE:
+            return state.setIn(['ui', 'addCategoryTitle'], payload);
+
         case CATEGORY_ADD:
             collection = state.get('collection');
 
             collection = fromJS([payload]).concat(collection);
 
-            return state.set('collection', collection);
+            return state
+                .set('collection', collection)
+                .setIn(['ui', 'addCategoryTitle'], '');
 
 
         case CATEGORY_ADD_NESTED:
@@ -49,16 +58,16 @@ export default (state = initialState, action) => {
                 .filter(category => category.id === payload)
                 .map(item => item.id);
 
-            function findAllCategoriesIdToDelete(parentId) {
-                let nestedCategories = collection
-                    .filter(category => category.parent === parentId)
-                    .map(item => item.id);
+        function findAllCategoriesIdToDelete(parentId) {
+            let nestedCategories = collection
+                .filter(category => category.parent === parentId)
+                .map(item => item.id);
 
-                nestedCategories.forEach(function (category) {
-                    categoriesIdToDelete.push(category);
-                    findAllCategoriesIdToDelete(category);
-                });
-            }
+            nestedCategories.forEach(function (category) {
+                categoriesIdToDelete.push(category);
+                findAllCategoriesIdToDelete(category);
+            });
+        }
 
             findAllCategoriesIdToDelete(categoriesIdToDelete[0]);
 
