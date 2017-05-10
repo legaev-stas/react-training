@@ -6,7 +6,7 @@ import Button from '../forms/button';
 import Input from '../forms/input';
 import Textarea from '../forms/textarea';
 
-const TaskEdit = ({params, title, done, description, onChangeTitle, onChangeDescription, onToggleStatus, onSave}) => (
+export const TaskEdit = ({params, title, done, description, onChangeTitle, onChangeDescription, onToggleStatus, onSave}) => (
     <div className="task-edit">
         <div className="cf">
             <div className="task-edit-buttons">
@@ -38,6 +38,4 @@ const TaskEdit = ({params, title, done, description, onChangeTitle, onChangeDesc
             />
         </div>
     </div>
-)
-
-export default TaskEdit;
+);

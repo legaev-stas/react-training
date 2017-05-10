@@ -1,17 +1,32 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './checkbox.css';
 
-const Checkbox = ({children, id, checked, onChange}) => (
-    <div className="checkbox-wrapper">
-        <label>
-            <input
-                type="checkbox"
-                checked={checked}
-                onChange={onChange}
-            />
-            {children}
-        </label>
-    </div>
-)
+class Checkbox extends Component {
+    constructor (props){
+        super(props);
+
+        this.onChange = this.onChange.bind(this);
+    }
+
+    onChange(e){
+        this.props.onChange(e.target.checked);
+    }
+
+    render (){
+        const {children, checked} = this.props;
+        return (
+            <div className="checkbox-wrapper">
+                <label>
+                    <input
+                        type="checkbox"
+                        checked={checked}
+                        onChange={this.onChange}
+                    />
+                    {children}
+                </label>
+            </div>
+        )
+    }
+}
 
 export default Checkbox;

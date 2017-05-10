@@ -11,6 +11,8 @@ const tasksOrder = createSimpleSelector(tasksStoreSlice, 'order');
 const filterShowDone = createSelector(tasksStoreSlice, tasksStoreSlice => tasksStoreSlice.getIn(['ui', 'filter', 'showDone']));
 const filterTitle = createSelector(tasksStoreSlice, tasksStoreSlice => tasksStoreSlice.getIn(['ui', 'filter', 'title']));
 
+export const taskEdit = createSelector(tasksStoreSlice, tasksStoreSlice => tasksStoreSlice.getIn(['ui', 'taskEdit']).toJS());
+
 const filteretTaskListByCategory = createSelector([activeCategoryId, tasksOrder, tasksMap, filterShowDone, filterTitle],
     (activeCategoryId, tasksOrder, tasksMap, filterShowDone, filterTitle) => {
 

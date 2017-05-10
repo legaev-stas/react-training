@@ -9,7 +9,10 @@ import {
     NEW_TASK_TITLE_CHANGE,
     TASK_FILTER_SEARCH_CHANGE,
     TASK_FILTER_SHOW_DONE_CHANGE,
-    TASK_FILTER_SEARCH_RESET
+    TASK_FILTER_SEARCH_RESET,
+    EDIT_TASK_TITLE_CHANGE,
+    EDIT_TASK_DESCRIPTION_CHANGE,
+    EDIT_TASK_STATUS_TOGGLE
 } from '../actions/task/constants';
 
 const initialState = fromJS({
@@ -18,6 +21,12 @@ const initialState = fromJS({
         filter: {
             showDone: false,
             title: ''
+        },
+        taskEdit: {
+            category: '',
+            title: '',
+            done: false,
+            description: ''
         }
     },
     byId: {},
@@ -89,6 +98,18 @@ export default (state = initialState, action) => {
             return state.setIn(['byId', payload, 'done'], !currentStatus);
 
 
+        case EDIT_TASK_TITLE_CHANGE:
+            return state.setIn(['ui', 'taskEdit', 'title'], payload);
+
+
+        case EDIT_TASK_DESCRIPTION_CHANGE:
+            return state.setIn(['ui', 'taskEdit', 'description'], payload);
+
+
+        case EDIT_TASK_STATUS_TOGGLE:
+            return state.setIn(['ui', 'taskEdit', 'done'], payload);
+
+
         case EDIT_TASK_SAVE:
             return state;
         // var editTask = globalState.get().state.editTask;
@@ -103,7 +124,6 @@ export default (state = initialState, action) => {
 //
 //         globalState.set('data.taskList', updatedTaskList);
 //         browserHistory.push('/' + this.props.params.activeCategoryId);
-
 
         default:
             return state;

@@ -9,7 +9,7 @@ const Header = ({title, showDone, setSearchValue, doneToggle, resetSearchValue})
         <div className="search-bar right">
             <Checkbox
                 checked={showDone}
-                onChange={(e) => doneToggle(e.target.checked)}
+                onChange={doneToggle}
             >Show done</Checkbox>
             <InputGroup
                 type="text"
