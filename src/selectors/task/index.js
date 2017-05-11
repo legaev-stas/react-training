@@ -4,14 +4,28 @@ import {getState} from '../../helpers/store'
 const state = (state = getState()) => state;
 
 const activeCategoryId = (state, props) => props.params.activeCategoryId;
+const taskEditId = (state, props) => props.params.taskEditId;
 const tasksStoreSlice = createSimpleSelector(state, 'task');
+const tasksEditSlice = createSelector(tasksStoreSlice, tasksStoreSlice => tasksStoreSlice.getIn(['ui', 'taskEdit']));
 const newTaskTitle = createSelector(tasksStoreSlice, tasksStoreSlice => tasksStoreSlice.getIn(['ui', 'newTaskTitle']));
 const tasksMap = createSimpleSelector(tasksStoreSlice, 'byId');
 const tasksOrder = createSimpleSelector(tasksStoreSlice, 'order');
 const filterShowDone = createSelector(tasksStoreSlice, tasksStoreSlice => tasksStoreSlice.getIn(['ui', 'filter', 'showDone']));
 const filterTitle = createSelector(tasksStoreSlice, tasksStoreSlice => tasksStoreSlice.getIn(['ui', 'filter', 'title']));
 
-export const taskEdit = createSelector(tasksStoreSlice, tasksStoreSlice => tasksStoreSlice.getIn(['ui', 'taskEdit']).toJS());
+export const taskEdit = createSelector([tasksEditSlice, tasksMap, taskEditId],
+    (tasksEditSlice, tasksMap, taskEditId) => {
+
+        if (!taskEditId) {
+            return {};
+        }
+
+        if (tasksEditSlice) {
+            return tasksEditSlice.toJS();
+        }
+
+        return tasksMap.get(taskEditId).toJS();
+    });
 
 const filteretTaskListByCategory = createSelector([activeCategoryId, tasksOrder, tasksMap, filterShowDone, filterTitle],
     (activeCategoryId, tasksOrder, tasksMap, filterShowDone, filterTitle) => {
@@ -19,8 +33,8 @@ const filteretTaskListByCategory = createSelector([activeCategoryId, tasksOrder,
         tasksOrder = tasksOrder.toJS();
         tasksMap = tasksMap.toJS();
 
-        var filteredTaskIds = tasksOrder.filter(id => {
-            var task = tasksMap[id];
+        let filteredTaskIds = tasksOrder.filter(id => {
+            let task = tasksMap[id];
 
             return task.category === activeCategoryId &&
                 (task.done ? filterShowDone : true) &&

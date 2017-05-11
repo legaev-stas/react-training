@@ -49,12 +49,6 @@ export default fromJS({
             filter: {
                 showDone: false,
                 title: ''
-            },
-            taskEdit: {
-                category: '',
-                title: '',
-                done: false,
-                description: ''
             }
         },
         byId: {

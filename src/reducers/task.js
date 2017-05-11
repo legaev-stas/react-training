@@ -6,13 +6,15 @@ import {
     NEW_TASK_ADD,
     TASK_STATUS_TOGGLE,
     EDIT_TASK_SAVE,
+    EDIT_TASK_CANCEL,
+    EDIT_TASK_TEMP_DATA_INIT,
+    EDIT_TASK_TEMP_DATA_TITLE_UPDATE,
+    EDIT_TASK_TEMP_DATA_STATUS_UPDATE,
+    EDIT_TASK_TEMP_DATA_DESCRIPTION_UPDATE,
     NEW_TASK_TITLE_CHANGE,
     TASK_FILTER_SEARCH_CHANGE,
     TASK_FILTER_SHOW_DONE_CHANGE,
-    TASK_FILTER_SEARCH_RESET,
-    EDIT_TASK_TITLE_CHANGE,
-    EDIT_TASK_DESCRIPTION_CHANGE,
-    EDIT_TASK_STATUS_TOGGLE
+    TASK_FILTER_SEARCH_RESET
 } from '../actions/task/constants';
 
 const initialState = fromJS({
@@ -21,12 +23,6 @@ const initialState = fromJS({
         filter: {
             showDone: false,
             title: ''
-        },
-        taskEdit: {
-            category: '',
-            title: '',
-            done: false,
-            description: ''
         }
     },
     byId: {},
@@ -93,37 +89,37 @@ export default (state = initialState, action) => {
 
 
         case TASK_STATUS_TOGGLE:
-            var currentStatus = state.getIn(['byId', payload, 'done']);
+            let currentStatus = state.getIn(['byId', payload, 'done']);
 
             return state.setIn(['byId', payload, 'done'], !currentStatus);
 
 
-        case EDIT_TASK_TITLE_CHANGE:
+        case EDIT_TASK_TEMP_DATA_INIT:
+            return state.setIn(['ui', 'taskEdit'], fromJS(payload));
+
+
+        case EDIT_TASK_TEMP_DATA_TITLE_UPDATE:
             return state.setIn(['ui', 'taskEdit', 'title'], payload);
 
 
-        case EDIT_TASK_DESCRIPTION_CHANGE:
-            return state.setIn(['ui', 'taskEdit', 'description'], payload);
-
-
-        case EDIT_TASK_STATUS_TOGGLE:
+        case EDIT_TASK_TEMP_DATA_STATUS_UPDATE:
             return state.setIn(['ui', 'taskEdit', 'done'], payload);
 
 
+        case EDIT_TASK_TEMP_DATA_DESCRIPTION_UPDATE:
+            return state.setIn(['ui', 'taskEdit', 'description'], payload);
+
+
+        case EDIT_TASK_CANCEL:
+            return state.set('ui', state.get('ui').delete('taskEdit'));
+
+
         case EDIT_TASK_SAVE:
-            return state;
-        // var editTask = globalState.get().state.editTask;
-//         var taskList = globalState.get().data.taskList;
-//
-//         var updatedTaskList = taskList.map((task) => {
-//             if(task.id === editTask.id){
-//                 return editTask;
-//             }
-//             return task;
-//         });
-//
-//         globalState.set('data.taskList', updatedTaskList);
-//         browserHistory.push('/' + this.props.params.activeCategoryId);
+            let taskEditSlice = state.getIn(['ui', 'taskEdit']);
+            return state
+                .setIn(['byId', taskEditSlice.get('id')], taskEditSlice)
+                .set('ui', state.get('ui').delete('taskEdit'));
+
 
         default:
             return state;

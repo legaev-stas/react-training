@@ -4,10 +4,12 @@ import {
     setNewTaskTitleValue,
     addTask,
     toggleTaskStatus,
-    taskEditTitleChange,
-    taskEditDescriptionChange,
-    taskEditStatusToggle,
-    taskEditSave
+    taskEditSave,
+    taskEditCancel,
+    setTempTaskData,
+    updateTaskTitle,
+    updateTaskStatus,
+    updateTaskDescription
 } from '../../actions/task';
 
 export const taskListConnector = connect(taskList, {
@@ -17,8 +19,10 @@ export const taskListConnector = connect(taskList, {
 });
 
 export const taskEditConnector = connect(taskEdit, {
-    onChangeTitle: taskEditTitleChange,
-    onChangeDescription: taskEditDescriptionChange,
-    onToggleStatus: taskEditStatusToggle,
-    onSave: taskEditSave
+    onCancel: taskEditCancel,
+    onSave: taskEditSave,
+    onDataUpdate: setTempTaskData,
+    onChangeTitle: updateTaskTitle,
+    updateTaskStatus: updateTaskStatus,
+    onChangeDescription: updateTaskDescription
 });

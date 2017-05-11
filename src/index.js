@@ -31,7 +31,7 @@ ReactDOM.render((
                     }}
                 />
                 <Route
-                    path=":activeCategoryId/:editTaskId"
+                    path=":activeCategoryId/:taskEditId"
                     components={{
                         TaskContainer: TaskEditContainer
                     }}
