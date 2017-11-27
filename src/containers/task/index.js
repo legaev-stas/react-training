@@ -1,6 +1,21 @@
+import React from 'react';
+
 import {TaskList} from '../../components/tasks-list';
 import {TaskEdit} from '../../components/task-edit';
-import {taskListConnector, taskEditConnector} from '../../connector/task';
+import {taskListConnector, taskEditConnector, tasksSectionConnector} from '../../connector/task';
 
-export const TaskListContainer = taskListConnector(TaskList);
-export const TaskEditContainer = taskEditConnector(TaskEdit);
+const TaskListContainer = taskListConnector(TaskList);
+const TaskEditContainer = taskEditConnector(TaskEdit);
+
+
+const TasksSection = ({activeCategoryId, activeTaskId}) => (
+    <div>
+        {activeCategoryId && (
+            activeTaskId ?
+                <TaskEditContainer></TaskEditContainer>
+                :
+                <TaskListContainer></TaskListContainer>
+        )}
+    </div>
+);
+export const TasksSectionContainer = tasksSectionConnector(TasksSection);

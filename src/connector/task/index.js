@@ -1,8 +1,9 @@
 import {connect} from 'react-redux';
-import {taskList, taskEdit} from '../../selectors/task';
+import {taskList, taskEdit, tasksSection} from '../../selectors/task';
 import {
     setNewTaskTitleValue,
     addTask,
+    onEdit,
     toggleTaskStatus,
     taskEditSave,
     taskEditCancel,
@@ -15,6 +16,7 @@ import {
 export const taskListConnector = connect(taskList, {
     setNewTaskTitleValue: setNewTaskTitleValue,
     addTask: addTask,
+    onEdit: onEdit,
     toggleTaskStatus: toggleTaskStatus
 });
 
@@ -26,3 +28,5 @@ export const taskEditConnector = connect(taskEdit, {
     updateTaskStatus: updateTaskStatus,
     onChangeDescription: updateTaskDescription
 });
+
+export const tasksSectionConnector = connect(tasksSection);

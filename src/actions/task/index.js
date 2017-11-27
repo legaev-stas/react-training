@@ -5,6 +5,7 @@ import {
     NEW_TASK_TITLE_CHANGE,
     NEW_TASK_ADD,
     TASK_STATUS_TOGGLE,
+    EDIT_TASK,
     EDIT_TASK_SAVE,
     EDIT_TASK_CANCEL,
     EDIT_TASK_TEMP_DATA_INIT,
@@ -48,4 +49,7 @@ export const addTask = (category, title) => {
         }
     }
 };
+
+export const onEdit = createAction(EDIT_TASK);
+
 

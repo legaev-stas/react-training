@@ -5,6 +5,7 @@ import {
     CATEGORY_DELETE_TASKS,
     NEW_TASK_ADD,
     TASK_STATUS_TOGGLE,
+    EDIT_TASK,
     EDIT_TASK_SAVE,
     EDIT_TASK_CANCEL,
     EDIT_TASK_TEMP_DATA_INIT,
@@ -18,6 +19,7 @@ import {
 } from '../actions/task/constants';
 
 const initialState = fromJS({
+    active: null,
     ui: {
         newTaskTitle: '',
         filter: {
@@ -37,13 +39,13 @@ export default (state = initialState, action) => {
             return state.setIn(['ui', 'newTaskTitle'], payload);
 
         case TASK_FILTER_SEARCH_CHANGE:
-            return state.setIn(['ui','filter', 'title'], payload);
+            return state.setIn(['ui', 'filter', 'title'], payload);
 
         case TASK_FILTER_SEARCH_RESET:
-            return state.setIn(['ui','filter', 'title'], '');
+            return state.setIn(['ui', 'filter', 'title'], '');
 
         case TASK_FILTER_SHOW_DONE_CHANGE:
-            return state.setIn(['ui','filter', 'showDone'], payload);
+            return state.setIn(['ui', 'filter', 'showDone'], payload);
 
         case CATEGORY_DELETE_TASKS:
             let tasksOrder = state.get('order').toJS();
@@ -94,6 +96,10 @@ export default (state = initialState, action) => {
             return state.setIn(['byId', payload, 'done'], !currentStatus);
 
 
+        case EDIT_TASK:
+            return state.set('active', payload);
+
+
         case EDIT_TASK_TEMP_DATA_INIT:
             return state.setIn(['ui', 'taskEdit'], fromJS(payload));
 
@@ -111,14 +117,17 @@ export default (state = initialState, action) => {
 
 
         case EDIT_TASK_CANCEL:
-            return state.set('ui', state.get('ui').delete('taskEdit'));
+            return state
+                .set('ui', state.get('ui').delete('taskEdit'))
+                .set('active', null);
 
 
         case EDIT_TASK_SAVE:
             let taskEditSlice = state.getIn(['ui', 'taskEdit']);
             return state
                 .setIn(['byId', taskEditSlice.get('id')], taskEditSlice)
-                .set('ui', state.get('ui').delete('taskEdit'));
+                .set('ui', state.get('ui').delete('taskEdit'))
+                .set('active', null);
 
 
         default:

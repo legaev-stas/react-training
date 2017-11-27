@@ -3,9 +3,10 @@ import {getState} from '../../helpers/store'
 
 const state = (state = getState()) => state;
 
-const activeCategoryId = (state, props) => props.params.activeCategoryId;
-const taskEditId = (state, props) => props.params.taskEditId;
+const categoryStoreSlice = createSimpleSelector(state, 'category');
+const activeCategoryId = createSimpleSelector(categoryStoreSlice, 'active');
 const tasksStoreSlice = createSimpleSelector(state, 'task');
+const activeTaskId = createSimpleSelector(tasksStoreSlice, 'active');
 const tasksEditSlice = createSelector(tasksStoreSlice, tasksStoreSlice => tasksStoreSlice.getIn(['ui', 'taskEdit']));
 const newTaskTitle = createSelector(tasksStoreSlice, tasksStoreSlice => tasksStoreSlice.getIn(['ui', 'newTaskTitle']));
 const tasksMap = createSimpleSelector(tasksStoreSlice, 'byId');
@@ -13,10 +14,10 @@ const tasksOrder = createSimpleSelector(tasksStoreSlice, 'order');
 const filterShowDone = createSelector(tasksStoreSlice, tasksStoreSlice => tasksStoreSlice.getIn(['ui', 'filter', 'showDone']));
 const filterTitle = createSelector(tasksStoreSlice, tasksStoreSlice => tasksStoreSlice.getIn(['ui', 'filter', 'title']));
 
-export const taskEdit = createSelector([tasksEditSlice, tasksMap, taskEditId],
-    (tasksEditSlice, tasksMap, taskEditId) => {
+export const taskEdit = createSelector([tasksEditSlice, tasksMap, activeTaskId],
+    (tasksEditSlice, tasksMap, activeTaskId) => {
 
-        if (!taskEditId) {
+        if (!activeTaskId) {
             return {};
         }
 
@@ -24,10 +25,10 @@ export const taskEdit = createSelector([tasksEditSlice, tasksMap, taskEditId],
             return tasksEditSlice.toJS();
         }
 
-        return tasksMap.get(taskEditId).toJS();
+        return tasksMap.get(activeTaskId).toJS();
     });
 
-const filteretTaskListByCategory = createSelector([activeCategoryId, tasksOrder, tasksMap, filterShowDone, filterTitle],
+const filteredTaskListByCategory = createSelector([activeCategoryId, tasksOrder, tasksMap, filterShowDone, filterTitle],
     (activeCategoryId, tasksOrder, tasksMap, filterShowDone, filterTitle) => {
 
         tasksOrder = tasksOrder.toJS();
@@ -46,11 +47,20 @@ const filteretTaskListByCategory = createSelector([activeCategoryId, tasksOrder,
         });
     });
 
-export const taskList = createSelector([newTaskTitle, filteretTaskListByCategory],
-    (newTaskTitle, filteretTaskListByCategory) => {
+export const taskList = createSelector([activeCategoryId, newTaskTitle, filteredTaskListByCategory],
+    (activeCategoryId, newTaskTitle, filteretTaskListByCategory) => {
 
         return {
             newTaskTitle,
+            activeCategoryId,
             collection: filteretTaskListByCategory
+        }
+    });
+
+export const tasksSection = createSelector([activeCategoryId, activeTaskId],
+    (activeCategoryId, activeTaskId) => {
+        return {
+            activeCategoryId,
+            activeTaskId
         }
     });

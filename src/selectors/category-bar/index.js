@@ -4,7 +4,7 @@ import {getState} from '../../helpers/store';
 const state = (state = getState()) => state;
 
 const category = createSimpleSelector(state, 'category');
-const activeCategoryId = (state, props) => props.params.activeCategoryId;
+const activeCategoryId = createSimpleSelector(category, 'active');
 
 
 export const categoryForm = createSelector(category, category => ({addCategoryTitle: category.getIn(['ui', 'addCategoryTitle'])}));

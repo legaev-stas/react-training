@@ -1,7 +1,7 @@
 import React from 'react';
 import {CategoryItem} from './category-item';
 
-export const CategoryList = ({collection,  addNestedCategory, editHandler, deleteHandler}) => (
+export const CategoryList = ({collection,  addNestedCategory, editHandler, deleteHandler, setActive}) => (
     <div>
         {collection.filter(category => category.parent === null).map((props) =>
             <CategoryItem
@@ -11,6 +11,7 @@ export const CategoryList = ({collection,  addNestedCategory, editHandler, delet
                 editHandler={editHandler}
                 deleteHandler={deleteHandler}
                 addNestedCategory={addNestedCategory}
+                setActive={setActive}
             />
         )}
     </div>

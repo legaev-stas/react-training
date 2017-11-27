@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router';
 import './task-edit.css';
 import Checkbox from '../forms/checkbox';
 import Button from '../forms/button';
@@ -23,14 +22,14 @@ export class TaskEdit extends Component {
     }
 
     render() {
-        const {params, title, done, description, onSave, onCancel, onChangeTitle, updateTaskStatus, onChangeDescription} = this.props;
+        const {title, done, description, onSave, onCancel, onChangeTitle, updateTaskStatus, onChangeDescription} = this.props;
 
         return (
             <div className="task-edit">
                 <div className="cf">
                     <div className="task-edit-buttons">
-                        <Link to={'/' + params.activeCategoryId} onClick={onSave}><Button>Save Changes</Button></Link>
-                        <Link to={'/' + params.activeCategoryId} onClick={onCancel}><Button>Cancel</Button></Link>
+                        <Button onClick={onSave}>Save Changes</Button>
+                        <Button onClick={onCancel}>Cancel</Button>
                     </div>
                 </div>
 

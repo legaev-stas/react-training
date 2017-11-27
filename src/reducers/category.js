@@ -5,10 +5,12 @@ import {
     CATEGORY_ADD_NESTED,
     CATEGORY_EDIT,
     CATEGORY_DELETE,
-    CATEGORY_TITLE_CHANGE
+    CATEGORY_TITLE_CHANGE,
+    CATEGORY_SET_ACTIVE
 } from '../actions/category/constants';
 
 const initialState = fromJS({
+    active: null,
     ui: {addCategoryTitle: ''},
     collection: []
 });
@@ -74,6 +76,10 @@ export default (state = initialState, action) => {
             collection = state.get('collection').filterNot(item => categoriesIdToDelete.includes(item.get('id')));
 
             return state.set('collection', collection);
+
+
+        case CATEGORY_SET_ACTIVE:
+            return state.set('active', payload);
 
 
         default:

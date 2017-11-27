@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {Component} from 'react';
 import InputGroup from '../forms/input-group';
 import Button from '../forms/button';
 import Task from '../task-item';
 
-export class TaskList extends React.Component {
+export class TaskList extends Component {
     constructor(props) {
         super(props);
 
@@ -11,12 +11,12 @@ export class TaskList extends React.Component {
     }
 
     addTask (){
-        this.props.addTask(this.props.params.activeCategoryId, this.props.newTaskTitle);
+        this.props.addTask(this.props.activeCategoryId, this.props.newTaskTitle);
     }
 
     render() {
+        const {collection, newTaskTitle, setNewTaskTitleValue, toggleTaskStatus, onEdit} = this.props;
 
-        const {collection, newTaskTitle, setNewTaskTitleValue, toggleTaskStatus} = this.props;
         return (
             <div>
                 <div className="heading">
@@ -26,8 +26,11 @@ export class TaskList extends React.Component {
                 <div>
                     {collection.map((props) => <Task
                         key={props.id}
-                        {...props}
+                        id={props.id}
+                        title={props.title}
+                        done={props.done}
                         onChangeStatus={toggleTaskStatus}
+                        onEdit={onEdit}
                     />)}
                 </div>
             </div>

@@ -6,7 +6,8 @@ import {
     CATEGORY_ADD_NESTED,
     CATEGORY_EDIT,
     CATEGORY_DELETE,
-    CATEGORY_TITLE_CHANGE
+    CATEGORY_TITLE_CHANGE,
+    CATEGORY_SET_ACTIVE
 } from './constants';
 
 import {
@@ -55,3 +56,6 @@ export const editHandler = (editCategoryId) => {
 };
 export const deleteHandler = createParallelActions([CATEGORY_DELETE_TASKS, CATEGORY_DELETE]);
 export const setNewCategoryTitleValue = createAction(CATEGORY_TITLE_CHANGE);
+export const setActive = createAction(CATEGORY_SET_ACTIVE);
+
+

@@ -1,7 +1,6 @@
 import React from 'react';
 import './category.css';
 import Icon from '../icon';
-import {Link} from 'react-router';
 
 export class CategoryItem extends React.Component {
     constructor(props){
@@ -10,6 +9,7 @@ export class CategoryItem extends React.Component {
         this.editHandler = this.editHandler.bind(this);
         this.deleteHandler = this.deleteHandler.bind(this);
         this.addNestedCategory = this.addNestedCategory.bind(this);
+        this.setActive = this.setActive.bind(this);
     }
 
     editHandler(){
@@ -22,12 +22,17 @@ export class CategoryItem extends React.Component {
         this.props.addNestedCategory(this.props.id);
     }
 
+    setActive(){
+        this.props.setActive(this.props.id);
+    }
+
     render(){
-        const {collection, id, active, name, editHandler, deleteHandler, addNestedCategory} = this.props;
+        const {collection, id, active, name, editHandler, deleteHandler, addNestedCategory, setActive} = this.props;
         return (
             <div className={"category " + (active ? 'active' : '')}>
 
-                <Link to={"/" + id} className="name" activeClassName="active">{name}</Link>
+                <span className="name" onClick={this.setActive}>{name}</span>
+
                 <div className="icons">
                     <Icon type="edit" onClick={this.editHandler}/>
                     <Icon type="delete" onClick={this.deleteHandler}/>
@@ -41,6 +46,7 @@ export class CategoryItem extends React.Component {
                         editHandler={editHandler}
                         deleteHandler={deleteHandler}
                         addNestedCategory={addNestedCategory}
+                        setActive={setActive}
                     />)}
                 </div>
             </div>
