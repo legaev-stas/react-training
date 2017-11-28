@@ -3,11 +3,11 @@ import './task-item.css';
 import Checkbox from '../forms/checkbox';
 import Icon from '../icon';
 
-export class TaskItem extends Component {
+export class TaskItem extends Component {;
     constructor(args) {
         super(args);
 
-        this.onChangeStatus = this.onChangeStatus.bind(this);
+        this.onChangeStatus = this.onChangeStatus.bind(this)
         this.onEdit = this.onEdit.bind(this);
     }
 
@@ -16,6 +16,7 @@ export class TaskItem extends Component {
     }
 
     onEdit() {
+        navigator.vibrate(20);
         this.props.onEdit(this.props.id);
     }
 
