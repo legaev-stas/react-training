@@ -1,7 +1,6 @@
 var path = require('path');
 
 module.exports = {
-    devtool: 'eval-source-map',
     context: __dirname,
     entry: [
         './src/index.jsx'
@@ -22,17 +21,6 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: 'url-loader?limit=10000&minetype=application/font-woff'
-            },
-            { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: 'file-loader'
-            },
-            {
-                test: /\.json$/,
-                loader: 'json-loader'
-            },
-            {
                 test: /\.css$/,
                 loader: ['style-loader', 'postcss-loader']
             },
@@ -40,7 +28,7 @@ module.exports = {
                 test: /(\.js|\.jsx)$/,
                 loader: 'babel-loader',
                 query: {
-                    presets: ['es2015', 'stage-2', 'react']
+                    presets: [/*'es2015', 'stage-2', */'react']
                 },
                 exclude: path.join(__dirname, 'node_modules')
             }
