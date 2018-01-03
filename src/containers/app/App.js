@@ -1,38 +1,15 @@
 import React from 'react';
-import './App.css';
 
+import {CategoryPage} from '../../components/category/page';
+import {categoryPageConnector} from '../../connector/category-page';
 
-import Header from '../../components/header';
-import {headerConnector} from '../../connector/header';
+// import {TasksSectionContainer} from '../../containers/task';
 
-import ProgressBar from '../../components/progress-bar';
-import {progressBarConnector} from '../../connector/progress-bar';
-
-import {AddCategoryForm, CategoryList} from '../../components/category';
-import {addCategoryFormConnector, categoryListConnector} from '../../connector/category-bar';
-
-import {TasksSectionContainer} from '../../containers/task';
-
-const HeaderContainer = headerConnector(Header);
-const ProgressBarContainer = progressBarConnector(ProgressBar);
-const AddCategoryFormContainer = addCategoryFormConnector(AddCategoryForm);
-const CategoryListContainer = categoryListConnector(CategoryList);
-
+const CategoryPageContainer = categoryPageConnector(CategoryPage);
 
 export default () => (
-    <div className="App">
-        <HeaderContainer/>
-        <ProgressBarContainer/>
-
-        <div className="cf">
-            <div className="left category-bar">
-                <AddCategoryFormContainer/>
-                <CategoryListContainer/>
-            </div>
-            <div className="todo-list right">
-                <TasksSectionContainer></TasksSectionContainer>
-            </div>
-        </div>
+    <div className="App noselect">
+        <CategoryPageContainer/>
     </div>
 );
 

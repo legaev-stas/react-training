@@ -3,15 +3,13 @@ import uuid from 'uuid/v4';
 
 import {
     CATEGORY_ADD,
-    CATEGORY_ADD_NESTED,
     CATEGORY_EDIT,
     CATEGORY_DELETE,
-    CATEGORY_TITLE_CHANGE,
-    CATEGORY_SET_ACTIVE
+    CATEGORY_OPEN
 } from './constants';
 
 import {
-    CATEGORY_DELETE_TASKS
+    TASK_DELETE_WITH_CATEGORY
 } from '../task/constants';
 
 
@@ -20,42 +18,14 @@ export const addCategory = (name) => {
         type: CATEGORY_ADD,
         payload: {
             id: uuid(),
-            name: name,
-            parent: null
+            name: name
         }
     };
 };
 
-export const addNestedCategory = (addToCategoryId) => {
-    // TODO: rework browser modals with components
-    const name = prompt('Please enter category-bar title');
-    if (name) {
-        return {
-            type: CATEGORY_ADD_NESTED,
-            payload: {
-                id: uuid(),
-                name: name,
-                parent: addToCategoryId
-            }
-        };
-    }
-};
 
-export const editHandler = (editCategoryId) => {
-    // TODO: rework browser modals with components
-    const name = prompt('Please enter category-bar title');
-    if (name) {
-        return {
-            type: CATEGORY_EDIT,
-            payload: {
-                id: editCategoryId,
-                name: name
-            }
-        };
-    }
-};
-export const deleteHandler = createParallelActions([CATEGORY_DELETE_TASKS, CATEGORY_DELETE]);
-export const setNewCategoryTitleValue = createAction(CATEGORY_TITLE_CHANGE);
-export const setActive = createAction(CATEGORY_SET_ACTIVE);
+export const deleteHandler = createParallelActions([TASK_DELETE_WITH_CATEGORY, CATEGORY_DELETE]);
+export const openCategory = createAction(CATEGORY_OPEN);
+export const editHandler = createAction(CATEGORY_EDIT);
 
 

@@ -2,16 +2,13 @@ import {fromJS} from 'immutable';
 
 import {
     CATEGORY_ADD,
-    CATEGORY_ADD_NESTED,
     CATEGORY_EDIT,
     CATEGORY_DELETE,
-    CATEGORY_TITLE_CHANGE,
-    CATEGORY_SET_ACTIVE
+    CATEGORY_OPEN
 } from '../actions/category/constants';
 
 const initialState = fromJS({
     active: null,
-    ui: {addCategoryTitle: ''},
     collection: []
 });
 
@@ -20,25 +17,16 @@ export default (state = initialState, action) => {
     var collection;
 
     switch (type) {
-        case CATEGORY_TITLE_CHANGE:
-            return state.setIn(['ui', 'addCategoryTitle'], payload);
-
         case CATEGORY_ADD:
-            collection = state.get('collection');
+            if (payload.name) {
+                collection = state.get('collection');
 
-            collection = fromJS([payload]).concat(collection);
+                collection = collection.concat(fromJS([payload]));
 
-            return state
-                .set('collection', collection)
-                .setIn(['ui', 'addCategoryTitle'], '');
-
-
-        case CATEGORY_ADD_NESTED:
-            collection = state.get('collection');
-
-            collection = fromJS([payload]).concat(collection);
-
-            return state.set('collection', collection);
+                return state.set('collection', collection);
+            } else {
+                return state;
+            }
 
 
         case CATEGORY_EDIT:
@@ -55,30 +43,12 @@ export default (state = initialState, action) => {
 
 
         case CATEGORY_DELETE:
-            collection = state.get('collection').toJS();
-            var categoriesIdToDelete = collection
-                .filter(category => category.id === payload)
-                .map(item => item.id);
+            let newCollection = state.get('collection').filterNot(value => payload === value.get('id'));
 
-        function findAllCategoriesIdToDelete(parentId) {
-            let nestedCategories = collection
-                .filter(category => category.parent === parentId)
-                .map(item => item.id);
-
-            nestedCategories.forEach(function (category) {
-                categoriesIdToDelete.push(category);
-                findAllCategoriesIdToDelete(category);
-            });
-        }
-
-            findAllCategoriesIdToDelete(categoriesIdToDelete[0]);
-
-            collection = state.get('collection').filterNot(item => categoriesIdToDelete.includes(item.get('id')));
-
-            return state.set('collection', collection);
+            return state.set('collection', newCollection);
 
 
-        case CATEGORY_SET_ACTIVE:
+        case CATEGORY_OPEN:
             return state.set('active', payload);
 
 
