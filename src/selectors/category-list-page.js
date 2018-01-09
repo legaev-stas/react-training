@@ -1,5 +1,5 @@
-import {createSimpleSelector, createSelector} from '../../helpers/selector';
-import {getState} from '../../helpers/store';
+import {createSimpleSelector, createSelector} from '../helpers/selector';
+import {getState} from '../helpers/store';
 
 const state = (state = getState()) => state;
 
@@ -14,7 +14,7 @@ export const categoryList = createSelector([categoryCollection, taskCollection],
         let tasks = taskCollection.filter(task => task.category === category.id);
         let uncompletedTasks = tasks.filter(task => !task.complete);
 
-        category.uncompletedTasksNumber = uncompletedTasks.length;
+        category.badge = uncompletedTasks.length;
         return category;
     });
 

@@ -4,7 +4,8 @@ import {
     CATEGORY_ADD,
     CATEGORY_EDIT,
     CATEGORY_DELETE,
-    CATEGORY_OPEN
+    CATEGORY_SET_ACTIVE,
+    CATEGORY_RESET_ACTIVE
 } from '../actions/category/constants';
 
 const initialState = fromJS({
@@ -18,7 +19,7 @@ export default (state = initialState, action) => {
 
     switch (type) {
         case CATEGORY_ADD:
-            if (payload.name) {
+            if (payload.title) {
                 collection = state.get('collection');
 
                 collection = collection.concat(fromJS([payload]));
@@ -34,7 +35,7 @@ export default (state = initialState, action) => {
 
             collection = collection.map(item => {
                 if (item.get('id') === payload.id) {
-                    return item.set('name', payload.name);
+                    return item.set('title', payload.title);
                 }
                 return item;
             });
@@ -48,8 +49,12 @@ export default (state = initialState, action) => {
             return state.set('collection', newCollection);
 
 
-        case CATEGORY_OPEN:
+        case CATEGORY_SET_ACTIVE:
             return state.set('active', payload);
+
+
+        case CATEGORY_RESET_ACTIVE:
+            return state.set('active', null);
 
 
         default:

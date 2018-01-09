@@ -9,7 +9,7 @@ import './styles.css';
 
 import reducer from './reducers'
 import {setStore} from './helpers/store'
-import ReactApp from './containers/app/App';
+import TodoApp from './containers/App';
 import initialStoreState from './data'
 
 
@@ -23,7 +23,7 @@ setStore(store);
 document.addEventListener('deviceready', () => {
     ReactDOM.render((
         <Provider store={store}>
-            <ReactApp></ReactApp>
+            <TodoApp/>
         </Provider>
     ), document.getElementById('root'));
 }, false);
