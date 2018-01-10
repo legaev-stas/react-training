@@ -1,14 +1,13 @@
 import React from 'react';
 import {NavBar, Icon} from 'antd-mobile';
 
-export default ({title, goBack}) => (
+export default ({title, goBack, addItem}) => (
     <NavBar
         mode="light"
         icon={<Icon type="left"/>}
         onLeftClick={goBack}
-        // rightContent={[
-        //     <Icon key="0" type="search" style={{marginRight: '16px'}}/>,
-        //     <Icon key="1" type="ellipsis"/>,
-        // ]}
+        rightContent={[
+            <Icon type="plus" size="sm" onClick={addItem}/>
+        ]}
     >{title}</NavBar>
 )

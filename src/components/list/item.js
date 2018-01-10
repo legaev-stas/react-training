@@ -1,5 +1,5 @@
 import React from 'react';
-import {SwipeAction, List, Badge} from 'antd-mobile';
+import {SwipeAction, List, Badge, Checkbox, Flex} from 'antd-mobile';
 import './styles.css';
 
 
@@ -10,6 +10,7 @@ export class ListItem extends React.Component {
         this.onEdit = this.onEdit.bind(this);
         this.onDelete = this.onDelete.bind(this);
         this.onClick = this.onClick.bind(this);
+        this.onStatusChange = this.onStatusChange.bind(this);
     }
 
     onDelete() {
@@ -17,11 +18,19 @@ export class ListItem extends React.Component {
     }
 
     onClick() {
-        this.props.onClick(this.props);
+        this.props.onClick && this.props.onClick(this.props);
     }
 
     onEdit() {
         this.props.onEdit(this.props);
+    }
+
+    onStatusChange(e){
+        e.preventDefault();
+        this.props.onStatusChange({
+            id: this.props.id,
+            checked: !this.props.checked
+        });
     }
 
     render() {
@@ -45,9 +54,16 @@ export class ListItem extends React.Component {
                 ]}
             >
                 <List.Item
-                    onClick={this.onClick}
                     extra={<Badge text={this.props.badge} overflowCount={10}/>}
-                >{this.props.title}</List.Item>
+                    onClick={this.onClick}
+                >
+                    <Flex>
+                        {this.props.checkable &&
+                        <Checkbox checked={this.props.checked} onClick={this.onStatusChange}/>
+                        }
+                        <Flex.Item>{this.props.title}</Flex.Item>
+                    </Flex>
+                </List.Item>
             </SwipeAction>
         );
     }

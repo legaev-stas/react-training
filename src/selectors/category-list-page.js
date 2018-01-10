@@ -12,7 +12,7 @@ export const categoryList = createSelector([categoryCollection, taskCollection],
     taskCollection = taskCollection.toJS();
     categoryCollection = categoryCollection.toJS().map(category => {
         let tasks = taskCollection.filter(task => task.category === category.id);
-        let uncompletedTasks = tasks.filter(task => !task.complete);
+        let uncompletedTasks = tasks.filter(task => !task.completed);
 
         category.badge = uncompletedTasks.length;
         return category;

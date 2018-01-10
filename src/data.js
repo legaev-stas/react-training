@@ -40,21 +40,21 @@ export default fromJS({
                 id: 'd7c95788-7a69-45f8-b223-a23bee98ce7x',
                 title: 'Title',
                 description: 'Description',
-                complete: false
+                completed: false
             },
             {
                 category: '6de2c350-6aee-4c14-8f97-428e5bc69692',
                 id: 'd7c95788-7a69-45f8-b223-a23bee98ce7y',
                 title: 'Title 2',
                 description: 'Description 2',
-                complete: true
+                completed: true
             },
             {
                 category: 'd7c95788-7a69-45f8-b223-a23bee98ce7d',
                 id: 'd7c95788-7a69-45f8-b223-a23bee98ce7z',
                 title: 'Title 3',
                 description: 'Description 3',
-                complete: false
+                completed: false
             }
         ]
     }

@@ -13,12 +13,12 @@ import {
 } from '../task/constants';
 
 
-export const addCategory = (name) => {
+export const createCategory = (title) => {
     return {
         type: CATEGORY_ADD,
         payload: {
             id: uuid(),
-            name: name
+            title
         }
     };
 };

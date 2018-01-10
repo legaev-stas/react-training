@@ -12,10 +12,16 @@ const taskCollection = createSimpleSelector(taskStoreSlice, 'collection');
 export const taskList = createSelector([categoryCollection, taskCollection, activeCategoryId],
     (categoryCollection, taskCollection, activeCategoryId) => {
         const categoryTitle = categoryCollection.find(v => v.get('id') === activeCategoryId).get('title');
-        const collection = taskCollection.filter(v => v.get('category') === activeCategoryId).toJS();
+        let collection = taskCollection.filter(v => v.get('category') === activeCategoryId).toJS();
+
+        collection.map(model => {
+            model.checked = model.completed;
+            return model;
+        });
 
         return {
             categoryTitle,
+            activeCategoryId,
             collection
         };
     });

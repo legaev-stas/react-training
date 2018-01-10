@@ -1,24 +1,16 @@
 import {fromJS} from 'immutable';
-import {getState} from '../helpers/store';
 
 import {
     TASK_DELETE_WITH_CATEGORY,
-    NEW_TASK_ADD,
-    TASK_STATUS_TOGGLE,
-    EDIT_TASK,
-    EDIT_TASK_SAVE,
-    EDIT_TASK_CANCEL,
-    EDIT_TASK_TEMP_DATA_INIT,
-    EDIT_TASK_TEMP_DATA_TITLE_UPDATE,
-    EDIT_TASK_TEMP_DATA_STATUS_UPDATE,
-    EDIT_TASK_TEMP_DATA_DESCRIPTION_UPDATE,
-    NEW_TASK_TITLE_CHANGE
+    TASK_EDIT,
+    TASK_DELETE,
+    TASK_CREATE,
+    TASK_STATUS_CHANGE
 } from '../actions/task/constants';
 
 const initialState = fromJS({
     active: null,
     ui: {
-        newTaskTitle: '',
         filter: {
             showDone: false,
             title: ''
@@ -29,15 +21,34 @@ const initialState = fromJS({
 
 export default (state = initialState, action) => {
     const {type, payload} = action;
+    let newCollection;
 
     switch (type) {
         case TASK_DELETE_WITH_CATEGORY:
-            let newCollection = state.get('collection').filterNot(value => payload === value.get('category'));
+            newCollection = state.get('collection').filterNot(value => payload === value.get('category'));
 
             return state.set('collection', newCollection);
 
 
+        case TASK_DELETE:
+            newCollection = state.get('collection').filterNot(value => payload === value.get('id'));
 
+            return state.set('collection', newCollection);
+
+
+        case TASK_EDIT:
+            return state.set('active', payload);
+
+
+        case TASK_CREATE:
+            return state.set('collection', state.get('collection').push(fromJS(payload)));
+
+
+        case TASK_STATUS_CHANGE:
+            const indexToUpdate = state.get('collection').findIndex(task => payload.id === task.get('id'))
+            newCollection = state.get('collection').update(indexToUpdate, task => task.set('completed', payload.completed));
+
+            return state.set('collection', newCollection);
 
 
         default:

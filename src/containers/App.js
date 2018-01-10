@@ -21,7 +21,7 @@ const App = ({activeCategory, activeTask}) => {
     }
 
     if (activeTask) {
-        pageView = <div>Page Details View</div>
+        pageView = <div>Task Details View</div>
     }
 
     return (

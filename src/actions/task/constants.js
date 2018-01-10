@@ -1,3 +1,5 @@
 export const TASK_DELETE_WITH_CATEGORY = 'TASK_DELETE_WITH_CATEGORY';
-
-
+export const TASK_DELETE = 'TASK_DELETE';
+export const TASK_EDIT = 'TASK_EDIT';
+export const TASK_CREATE = 'TASK_CREATE';
+export const TASK_STATUS_CHANGE = 'TASK_STATUS_CHANGE';

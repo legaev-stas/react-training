@@ -11,6 +11,7 @@ export class CategoryListPage extends React.Component {
         this.editCategory = this.editCategory.bind(this);
         this.deleteCategory = this.deleteCategory.bind(this);
         this.openCategory = this.openCategory.bind(this);
+        this.createCategory = this.createCategory.bind(this);
     }
 
     deleteCategory({id, badge}) {
@@ -48,10 +49,24 @@ export class CategoryListPage extends React.Component {
             ], 'default', originalTitle);
     }
 
+    createCategory() {
+        Modal.prompt('Create category', '',
+            [
+                {text: 'Cancel'},
+                {
+                    text: 'Create',
+                    onPress: title => new Promise((resolve) => {
+                        this.props.createCategory(title);
+                        resolve();
+                    }),
+                },
+            ], 'default', null, ['Category name']);
+    }
+
     render() {
         return (
             <div>
-                <AppNavBar addCategory={this.props.addCategory}/>
+                <AppNavBar addItem={this.createCategory}/>
                 <List
                     collection={this.props.collection}
                     onEdit={this.editCategory}

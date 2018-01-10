@@ -1,63 +1,61 @@
 import React from 'react';
 import NavBar from '../components/nav-bar/task-list-page';
 import {List} from '../components/list';
+import {Modal} from 'antd-mobile';
 
 
 export class TaskList extends React.Component {
     constructor(props) {
         super(props);
 
-        this.editCategory = this.editCategory.bind(this);
-        this.deleteCategory = this.deleteCategory.bind(this);
-        this.openCategory = this.openCategory.bind(this);
+        this.editTask = this.editTask.bind(this);
+        this.deleteTask = this.deleteTask.bind(this);
+        this.createTask = this.createTask.bind(this);
     }
 
-    deleteCategory({id, badge}) {
-        const heading = 'Delete Category';
-        const message = `Are you sure? The category contains ${badge} uncompleted tasks`;
-
-        if (badge) {
-            Modal.alert(heading, message, [
-                {text: 'Cancel', style: 'default'},
-                {text: 'OK', onPress: () => this.props.deleteCategory(id)},
-            ]);
-        } else {
-            this.props.deleteCategory(id);
-        }
+    editTask({id}) {
+        this.props.editTask(id);
     }
 
-    openCategory({id}) {
-        this.props.openCategory(id);
+    deleteTask({id}) {
+        this.props.deleteTask(id);
     }
 
-    editCategory({id, title:originalTitle}) {
-        Modal.prompt('Update category name', '',
+    createTask(){
+        const category = this.props.activeCategoryId;
+        Modal.prompt('Create task', '',
             [
                 {text: 'Cancel'},
                 {
-                    text: 'Update',
+                    text: 'Create',
                     onPress: title => new Promise((resolve) => {
-                        this.props.editCategory({
-                            id,
+                        this.props.createTask({
+                            category,
                             title
                         });
                         resolve();
                     }),
                 },
-            ], 'default', originalTitle);
+            ], 'default', null, ['Task name']);
     }
 
     render() {
         return (
             <div>
-                <NavBar title={this.props.categoryTitle} goBack={this.props.goBack}/>
+                <NavBar
+                    title={this.props.categoryTitle}
+                    goBack={this.props.goBack}
+                    addItem={this.createTask}
+                />
                 <List
+                    checkable
                     collection={this.props.collection}
-                    onEdit={this.editCategory}
-                    onDelete={this.deleteCategory}
-                    onClick={this.openCategory}
+                    onEdit={this.editTask}
+                    onDelete={this.deleteTask}
+                    onStatusChange={this.props.onStatusChange}
                 />
             </div>
         );
     }
 }
+
