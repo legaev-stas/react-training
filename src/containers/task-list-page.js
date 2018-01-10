@@ -1,7 +1,8 @@
 import React from 'react';
 import NavBar from '../components/nav-bar/task-list-page';
 import {List} from '../components/list';
-import {Modal} from 'antd-mobile';
+import {Modal, SegmentedControl, WingBlank, WhiteSpace } from 'antd-mobile';
+import './task-list-page.css';
 
 
 export class TaskList extends React.Component {
@@ -42,12 +43,20 @@ export class TaskList extends React.Component {
     render() {
         return (
             <div>
-                <NavBar
-                    title={this.props.categoryTitle}
-                    goBack={this.props.goBack}
-                    addItem={this.createTask}
-                />
+                <div className="task-list-page-nav-bar">
+                    <NavBar
+                        title={this.props.categoryTitle}
+                        goBack={this.props.goBack}
+                        addItem={this.createTask}
+                    />
+                    <WingBlank>
+                        <WhiteSpace/>
+                        <SegmentedControl values={['Show full list', 'Hide completed tasks']} />
+                        <WhiteSpace/>
+                    </WingBlank>
+                </div>
                 <List
+                    className="task-list-page-list"
                     checkable
                     collection={this.props.collection}
                     onEdit={this.editTask}

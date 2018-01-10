@@ -10,6 +10,10 @@ import {store, persistor} from './store';
 import TodoApp from './containers/App';
 
 document.addEventListener('deviceready', () => {
+    // WebView configuration; it fixes issue when scrollable content is visible behind the status bar on iOS
+    StatusBar.overlaysWebView(false);
+    StatusBar.backgroundColorByName('white');
+
     ReactDOM.render((
         <Provider store={store}>
             <PersistGate persistor={persistor}>
