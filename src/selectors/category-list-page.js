@@ -1,11 +1,10 @@
 import {createSimpleSelector, createSelector} from '../helpers/selector';
 import {getState} from '../helpers/store';
 
-const state = (state = getState()) => state;
 
-const categoryStoreSlice = createSimpleSelector(state, 'category');
+const categoryStoreSlice = () => getState().category;
 const categoryCollection = createSimpleSelector(categoryStoreSlice, 'collection');
-const taskStoreSlice = createSimpleSelector(state, 'task');
+const taskStoreSlice = () => getState().task;
 const taskCollection = createSimpleSelector(taskStoreSlice, 'collection');
 
 export const categoryList = createSelector([categoryCollection, taskCollection], (categoryCollection, taskCollection) => {
