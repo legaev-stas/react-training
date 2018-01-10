@@ -3,3 +3,4 @@ export const TASK_DELETE = 'TASK_DELETE';
 export const TASK_EDIT = 'TASK_EDIT';
 export const TASK_CREATE = 'TASK_CREATE';
 export const TASK_STATUS_CHANGE = 'TASK_STATUS_CHANGE';
+export const TASK_FILTER_CHANGE = 'TASK_FILTER_CHANGE';

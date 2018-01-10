@@ -5,11 +5,13 @@ import {
     TASK_EDIT,
     TASK_DELETE,
     TASK_CREATE,
-    TASK_STATUS_CHANGE
+    TASK_STATUS_CHANGE,
+    TASK_FILTER_CHANGE
 } from '../actions/task/constants';
 
 const initialState = fromJS({
     active: null,
+    filterShowCompleted: true,
     collection: []
 });
 
@@ -43,6 +45,10 @@ export default (state = initialState, action) => {
             newCollection = state.get('collection').update(indexToUpdate, task => task.set('completed', payload.completed));
 
             return state.set('collection', newCollection);
+
+
+        case TASK_FILTER_CHANGE:
+            return state.set('filterShowCompleted', payload);
 
 
         default:

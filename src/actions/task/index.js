@@ -5,17 +5,14 @@ import {
     TASK_EDIT,
     TASK_DELETE,
     TASK_CREATE,
-    TASK_STATUS_CHANGE
+    TASK_STATUS_CHANGE,
+    TASK_FILTER_CHANGE
 } from './constants';
-
-import {
-    CATEGORY_RESET_ACTIVE
-} from '../category/constants';
 
 
 export const editTask = createAction(TASK_EDIT);
 export const deleteTask = createAction(TASK_DELETE);
-export const goBack = createAction(CATEGORY_RESET_ACTIVE);
+export const onFilterChange = createAction(TASK_FILTER_CHANGE);
 
 export const createTask = ({title, category}) => {
     return {

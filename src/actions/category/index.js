@@ -5,7 +5,8 @@ import {
     CATEGORY_ADD,
     CATEGORY_EDIT,
     CATEGORY_DELETE,
-    CATEGORY_SET_ACTIVE
+    CATEGORY_SET_ACTIVE,
+    CATEGORY_RESET_ACTIVE
 } from './constants';
 
 import {
@@ -27,5 +28,6 @@ export const createCategory = (title) => {
 export const deleteCategory = createParallelActions([TASK_DELETE_WITH_CATEGORY, CATEGORY_DELETE]);
 export const openCategory = createAction(CATEGORY_SET_ACTIVE);
 export const editCategory = createAction(CATEGORY_EDIT);
+export const goBack = createAction(CATEGORY_RESET_ACTIVE);
 
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import NavBar from '../components/nav-bar/task-list-page';
 import {List} from '../components/list';
-import {Modal, SegmentedControl, WingBlank, WhiteSpace } from 'antd-mobile';
-import './task-list-page.css';
+import {Modal, WingBlank, Switch, WhiteSpace} from 'antd-mobile';
+import {Page, Header, Content} from '../components/layout';
 
 
 export class TaskList extends React.Component {
@@ -22,7 +22,7 @@ export class TaskList extends React.Component {
         this.props.deleteTask(id);
     }
 
-    createTask(){
+    createTask() {
         const category = this.props.activeCategoryId;
         Modal.prompt('Create task', '',
             [
@@ -42,8 +42,8 @@ export class TaskList extends React.Component {
 
     render() {
         return (
-            <div>
-                <div className="task-list-page-nav-bar">
+            <Page>
+                <Header>
                     <NavBar
                         title={this.props.categoryTitle}
                         goBack={this.props.goBack}
@@ -51,19 +51,24 @@ export class TaskList extends React.Component {
                     />
                     <WingBlank>
                         <WhiteSpace/>
-                        <SegmentedControl values={['Show full list', 'Hide completed tasks']} />
+                        <Switch
+                            checked={this.props.filterShowCompleted}
+                            onChange={this.props.onFilterChange}
+                        />
+                        Show completed tasks
                         <WhiteSpace/>
                     </WingBlank>
-                </div>
-                <List
-                    className="task-list-page-list"
-                    checkable
-                    collection={this.props.collection}
-                    onEdit={this.editTask}
-                    onDelete={this.deleteTask}
-                    onStatusChange={this.props.onStatusChange}
-                />
-            </div>
+                </Header>
+                <Content>
+                    <List
+                        checkable
+                        collection={this.props.collection}
+                        onEdit={this.editTask}
+                        onDelete={this.deleteTask}
+                        onStatusChange={this.props.onStatusChange}
+                    />
+                </Content>
+            </Page>
         );
     }
 }

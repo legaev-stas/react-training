@@ -1,17 +1,20 @@
 import {connect} from 'react-redux';
 import {taskList} from '../selectors/task-list-page';
 import {
-    goBack,
     deleteTask,
     editTask,
     createTask,
-    onStatusChange
-} from '../actions/task/index';
+    onStatusChange,
+    onFilterChange
+} from '../actions/task';
+import {goBack} from '../actions/category';
+
 
 export const taskListPageConnector = connect(taskList, {
     goBack,
     deleteTask,
     editTask,
     createTask,
-    onStatusChange
+    onStatusChange,
+    onFilterChange
 });

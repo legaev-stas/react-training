@@ -2,6 +2,7 @@ import React from 'react';
 import {List} from '../components/list';
 import {AppNavBar} from '../components/nav-bar/category-list-page';
 import {Modal} from 'antd-mobile';
+import {Page, Header, Content} from '../components/layout';
 
 
 export class CategoryListPage extends React.Component {
@@ -32,7 +33,7 @@ export class CategoryListPage extends React.Component {
         this.props.openCategory(id);
     }
 
-    editCategory({id, title:originalTitle}) {
+    editCategory({id, title: originalTitle}) {
         Modal.prompt('Update category name', '',
             [
                 {text: 'Cancel'},
@@ -65,15 +66,19 @@ export class CategoryListPage extends React.Component {
 
     render() {
         return (
-            <div>
-                <AppNavBar addItem={this.createCategory}/>
-                <List
-                    collection={this.props.collection}
-                    onEdit={this.editCategory}
-                    onDelete={this.deleteCategory}
-                    onClick={this.openCategory}
-                />
-            </div>
+            <Page>
+                <Header>
+                    <AppNavBar addItem={this.createCategory}/>
+                </Header>
+                <Content>
+                    <List
+                        collection={this.props.collection}
+                        onEdit={this.editCategory}
+                        onDelete={this.deleteCategory}
+                        onClick={this.openCategory}
+                    />
+                </Content>
+            </Page>
         );
     }
 }

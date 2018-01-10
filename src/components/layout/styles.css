@@ -1,0 +1,13 @@
+.page{
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.page-nav-bar{
+    flex: 0 0 auto;
+}
+.page-content{
+    flex: 1 1 auto;
+    overflow: scroll;
+}
