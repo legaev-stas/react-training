@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {categoryList} from '../selectors/category-list-page';
+import {categoryListPageSelector} from '../selectors/category-list-page';
 import {
     createCategory,
     editCategory,
@@ -8,7 +8,7 @@ import {
 } from '../actions/category/index';
 
 
-export const categoryListPageConnector = connect(categoryList, {
+export const categoryListPageConnector = connect(categoryListPageSelector, {
     editCategory,
     deleteCategory,
     openCategory,

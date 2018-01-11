@@ -26,7 +26,7 @@ const collection = createSelector([taskCollection, activeCategoryId, filterShowC
         return collection;
     });
 
-export const taskList2 = createSelector(
+export const taskListPageSelector = createSelector(
     [categoryTitle, activeCategoryId, collection, filterShowCompleted],
     (categoryTitle, activeCategoryId, collection, filterShowCompleted) => ({
             categoryTitle,

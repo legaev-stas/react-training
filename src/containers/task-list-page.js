@@ -5,7 +5,7 @@ import {Modal, Flex, WingBlank, Switch, WhiteSpace} from 'antd-mobile';
 import {Page, Header, Content} from '../components/layout';
 
 
-export class TaskList extends React.Component {
+export class TaskListPage extends React.Component {
     constructor(props) {
         super(props);
 

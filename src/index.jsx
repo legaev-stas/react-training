@@ -7,7 +7,7 @@ import 'antd-mobile/dist/antd-mobile.css';
 import './styles.css';
 
 import {store, persistor} from './store';
-import TodoApp from './containers/App';
+import TodoApp from './containers/app';
 
 document.addEventListener('deviceready', () => {
     // WebView configuration; it fixes issue when scrollable content is visible behind the status bar on iOS
@@ -22,4 +22,3 @@ document.addEventListener('deviceready', () => {
         </Provider>
     ), document.getElementById('root'));
 }, false);
-

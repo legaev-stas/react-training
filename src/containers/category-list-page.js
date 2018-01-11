@@ -73,6 +73,7 @@ export class CategoryListPage extends React.Component {
                 <Content>
                     <List
                         collection={this.props.collection}
+                        arrow
                         onEdit={this.editCategory}
                         onDelete={this.deleteCategory}
                         onClick={this.openCategory}

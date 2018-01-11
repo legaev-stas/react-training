@@ -54,6 +54,7 @@ export class ListItem extends React.PureComponent {
             >
                 <List.Item
                     extra={<Badge text={this.props.model.get('badge')} overflowCount={10}/>}
+                    arrow={this.props.arrow && "horizontal"}
                     onClick={this.onClick}
                 >
                     <Flex>

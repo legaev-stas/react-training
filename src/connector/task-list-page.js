@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {taskList,taskList2} from '../selectors/task-list-page';
+import {taskListPageSelector} from '../selectors/task-list-page';
 import {
     deleteTask,
     editTask,
@@ -10,7 +10,7 @@ import {
 import {goBack} from '../actions/category';
 
 
-export const taskListPageConnector = connect(taskList2, {
+export const taskListPageConnector = connect(taskListPageSelector, {
     goBack,
     deleteTask,
     editTask,

@@ -6,7 +6,11 @@ import {
     TASK_DELETE,
     TASK_CREATE,
     TASK_STATUS_CHANGE,
-    TASK_FILTER_CHANGE
+    TASK_FILTER_CHANGE,
+    TASK_RESET_ACTIVE,
+    TASK_TITLE_CHANGE,
+    TASK_DESCRIPTION_CHANGE,
+    TASK_CATEGORY_CHANGE
 } from '../actions/task/constants';
 
 const initialState = fromJS({
@@ -14,6 +18,12 @@ const initialState = fromJS({
     filterShowCompleted: true,
     collection: []
 });
+
+const findModelAndUpdateValue = (collection, id, key, value) => {
+    let index = collection.findIndex(model => id === model.get('id'));
+    return collection.update(index, model => model.set(key, value));
+}
+
 
 export default (state = initialState, action) => {
     const {type, payload} = action;
@@ -42,15 +52,47 @@ export default (state = initialState, action) => {
 
 
         case TASK_STATUS_CHANGE:
-            const indexToUpdate = state.get('collection').findIndex(task => payload.id === task.get('id'));
-
-            return state.update('collection', collection => {
-                return collection.update(indexToUpdate, task => task.set('completed', payload.completed));
-            });
+            return state.update('collection', collection => findModelAndUpdateValue(
+                collection,
+                payload.id,
+                'completed',
+                payload.completed
+            ));
 
 
         case TASK_FILTER_CHANGE:
             return state.set('filterShowCompleted', payload);
+
+
+        case TASK_RESET_ACTIVE:
+            return state.set('active', null);
+
+
+        case TASK_TITLE_CHANGE:
+            return state.update('collection', collection => findModelAndUpdateValue(
+                collection,
+                payload.id,
+                'title',
+                payload.title
+            ));
+
+
+        case TASK_DESCRIPTION_CHANGE:
+            return state.update('collection', collection => findModelAndUpdateValue(
+                collection,
+                payload.id,
+                'description',
+                payload.description
+            ));
+
+
+        case TASK_CATEGORY_CHANGE:
+            return state.update('collection', collection => findModelAndUpdateValue(
+                collection,
+                payload.id,
+                'category',
+                payload.category
+            ));
 
 
         default:
