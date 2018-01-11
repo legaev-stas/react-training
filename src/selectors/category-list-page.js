@@ -7,15 +7,17 @@ const categoryCollection = createSimpleSelector(categoryStoreSlice, 'collection'
 const taskStoreSlice = () => getState().task;
 const taskCollection = createSimpleSelector(taskStoreSlice, 'collection');
 
-export const categoryList = createSelector([categoryCollection, taskCollection], (categoryCollection, taskCollection) => {
-    taskCollection = taskCollection.toJS();
-    categoryCollection = categoryCollection.toJS().map(category => {
-        let tasks = taskCollection.filter(task => task.category === category.id);
-        let uncompletedTasks = tasks.filter(task => !task.completed);
 
-        category.badge = uncompletedTasks.length;
-        return category;
+export const categoryList = createSelector([categoryCollection, taskCollection], (categoryCollection, taskCollection) => {
+    let collection = categoryCollection.map(category => {
+        let tasks = taskCollection.filter(task => task.get('category') === category.get('id'));
+        let badge = tasks.filter(task => !task.get('completed')).size;
+
+        return category.merge({
+            badge,
+            tasks
+        });
     });
 
-    return {collection: categoryCollection};
+    return {collection};
 });

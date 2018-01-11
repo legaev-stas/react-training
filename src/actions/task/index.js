@@ -27,14 +27,15 @@ export const createTask = ({title, category}) => {
     };
 };
 
-export const onStatusChange = ({id, checked}) => {
-    return {
-        type: TASK_STATUS_CHANGE,
-        payload: {
-            id,
-            completed: checked
-        }
-    };
-};
+export const onStatusChange = createAction(TASK_STATUS_CHANGE);
+// export const onStatusChange = ({id, completed}) => {
+//     return {
+//         type: TASK_STATUS_CHANGE,
+//         payload: {
+//             id,
+//             completed
+//         }
+//     };
+// };
 
 

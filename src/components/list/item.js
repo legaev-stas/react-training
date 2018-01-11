@@ -3,7 +3,7 @@ import {SwipeAction, List, Badge, Checkbox, Flex} from 'antd-mobile';
 import './styles.css';
 
 
-export class ListItem extends React.Component {
+export class ListItem extends React.PureComponent {
     constructor(props) {
         super(props);
 
@@ -14,22 +14,21 @@ export class ListItem extends React.Component {
     }
 
     onDelete() {
-        this.props.onDelete(this.props);
+        this.props.onDelete(this.props.model.toJS());
     }
 
     onClick() {
-        this.props.onClick && this.props.onClick(this.props);
+        this.props.onClick && this.props.onClick(this.props.model.toJS());
     }
 
     onEdit() {
-        this.props.onEdit(this.props);
+        this.props.onEdit(this.props.model.toJS());
     }
 
-    onStatusChange(e){
-        e.preventDefault();
+    onStatusChange(){
         this.props.onStatusChange({
-            id: this.props.id,
-            checked: !this.props.checked
+            id: this.props.model.get('id'),
+            completed: !this.props.model.get('completed')
         });
     }
 
@@ -54,14 +53,14 @@ export class ListItem extends React.Component {
                 ]}
             >
                 <List.Item
-                    extra={<Badge text={this.props.badge} overflowCount={10}/>}
+                    extra={<Badge text={this.props.model.get('badge')} overflowCount={10}/>}
                     onClick={this.onClick}
                 >
                     <Flex>
                         {this.props.checkable &&
-                        <Checkbox checked={this.props.checked} onClick={this.onStatusChange}/>
+                        <Checkbox checked={this.props.model.get('completed')} onClick={this.onStatusChange}/>
                         }
-                        <Flex.Item>{this.props.title}</Flex.Item>
+                        <Flex.Item>{this.props.model.get('title')}</Flex.Item>
                     </Flex>
                 </List.Item>
             </SwipeAction>

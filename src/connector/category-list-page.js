@@ -7,6 +7,7 @@ import {
     openCategory
 } from '../actions/category/index';
 
+
 export const categoryListPageConnector = connect(categoryList, {
     editCategory,
     deleteCategory,

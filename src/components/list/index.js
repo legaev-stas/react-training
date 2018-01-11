@@ -4,14 +4,11 @@ import {ListItem} from './item';
 
 export const List = ({collection, checkable, onEdit, onDelete, onClick, onStatusChange}) => (
     <AntdList>
-        {collection.map((category) =>
+        {collection.map((model) =>
             <ListItem
-                key={category.id}
-                id={category.id}
-                title={category.title}
-                badge={category.badge}
+                key={model.get('id')}
+                model={model}
                 checkable={checkable}
-                checked={category.checked}
                 onEdit={onEdit}
                 onDelete={onDelete}
                 onClick={onClick}
