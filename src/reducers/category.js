@@ -15,38 +15,31 @@ const initialState = fromJS({
 
 export default (state = initialState, action) => {
     const {type, payload} = action;
-    var collection;
 
     switch (type) {
         case CATEGORY_ADD:
             if (payload.title) {
-                collection = state.get('collection');
-
-                collection = collection.concat(fromJS([payload]));
-
-                return state.set('collection', collection);
+                return state.update('collection', collection => collection.concat(fromJS([payload])));
             } else {
                 return state;
             }
 
 
         case CATEGORY_EDIT:
-            collection = state.get('collection');
-
-            collection = collection.map(item => {
-                if (item.get('id') === payload.id) {
-                    return item.set('title', payload.title);
-                }
-                return item;
+            return state.update('collection', collection => {
+                return collection.map(item => {
+                    if (item.get('id') === payload.id) {
+                        return item.set('title', payload.title);
+                    }
+                    return item;
+                });
             });
-
-            return state.set('collection', collection);
 
 
         case CATEGORY_DELETE:
-            let newCollection = state.get('collection').filterNot(value => payload === value.get('id'));
-
-            return state.set('collection', newCollection);
+            return state.update('collection', collection =>{
+                return collection.filterNot(value => payload === value.get('id'));
+            });
 
 
         case CATEGORY_SET_ACTIVE:

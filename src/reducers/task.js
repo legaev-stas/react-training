@@ -17,19 +17,18 @@ const initialState = fromJS({
 
 export default (state = initialState, action) => {
     const {type, payload} = action;
-    let newCollection;
 
     switch (type) {
         case TASK_DELETE_WITH_CATEGORY:
-            newCollection = state.get('collection').filterNot(value => payload === value.get('category'));
-
-            return state.set('collection', newCollection);
+            return state.update('collection', collection => {
+                return collection.filterNot(task => payload === task.get('category'));
+            });
 
 
         case TASK_DELETE:
-            newCollection = state.get('collection').filterNot(value => payload === value.get('id'));
-
-            return state.set('collection', newCollection);
+            return state.update('collection', collection => {
+                return collection.filterNot(task => payload === task.get('id'));
+            });
 
 
         case TASK_EDIT:
@@ -37,14 +36,17 @@ export default (state = initialState, action) => {
 
 
         case TASK_CREATE:
-            return state.set('collection', state.get('collection').push(fromJS(payload)));
+            return state.update('collection', collection => {
+                return collection.push(fromJS(payload));
+            });
 
 
         case TASK_STATUS_CHANGE:
-            const indexToUpdate = state.get('collection').findIndex(task => payload.id === task.get('id'))
-            newCollection = state.get('collection').update(indexToUpdate, task => task.set('completed', payload.completed));
+            const indexToUpdate = state.get('collection').findIndex(task => payload.id === task.get('id'));
 
-            return state.set('collection', newCollection);
+            return state.update('collection', collection => {
+                return collection.update(indexToUpdate, task => task.set('completed', payload.completed));
+            });
 
 
         case TASK_FILTER_CHANGE:
