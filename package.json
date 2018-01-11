@@ -1,12 +1,12 @@
 {
-  "name": "phonegap",
+  "name": "todo-phonegap-application",
   "version": "1.0.0",
   "description": "A PhoneGap Hello World template",
   "main": "index.js",
   "scripts": {
     "watch": "webpack --display-error-details --watch",
     "build": "webpack --display-error-details -p",
-    "serve": "phonegap serve",
+    "serve": "npm run build && phonegap serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -20,6 +20,7 @@
     "country-data": "0.0.31",
     "css-loader": "^0.28.8",
     "immutable": "^3.8.1",
+    "phonegap": "^7.1.1",
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.10",
     "react": "^16.2.0",
