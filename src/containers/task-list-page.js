@@ -1,7 +1,7 @@
 import React from 'react';
 import NavBar from '../components/nav-bar/task-list-page';
 import {List} from '../components/list';
-import {Modal, WingBlank, Switch, WhiteSpace} from 'antd-mobile';
+import {Modal, Flex, WingBlank, Switch, WhiteSpace} from 'antd-mobile';
 import {Page, Header, Content} from '../components/layout';
 
 
@@ -51,11 +51,13 @@ export class TaskList extends React.Component {
                     />
                     <WingBlank>
                         <WhiteSpace/>
-                        <Switch
-                            checked={this.props.filterShowCompleted}
-                            onChange={this.props.onFilterChange}
-                        />
-                        Show completed tasks
+                        <Flex>
+                            <Switch
+                                checked={this.props.filterShowCompleted}
+                                onChange={this.props.onFilterChange}
+                            />
+                            <Flex.Item>Show completed tasks </Flex.Item>
+                        </Flex>
                         <WhiteSpace/>
                     </WingBlank>
                 </Header>

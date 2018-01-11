@@ -63708,11 +63708,19 @@ var TaskList = exports.TaskList = function (_React$Component) {
                         _antdMobile.WingBlank,
                         null,
                         _react2.default.createElement(_antdMobile.WhiteSpace, null),
-                        _react2.default.createElement(_antdMobile.Switch, {
-                            checked: this.props.filterShowCompleted,
-                            onChange: this.props.onFilterChange
-                        }),
-                        'Show completed tasks',
+                        _react2.default.createElement(
+                            _antdMobile.Flex,
+                            null,
+                            _react2.default.createElement(_antdMobile.Switch, {
+                                checked: this.props.filterShowCompleted,
+                                onChange: this.props.onFilterChange
+                            }),
+                            _react2.default.createElement(
+                                _antdMobile.Flex.Item,
+                                null,
+                                'Show completed tasks '
+                            )
+                        ),
                         _react2.default.createElement(_antdMobile.WhiteSpace, null)
                     )
                 ),
