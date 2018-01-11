@@ -11848,14 +11848,11 @@ var List = exports.List = function List(_ref) {
     return _react2.default.createElement(
         _antdMobile.List,
         null,
-        collection.map(function (category) {
+        collection.map(function (model) {
             return _react2.default.createElement(_item.ListItem, {
-                key: category.id,
-                id: category.id,
-                title: category.title,
-                badge: category.badge,
+                key: model.get('id'),
+                model: model,
                 checkable: checkable,
-                checked: category.checked,
                 onEdit: onEdit,
                 onDelete: onDelete,
                 onClick: onClick,
@@ -41104,38 +41101,33 @@ exports.default = function () {
     var type = action.type,
         payload = action.payload;
 
-    var collection;
 
     switch (type) {
         case _constants.CATEGORY_ADD:
             if (payload.title) {
-                collection = state.get('collection');
-
-                collection = collection.concat((0, _immutable.fromJS)([payload]));
-
-                return state.set('collection', collection);
+                return state.update('collection', function (collection) {
+                    return collection.concat((0, _immutable.fromJS)([payload]));
+                });
             } else {
                 return state;
             }
 
         case _constants.CATEGORY_EDIT:
-            collection = state.get('collection');
-
-            collection = collection.map(function (item) {
-                if (item.get('id') === payload.id) {
-                    return item.set('title', payload.title);
-                }
-                return item;
+            return state.update('collection', function (collection) {
+                return collection.map(function (item) {
+                    if (item.get('id') === payload.id) {
+                        return item.set('title', payload.title);
+                    }
+                    return item;
+                });
             });
-
-            return state.set('collection', collection);
 
         case _constants.CATEGORY_DELETE:
-            var newCollection = state.get('collection').filterNot(function (value) {
-                return payload === value.get('id');
+            return state.update('collection', function (collection) {
+                return collection.filterNot(function (value) {
+                    return payload === value.get('id');
+                });
             });
-
-            return state.set('collection', newCollection);
 
         case _constants.CATEGORY_SET_ACTIVE:
             return state.set('active', payload);
@@ -41175,38 +41167,40 @@ exports.default = function () {
     var type = action.type,
         payload = action.payload;
 
-    var newCollection = void 0;
 
     switch (type) {
         case _constants.TASK_DELETE_WITH_CATEGORY:
-            newCollection = state.get('collection').filterNot(function (value) {
-                return payload === value.get('category');
+            return state.update('collection', function (collection) {
+                return collection.filterNot(function (task) {
+                    return payload === task.get('category');
+                });
             });
-
-            return state.set('collection', newCollection);
 
         case _constants.TASK_DELETE:
-            newCollection = state.get('collection').filterNot(function (value) {
-                return payload === value.get('id');
+            return state.update('collection', function (collection) {
+                return collection.filterNot(function (task) {
+                    return payload === task.get('id');
+                });
             });
-
-            return state.set('collection', newCollection);
 
         case _constants.TASK_EDIT:
             return state.set('active', payload);
 
         case _constants.TASK_CREATE:
-            return state.set('collection', state.get('collection').push((0, _immutable.fromJS)(payload)));
+            return state.update('collection', function (collection) {
+                return collection.push((0, _immutable.fromJS)(payload));
+            });
 
         case _constants.TASK_STATUS_CHANGE:
             var indexToUpdate = state.get('collection').findIndex(function (task) {
                 return payload.id === task.get('id');
             });
-            newCollection = state.get('collection').update(indexToUpdate, function (task) {
-                return task.set('completed', payload.completed);
-            });
 
-            return state.set('collection', newCollection);
+            return state.update('collection', function (collection) {
+                return collection.update(indexToUpdate, function (task) {
+                    return task.set('completed', payload.completed);
+                });
+            });
 
         case _constants.TASK_FILTER_CHANGE:
             return state.set('filterShowCompleted', payload);
@@ -63277,8 +63271,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var ListItem = exports.ListItem = function (_React$Component) {
-    _inherits(ListItem, _React$Component);
+var ListItem = exports.ListItem = function (_React$PureComponent) {
+    _inherits(ListItem, _React$PureComponent);
 
     function ListItem(props) {
         _classCallCheck(this, ListItem);
@@ -63295,25 +63289,24 @@ var ListItem = exports.ListItem = function (_React$Component) {
     _createClass(ListItem, [{
         key: 'onDelete',
         value: function onDelete() {
-            this.props.onDelete(this.props);
+            this.props.onDelete(this.props.model.toJS());
         }
     }, {
         key: 'onClick',
         value: function onClick() {
-            this.props.onClick && this.props.onClick(this.props);
+            this.props.onClick && this.props.onClick(this.props.model.toJS());
         }
     }, {
         key: 'onEdit',
         value: function onEdit() {
-            this.props.onEdit(this.props);
+            this.props.onEdit(this.props.model.toJS());
         }
     }, {
         key: 'onStatusChange',
-        value: function onStatusChange(e) {
-            e.preventDefault();
+        value: function onStatusChange() {
             this.props.onStatusChange({
-                id: this.props.id,
-                checked: !this.props.checked
+                id: this.props.model.get('id'),
+                completed: !this.props.model.get('completed')
             });
         }
     }, {
@@ -63338,17 +63331,17 @@ var ListItem = exports.ListItem = function (_React$Component) {
                 _react2.default.createElement(
                     _antdMobile.List.Item,
                     {
-                        extra: _react2.default.createElement(_antdMobile.Badge, { text: this.props.badge, overflowCount: 10 }),
+                        extra: _react2.default.createElement(_antdMobile.Badge, { text: this.props.model.get('badge'), overflowCount: 10 }),
                         onClick: this.onClick
                     },
                     _react2.default.createElement(
                         _antdMobile.Flex,
                         null,
-                        this.props.checkable && _react2.default.createElement(_antdMobile.Checkbox, { checked: this.props.checked, onClick: this.onStatusChange }),
+                        this.props.checkable && _react2.default.createElement(_antdMobile.Checkbox, { checked: this.props.model.get('completed'), onClick: this.onStatusChange }),
                         _react2.default.createElement(
                             _antdMobile.Flex.Item,
                             null,
-                            this.props.title
+                            this.props.model.get('title')
                         )
                     )
                 )
@@ -63357,7 +63350,7 @@ var ListItem = exports.ListItem = function (_React$Component) {
     }]);
 
     return ListItem;
-}(_react2.default.Component);
+}(_react2.default.PureComponent);
 
 /***/ }),
 /* 456 */
@@ -63522,20 +63515,21 @@ var taskStoreSlice = function taskStoreSlice() {
 var taskCollection = (0, _selector.createSimpleSelector)(taskStoreSlice, 'collection');
 
 var categoryList = exports.categoryList = (0, _selector.createSelector)([categoryCollection, taskCollection], function (categoryCollection, taskCollection) {
-    taskCollection = taskCollection.toJS();
-    categoryCollection = categoryCollection.toJS().map(function (category) {
+    var collection = categoryCollection.map(function (category) {
         var tasks = taskCollection.filter(function (task) {
-            return task.category === category.id;
+            return task.get('category') === category.get('id');
         });
-        var uncompletedTasks = tasks.filter(function (task) {
-            return !task.completed;
-        });
+        var badge = tasks.filter(function (task) {
+            return !task.get('completed');
+        }).size;
 
-        category.badge = uncompletedTasks.length;
-        return category;
+        return category.merge({
+            badge: badge,
+            tasks: tasks
+        });
     });
 
-    return { collection: categoryCollection };
+    return { collection: collection };
 });
 
 /***/ }),
@@ -63797,7 +63791,7 @@ var _task = __webpack_require__(469);
 
 var _category = __webpack_require__(153);
 
-var taskListPageConnector = exports.taskListPageConnector = (0, _reactRedux.connect)(_taskListPage.taskList, {
+var taskListPageConnector = exports.taskListPageConnector = (0, _reactRedux.connect)(_taskListPage.taskList2, {
     goBack: _category.goBack,
     deleteTask: _task.deleteTask,
     editTask: _task.editTask,
@@ -63816,7 +63810,7 @@ var taskListPageConnector = exports.taskListPageConnector = (0, _reactRedux.conn
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.taskList = undefined;
+exports.taskList2 = undefined;
 
 var _selector = __webpack_require__(64);
 
@@ -63833,25 +63827,27 @@ var taskStoreSlice = function taskStoreSlice() {
 var taskCollection = (0, _selector.createSimpleSelector)(taskStoreSlice, 'collection');
 var filterShowCompleted = (0, _selector.createSimpleSelector)(taskStoreSlice, 'filterShowCompleted');
 
-var taskList = exports.taskList = (0, _selector.createSelector)([categoryCollection, taskCollection, activeCategoryId, filterShowCompleted], function (categoryCollection, taskCollection, activeCategoryId, filterShowCompleted) {
-    var categoryTitle = categoryCollection.find(function (v) {
+var categoryTitle = (0, _selector.createSelector)([categoryCollection, activeCategoryId], function (categoryCollection, activeCategoryId) {
+    return categoryCollection.find(function (v) {
         return v.get('id') === activeCategoryId;
     }).get('title');
-    var collection = taskCollection.filter(function (v) {
-        return v.get('category') === activeCategoryId;
-    }).toJS();
+});
 
-    collection = collection.map(function (task) {
-        task.checked = task.completed;
-        return task;
+var collection = (0, _selector.createSelector)([taskCollection, activeCategoryId, filterShowCompleted], function (taskCollection, activeCategoryId, filterShowCompleted) {
+    var collection = taskCollection.filter(function (task) {
+        return task.get('category') === activeCategoryId;
     });
 
     if (!filterShowCompleted) {
         collection = collection.filter(function (task) {
-            return !task.completed;
+            return !task.get('completed');
         });
     }
 
+    return collection;
+});
+
+var taskList2 = exports.taskList2 = (0, _selector.createSelector)([categoryTitle, activeCategoryId, collection, filterShowCompleted], function (categoryTitle, activeCategoryId, collection, filterShowCompleted) {
     return {
         categoryTitle: categoryTitle,
         activeCategoryId: activeCategoryId,
@@ -63902,18 +63898,16 @@ var createTask = exports.createTask = function createTask(_ref) {
     };
 };
 
-var onStatusChange = exports.onStatusChange = function onStatusChange(_ref2) {
-    var id = _ref2.id,
-        checked = _ref2.checked;
-
-    return {
-        type: _constants.TASK_STATUS_CHANGE,
-        payload: {
-            id: id,
-            completed: checked
-        }
-    };
-};
+var onStatusChange = exports.onStatusChange = (0, _action.createAction)(_constants.TASK_STATUS_CHANGE);
+// export const onStatusChange = ({id, completed}) => {
+//     return {
+//         type: TASK_STATUS_CHANGE,
+//         payload: {
+//             id,
+//             completed
+//         }
+//     };
+// };
 
 /***/ })
 /******/ ]);
