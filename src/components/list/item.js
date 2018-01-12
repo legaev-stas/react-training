@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {SwipeAction, List, Badge, Checkbox, Flex} from 'antd-mobile';
 import './styles.css';
 
@@ -11,6 +12,7 @@ export class ListItem extends React.PureComponent {
         this.onDelete = this.onDelete.bind(this);
         this.onClick = this.onClick.bind(this);
         this.onStatusChange = this.onStatusChange.bind(this);
+        this.preventScrollWhenSwipe = this.preventScrollWhenSwipe.bind(this);
     }
 
     onDelete() {
@@ -32,9 +34,23 @@ export class ListItem extends React.PureComponent {
         });
     }
 
+    componentDidMount(){
+        ReactDOM.findDOMNode(this).addEventListener('touchmove', this.preventScrollWhenSwipe, false);
+    }
+    componentWillUnmount(){
+        ReactDOM.findDOMNode(this).removeEventListener('touchmove', this.preventScrollWhenSwipe, false);
+    }
+
+    preventScrollWhenSwipe(e){
+        if(ReactDOM.findDOMNode(this).querySelector('.am-swipe-swiping')){
+            e.preventDefault();
+        }
+    }
+
     render() {
         return (
             <SwipeAction
+                onOpen={(e) => {console.log(e)}}
                 style={{backgroundColor: 'gray'}}
                 autoClose
                 right={[
