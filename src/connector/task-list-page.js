@@ -4,8 +4,7 @@ import {
     deleteTask,
     editTask,
     createTask,
-    onStatusChange,
-    onFilterChange
+    onStatusChange
 } from '../actions/task';
 import {goBack} from '../actions/category';
 
@@ -15,6 +14,5 @@ export const taskListPageConnector = connect(taskListPageSelector, {
     deleteTask,
     editTask,
     createTask,
-    onStatusChange,
-    onFilterChange
+    onStatusChange
 });

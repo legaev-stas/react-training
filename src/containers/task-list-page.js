@@ -1,8 +1,9 @@
 import React from 'react';
 import NavBar from '../components/nav-bar/task-list-page';
 import {List} from '../components/list';
-import {Modal, Flex, WingBlank, Switch, WhiteSpace} from 'antd-mobile';
+import {Modal} from 'antd-mobile';
 import {Page, Header, Content} from '../components/layout';
+import {StatusFilterContainer} from './nav-bar/status-filter';
 
 
 export class TaskListPage extends React.Component {
@@ -49,17 +50,7 @@ export class TaskListPage extends React.Component {
                         goBack={this.props.goBack}
                         addItem={this.createTask}
                     />
-                    <WingBlank>
-                        <WhiteSpace/>
-                        <Flex>
-                            <Switch
-                                checked={this.props.filterShowCompleted}
-                                onChange={this.props.onFilterChange}
-                            />
-                            <Flex.Item>Show completed tasks </Flex.Item>
-                        </Flex>
-                        <WhiteSpace/>
-                    </WingBlank>
+                    <StatusFilterContainer/>
                 </Header>
                 <Content>
                     <List

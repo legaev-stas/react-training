@@ -27,11 +27,10 @@ const collection = createSelector([taskCollection, activeCategoryId, filterShowC
     });
 
 export const taskListPageSelector = createSelector(
-    [categoryTitle, activeCategoryId, collection, filterShowCompleted],
-    (categoryTitle, activeCategoryId, collection, filterShowCompleted) => ({
+    [categoryTitle, activeCategoryId, collection],
+    (categoryTitle, activeCategoryId, collection) => ({
             categoryTitle,
             activeCategoryId,
-            collection,
-            filterShowCompleted
+            collection
         })
     );
