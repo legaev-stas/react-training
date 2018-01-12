@@ -6,7 +6,6 @@ const categoryStoreSlice = () => getState().category;
 const categoryCollection = createSimpleSelector(categoryStoreSlice, 'collection');
 const activeCategoryId = createSimpleSelector(categoryStoreSlice, 'active');
 const taskStoreSlice = () => getState().task;
-const taskCollection = createSimpleSelector(taskStoreSlice, 'collection');
 const filterShowCompleted = createSimpleSelector(taskStoreSlice, 'filterShowCompleted');
 
 
@@ -15,22 +14,11 @@ const categoryTitle = createSelector([categoryCollection, activeCategoryId],
         return categoryCollection.find(v => v.get('id') === activeCategoryId).get('title');
     });
 
-const collection = createSelector([taskCollection, activeCategoryId, filterShowCompleted],
-    (taskCollection, activeCategoryId, filterShowCompleted) => {
-        let collection = taskCollection.filter(task => task.get('category') === activeCategoryId);
-
-        if(!filterShowCompleted){
-            collection = collection.filter(task => !task.get('completed'));
-        }
-
-        return collection;
-    });
 
 export const taskListPageSelector = createSelector(
-    [categoryTitle, activeCategoryId, collection],
-    (categoryTitle, activeCategoryId, collection) => ({
-            categoryTitle,
-            activeCategoryId,
-            collection
-        })
-    );
+    [categoryTitle, activeCategoryId],
+    (categoryTitle, activeCategoryId) => ({
+        categoryTitle,
+        activeCategoryId
+    })
+);
