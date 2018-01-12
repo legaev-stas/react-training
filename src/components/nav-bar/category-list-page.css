@@ -1,0 +1,8 @@
+.search-bar .icon-holder{
+    transition: max-width 1.2s;
+    max-width: 100px;
+}
+.search-bar .icon-holder.hidden{
+    max-width: 0;
+    transition: max-width .3s;
+}

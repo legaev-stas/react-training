@@ -3,6 +3,8 @@ import {List} from '../components/list';
 import {AppNavBar} from '../components/nav-bar/category-list-page';
 import {Modal} from 'antd-mobile';
 import {Page, Header, Content} from '../components/layout';
+import {TaskListContainer} from './list/task-list';
+import {StatusFilterContainer} from './nav-bar/status-filter';
 
 
 export class CategoryListPage extends React.Component {
@@ -68,16 +70,28 @@ export class CategoryListPage extends React.Component {
         return (
             <Page>
                 <Header>
-                    <AppNavBar addItem={this.createCategory}/>
+                    <AppNavBar
+                        addItem={this.createCategory}
+                        search={this.props.search}
+                        searchMode={this.props.searchMode}
+                        onSetSearchModeOn={this.props.onSetSearchModeOn}
+                        onSetSearchModeOff={this.props.onSetSearchModeOff}
+                        onSearchChange={this.props.onSearchChange}
+                    />
+                    {this.props.searchMode && this.props.search && <StatusFilterContainer/>}
                 </Header>
                 <Content>
-                    <List
-                        collection={this.props.collection}
-                        arrow
-                        onEdit={this.editCategory}
-                        onDelete={this.deleteCategory}
-                        onClick={this.openCategory}
-                    />
+                    {this.props.searchMode ?
+                        <TaskListContainer/>
+                        :
+                        <List
+                            collection={this.props.collection}
+                            arrow
+                            onEdit={this.editCategory}
+                            onDelete={this.deleteCategory}
+                            onClick={this.openCategory}
+                        />
+                    }
                 </Content>
             </Page>
         );

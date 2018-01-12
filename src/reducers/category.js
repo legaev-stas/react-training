@@ -5,12 +5,17 @@ import {
     CATEGORY_EDIT,
     CATEGORY_DELETE,
     CATEGORY_SET_ACTIVE,
-    CATEGORY_RESET_ACTIVE
+    CATEGORY_RESET_ACTIVE,
+    CATEGORY_SET_SEARCH_MODE_ON,
+    CATEGORY_SET_SEARCH_MODE_OFF,
+    CATEGORY_SEARCH_STRING_UPDATE
 } from '../actions/category/constants';
 
 const initialState = fromJS({
     active: null,
-    collection: []
+    collection: [],
+    searchMode: false,
+    search: ''
 });
 
 export default (state = initialState, action) => {
@@ -48,6 +53,18 @@ export default (state = initialState, action) => {
 
         case CATEGORY_RESET_ACTIVE:
             return state.set('active', null);
+
+
+        case CATEGORY_SET_SEARCH_MODE_ON:
+            return state.set('searchMode', true);
+
+
+        case CATEGORY_SET_SEARCH_MODE_OFF:
+            return state.set('searchMode', false).set('search', '');
+
+
+        case CATEGORY_SEARCH_STRING_UPDATE:
+            return state.set('search', payload);
 
 
         default:

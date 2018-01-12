@@ -4,7 +4,10 @@ import {
     createCategory,
     editCategory,
     deleteCategory,
-    openCategory
+    openCategory,
+    onSetSearchModeOn,
+    onSetSearchModeOff,
+    onSearchChange
 } from '../actions/category/index';
 
 
@@ -12,5 +15,8 @@ export const categoryListPageConnector = connect(categoryListPageSelector, {
     editCategory,
     deleteCategory,
     openCategory,
-    createCategory
+    createCategory,
+    onSetSearchModeOn,
+    onSetSearchModeOff,
+    onSearchChange
 });
