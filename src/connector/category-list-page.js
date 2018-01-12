@@ -1,9 +1,9 @@
 import {connect} from 'react-redux';
 import {categoryListPageSelector} from '../selectors/category-list-page';
 import {
-    createCategory,
-    editCategory,
-    deleteCategory,
+    createCategoryPrompt,
+    editCategoryPrompt,
+    deleteCategoryConfirmation,
     openCategory,
     onSetSearchModeOn,
     onSetSearchModeOff,
@@ -12,10 +12,10 @@ import {
 
 
 export const categoryListPageConnector = connect(categoryListPageSelector, {
-    editCategory,
-    deleteCategory,
+    editCategoryPrompt,
+    deleteCategoryConfirmation,
     openCategory,
-    createCategory,
+    createCategoryPrompt,
     onSetSearchModeOn,
     onSetSearchModeOff,
     onSearchChange
