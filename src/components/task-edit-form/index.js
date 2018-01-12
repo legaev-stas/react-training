@@ -1,5 +1,5 @@
 import React from 'react';
-import {List, InputItem, TextareaItem, Picker} from 'antd-mobile';
+import {List, InputItem, TextareaItem, Picker, Switch} from 'antd-mobile';
 
 
 export class Form extends React.Component {
@@ -9,6 +9,7 @@ export class Form extends React.Component {
         this.onTitleChange = this.onTitleChange.bind(this);
         this.onDescriptionChange = this.onDescriptionChange.bind(this);
         this.onCategoryChange = this.onCategoryChange.bind(this);
+        this.onStatusChange = this.onStatusChange.bind(this);
     }
 
     onTitleChange(title) {
@@ -32,6 +33,13 @@ export class Form extends React.Component {
         });
     }
 
+    onStatusChange(){
+        this.props.onStatusChange({
+            id: this.props.model.get('id'),
+            completed: !this.props.model.get('completed')
+        });
+    }
+
     render() {
         return (
             <div>
@@ -48,6 +56,15 @@ export class Form extends React.Component {
                         value={this.props.model.get('description')}
                         onChange={this.onDescriptionChange}
                     />
+                </List>
+
+                <List renderHeader=" ">
+                    <List.Item
+                        extra={<Switch
+                            checked={this.props.model.get('completed')}
+                            onChange={this.onStatusChange}
+                        />}
+                    >Task is completed</List.Item>
 
                     <Picker
                         cols={1}

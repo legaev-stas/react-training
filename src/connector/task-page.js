@@ -4,7 +4,8 @@ import {
     goBack,
     onTitleChange,
     onDescriptionChange,
-    onCategoryChange
+    onCategoryChange,
+    onStatusChange
 } from '../actions/task';
 
 
@@ -12,5 +13,6 @@ export const taskPageConnector = connect(taskPageSelector, {
     goBack,
     onTitleChange,
     onDescriptionChange,
-    onCategoryChange
+    onCategoryChange,
+    onStatusChange
 });

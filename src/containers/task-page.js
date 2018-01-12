@@ -19,6 +19,7 @@ export class TaskPage extends React.Component {
                         onTitleChange={this.props.onTitleChange}
                         onDescriptionChange={this.props.onDescriptionChange}
                         onCategoryChange={this.props.onCategoryChange}
+                        onStatusChange={this.props.onStatusChange}
                     />
                 </Content>
             </Page>
