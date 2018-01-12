@@ -1,6 +1,5 @@
 import React from 'react';
 import {List, InputItem, TextareaItem, Picker, Switch} from 'antd-mobile';
-import './styles.css';
 
 
 export class Form extends React.Component {
@@ -44,7 +43,7 @@ export class Form extends React.Component {
     render() {
         return (
             <div className="task-page">
-                <List>
+                <List renderHeader=" ">
                     <InputItem
                         type="text"
                         placeholder="Title"

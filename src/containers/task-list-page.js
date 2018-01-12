@@ -64,8 +64,9 @@ export class TaskListPage extends React.Component {
                 <Content>
                     <List
                         checkable
+                        arrow
                         collection={this.props.collection}
-                        onEdit={this.editTask}
+                        onClick={this.editTask}
                         onDelete={this.deleteTask}
                         onStatusChange={this.props.onStatusChange}
                     />

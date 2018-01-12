@@ -16,7 +16,7 @@ export class ListItem extends React.PureComponent {
     }
 
     onDelete() {
-        this.props.onDelete(this.props.model.toJS());
+        this.props.onDelete && this.props.onDelete(this.props.model.toJS());
     }
 
     onClick() {
@@ -24,10 +24,11 @@ export class ListItem extends React.PureComponent {
     }
 
     onEdit() {
-        this.props.onEdit(this.props.model.toJS());
+        this.props.onEdit && this.props.onEdit(this.props.model.toJS());
     }
 
-    onStatusChange(){
+    onStatusChange(e){
+        e.stopPropagation();
         this.props.onStatusChange({
             id: this.props.model.get('id'),
             completed: !this.props.model.get('completed')
@@ -53,14 +54,14 @@ export class ListItem extends React.PureComponent {
                 onOpen={(e) => {console.log(e)}}
                 style={{backgroundColor: 'gray'}}
                 autoClose
-                right={[
+                right={this.props.onDelete && [
                     {
                         text: 'Delete',
                         onPress: this.onDelete,
                         style: {backgroundColor: 'red', color: 'white'},
                     }
                 ]}
-                left={[
+                left={this.props.onEdit && [
                     {
                         text: 'Edit',
                         onPress: this.onEdit,

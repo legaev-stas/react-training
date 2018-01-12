@@ -1,9 +1,13 @@
-.am-list-item .am-list-line .am-list-content,
-.am-swipe-btn{
+.list-component .am-list-item .am-list-line .am-list-content,
+.list-component .am-swipe-btn{
     font-size: 20px;
     line-height: 1.75;
 }
 
-.am-swipe-btn-text {
+.list-component .am-swipe-btn-text {
     padding: 0 15px;
+}
+
+.list-component .am-checkbox-wrapper{
+    padding-right:  7px;
 }
