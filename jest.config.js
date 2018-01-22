@@ -1,4 +1,3 @@
-// jest.config.js
 module.exports = {
     verbose: true,
     moduleFileExtensions: [
@@ -8,8 +7,5 @@ module.exports = {
     roots: ['src'],
     moduleNameMapper: {
         '\\.(css|less)$': '<rootDir>/__mocks__/styleMock.js'
-    },
-    // transform: {
-    //     '^.+\\.js$': 'babel-jest'
-    // }
+    }
 };
