@@ -23,27 +23,34 @@ export default (state = initialState, action) => {
 
     switch (type) {
         case CATEGORY_ADD:
-            if (payload.title) {
-                return state.update('collection', collection => collection.concat(fromJS([payload])));
+            if (payload.title.trim()) {
+                return state.update('collection', collection => collection.set(collection.size, fromJS(payload)));
             } else {
                 return state;
             }
 
 
         case CATEGORY_EDIT:
-            return state.update('collection', collection => {
-                return collection.map(item => {
-                    if (item.get('id') === payload.id) {
-                        return item.set('title', payload.title);
-                    }
-                    return item;
+            const updateAtIndex = state.get('collection').findIndex(category => category.get('id') === payload.id);
+
+            if (payload.title.trim() && updateAtIndex !== -1) {
+                return state.update('collection', collection => {
+                    return collection.update(updateAtIndex, category => {
+                        return category.set('title', payload.title);
+                    });
                 });
-            });
+            } else {
+                return state;
+            }
 
 
         case CATEGORY_DELETE:
-            return state.update('collection', collection =>{
-                return collection.filterNot(value => payload === value.get('id'));
+            const deleteAtIndex = state.get('collection').findIndex(category => category.get('id') === payload);
+
+            if (deleteAtIndex === -1) return state;
+
+            return state.update('collection', collection => {
+                return collection.delete(deleteAtIndex);
             });
 
 

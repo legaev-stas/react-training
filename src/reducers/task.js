@@ -22,7 +22,7 @@ const initialState = fromJS({
 const findModelAndUpdateValue = (collection, id, key, value) => {
     let index = collection.findIndex(model => id === model.get('id'));
     return collection.update(index, model => model.set(key, value));
-}
+};
 
 
 export default (state = initialState, action) => {
