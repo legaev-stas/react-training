@@ -31,18 +31,18 @@ export default (state = initialState, action) => {
     switch (type) {
         case TASK_DELETE_WITH_CATEGORY:
             return state.update('collection', collection => {
-                return collection.filterNot(task => payload === task.get('category'));
+                return collection.filterNot(task => payload.category === task.get('category'));
             });
 
 
         case TASK_DELETE:
             return state.update('collection', collection => {
-                return collection.filterNot(task => payload === task.get('id'));
+                return collection.filterNot(task => payload.id === task.get('id'));
             });
 
 
         case TASK_EDIT:
-            return state.set('active', payload);
+            return state.set('active', payload.id);
 
 
         case TASK_CREATE:

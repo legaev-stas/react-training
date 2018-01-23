@@ -45,7 +45,7 @@ export default (state = initialState, action) => {
 
 
         case CATEGORY_DELETE:
-            const deleteAtIndex = state.get('collection').findIndex(category => category.get('id') === payload);
+            const deleteAtIndex = state.get('collection').findIndex(category => category.get('id') === payload.id);
 
             if (deleteAtIndex === -1) return state;
 
@@ -55,7 +55,7 @@ export default (state = initialState, action) => {
 
 
         case CATEGORY_SET_ACTIVE:
-            return state.set('active', payload);
+            return state.set('active', payload.id);
 
 
         case CATEGORY_RESET_ACTIVE:

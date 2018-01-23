@@ -38,21 +38,21 @@ export const onSetSearchModeOff = createAction(CATEGORY_SET_SEARCH_MODE_OFF);
 export const onSearchChange = createAction(CATEGORY_SEARCH_STRING_UPDATE);
 
 
-export const deleteCategoryConfirmation = ({id, badge}) => (dispatch) => {
+export const deleteCategoryConfirmation = (category) => (dispatch) => {
     const heading = 'Delete Category';
-    const message = `Are you sure? The category contains ${badge} uncompleted tasks`;
+    const message = `Are you sure? The category contains ${category.badge} uncompleted tasks`;
 
-    if (badge) {
+    if (category.badge) {
         Modal.alert(heading, message, [
             {text: 'Cancel', style: 'default'},
-            {text: 'OK', onPress: () => dispatch(deleteCategory(id))},
+            {text: 'OK', onPress: () => dispatch(deleteCategory(category))},
         ]);
     } else {
-        dispatch(deleteCategory(id));
+        dispatch(deleteCategory(category));
     }
 };
 
-export const editCategoryPrompt = ({id, title: originalTitle}) => (dispatch) => {
+export const editCategoryPrompt = (category) => (dispatch) => {
     Modal.prompt('Update category name', '',
         [
             {text: 'Cancel'},
@@ -60,13 +60,13 @@ export const editCategoryPrompt = ({id, title: originalTitle}) => (dispatch) => 
                 text: 'Update',
                 onPress: title => new Promise((resolve) => {
                     dispatch(editCategory({
-                        id,
+                        id: category.id,
                         title
                     }));
                     resolve();
                 }),
             },
-        ], 'default', originalTitle);
+        ], 'default', category.originalTitle);
 };
 
 export const createCategoryPrompt = () => (dispatch) => {

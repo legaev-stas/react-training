@@ -132,7 +132,7 @@ describe('Category reducer should handle CATEGORY_DELETE action', () => {
     test('entity found by id should be dropped from the collection', () => {
         let action = {
             type: CATEGORY_DELETE,
-            payload: 'id1'
+            payload: {id:'id1'}
         };
         initialState = initialState.update('collection', () => {
             return fromJS([{
@@ -157,7 +157,7 @@ describe('Category reducer should handle CATEGORY_DELETE action', () => {
     test('state is not updated in case entity is not found', () => {
         let action = {
             type: CATEGORY_DELETE,
-            payload: 'id3'
+            payload: {id:'id3'}
         };
         initialState = initialState.update('collection', () => {
             return fromJS([{
@@ -178,15 +178,15 @@ describe('Category reducer should handle CATEGORY_DELETE action', () => {
 
 describe('Category reducer should handle CATEGORY_SET_ACTIVE action', () => {
     test('category id (payload value) should be set to state.active', () => {
-        const payload = 'id1';
+        const id = 'id1';
         let action = {
             type: CATEGORY_SET_ACTIVE,
-            payload
+            payload: {id}
         };
 
         let modifiedState = reducer(initialState, action);
 
-        expect(modifiedState.get('active')).toBe(payload);
+        expect(modifiedState.get('active')).toBe(id);
     });
 });
 
