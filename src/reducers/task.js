@@ -30,14 +30,24 @@ export default (state = initialState, action) => {
 
     switch (type) {
         case TASK_DELETE_WITH_CATEGORY:
-            return state.update('collection', collection => {
-                return collection.filterNot(task => payload.category === task.get('category'));
-            });
+            const collectionOfAssociatedTasks = state.get('collection').filter(task => payload.category === task.get('category'));
+
+            if (collectionOfAssociatedTasks.size) {
+                return state.update('collection', collection => {
+                    return collection.filterNot(task => payload.category === task.get('category'));
+                });
+            }
+
+            return state;
 
 
         case TASK_DELETE:
+            const deleteAtIndex = state.get('collection').findIndex(task => task.get('id') === payload.id);
+
+            if (deleteAtIndex === -1) return state;
+
             return state.update('collection', collection => {
-                return collection.filterNot(task => payload.id === task.get('id'));
+                return collection.delete(deleteAtIndex);
             });
 
 
@@ -46,9 +56,11 @@ export default (state = initialState, action) => {
 
 
         case TASK_CREATE:
-            return state.update('collection', collection => {
-                return collection.push(fromJS(payload));
-            });
+            if (payload.title.trim()) {
+                return state.update('collection', collection => collection.push(fromJS(payload)));
+            } else {
+                return state;
+            }
 
 
         case TASK_STATUS_CHANGE:

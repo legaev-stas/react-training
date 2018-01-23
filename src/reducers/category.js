@@ -24,7 +24,7 @@ export default (state = initialState, action) => {
     switch (type) {
         case CATEGORY_ADD:
             if (payload.title.trim()) {
-                return state.update('collection', collection => collection.set(collection.size, fromJS(payload)));
+                return state.update('collection', collection => collection.push(fromJS(payload)));
             } else {
                 return state;
             }

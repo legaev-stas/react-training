@@ -12,6 +12,7 @@ import {
     CATEGORY_SEARCH_STRING_UPDATE
 } from '../actions/category/constants';
 
+
 let initialState;
 
 beforeEach(() => {
@@ -23,7 +24,7 @@ beforeEach(() => {
     });
 });
 
-describe('Category reducer should handle CATEGORY_ADD action', () => {
+describe(`Category reducer should handle ${CATEGORY_ADD} action`, () => {
     test('reducer should not modify the state if payload.title is empty', () => {
         let action = {
             type: CATEGORY_ADD,
@@ -54,7 +55,7 @@ describe('Category reducer should handle CATEGORY_ADD action', () => {
 });
 
 
-describe('Category reducer should handle CATEGORY_EDIT action', () => {
+describe(`Category reducer should handle ${CATEGORY_EDIT} action`, () => {
     test('reducer should update "title" of category that is found by payload.id in the collection', () => {
         let action = {
             type: CATEGORY_EDIT,
@@ -128,7 +129,7 @@ describe('Category reducer should handle CATEGORY_EDIT action', () => {
 });
 
 
-describe('Category reducer should handle CATEGORY_DELETE action', () => {
+describe(`Category reducer should handle ${CATEGORY_DELETE} action`, () => {
     test('entity found by id should be dropped from the collection', () => {
         let action = {
             type: CATEGORY_DELETE,
@@ -176,7 +177,7 @@ describe('Category reducer should handle CATEGORY_DELETE action', () => {
 });
 
 
-describe('Category reducer should handle CATEGORY_SET_ACTIVE action', () => {
+describe(`Category reducer should handle ${CATEGORY_SET_ACTIVE} action`, () => {
     test('category id (payload value) should be set to state.active', () => {
         const id = 'id1';
         let action = {
@@ -191,7 +192,7 @@ describe('Category reducer should handle CATEGORY_SET_ACTIVE action', () => {
 });
 
 
-describe('Category reducer should handle CATEGORY_RESET_ACTIVE action', () => {
+describe(`Category reducer should handle ${CATEGORY_RESET_ACTIVE} action`, () => {
     test('state.active should be set to null', () => {
         let action = {
             type: CATEGORY_RESET_ACTIVE
@@ -204,7 +205,7 @@ describe('Category reducer should handle CATEGORY_RESET_ACTIVE action', () => {
 });
 
 
-describe('Category reducer should handle CATEGORY_SET_SEARCH_MODE_ON action', () => {
+describe(`Category reducer should handle ${CATEGORY_SET_SEARCH_MODE_ON} action`, () => {
     test('state.searchMode should be set to true', () => {
         let action = {
             type: CATEGORY_SET_SEARCH_MODE_ON
@@ -217,7 +218,7 @@ describe('Category reducer should handle CATEGORY_SET_SEARCH_MODE_ON action', ()
 });
 
 
-describe('Category reducer should handle CATEGORY_SET_SEARCH_MODE_OFF action', () => {
+describe(`Category reducer should handle ${CATEGORY_SET_SEARCH_MODE_OFF} action`, () => {
     test('state.searchMode should be set to false and state.search should be set to empty string', () => {
         let action = {
             type: CATEGORY_SET_SEARCH_MODE_OFF
@@ -231,7 +232,7 @@ describe('Category reducer should handle CATEGORY_SET_SEARCH_MODE_OFF action', (
 });
 
 
-describe('Category reducer should handle CATEGORY_SEARCH_STRING_UPDATE action', () => {
+describe(`Category reducer should handle ${CATEGORY_SEARCH_STRING_UPDATE} action`, () => {
     test('state.search should be set to value from payload', () => {
         const payload = 'query';
         let action = {

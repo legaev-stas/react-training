@@ -18,18 +18,8 @@ import {
 } from '../task/constants';
 
 
-export const createCategory = (title) => {
-    return {
-        type: CATEGORY_ADD,
-        payload: {
-            id: uuid(),
-            title
-        }
-    };
-};
-
-
 export const deleteCategory = createParallelActions([TASK_DELETE_WITH_CATEGORY, CATEGORY_DELETE]);
+export const createCategory = createAction(CATEGORY_ADD);
 export const openCategory = createAction(CATEGORY_SET_ACTIVE);
 export const editCategory = createAction(CATEGORY_EDIT);
 export const goBack = createAction(CATEGORY_RESET_ACTIVE);
@@ -66,7 +56,7 @@ export const editCategoryPrompt = (category) => (dispatch) => {
                     resolve();
                 }),
             },
-        ], 'default', category.originalTitle);
+        ], 'default', category.title);
 };
 
 export const createCategoryPrompt = () => (dispatch) => {
@@ -76,7 +66,10 @@ export const createCategoryPrompt = () => (dispatch) => {
             {
                 text: 'Create',
                 onPress: title => new Promise((resolve) => {
-                    dispatch(createCategory(title));
+                    dispatch(createCategory({
+                        id: uuid(),
+                        title
+                    }));
                     resolve();
                 }),
             },
