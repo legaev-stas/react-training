@@ -17,12 +17,10 @@ export const taskListSelector = createSelector(
         let collection = new List;
 
         // search by title case
-        if(searchMode && search){
+        if (searchMode && search) {
             collection = taskCollection.filter(task => task.get('title').indexOf(search) !== -1);
-        }
-
-        // search by active category
-        if(activeCategoryId){
+        } else if (activeCategoryId) {
+            // search by active category
             collection = taskCollection.filter(task => task.get('category') === activeCategoryId);
         }
 

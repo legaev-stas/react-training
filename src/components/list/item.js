@@ -51,6 +51,7 @@ export class ListItem extends React.PureComponent {
     render() {
         return (
             <SwipeAction
+                // TODO: why console.log?
                 onOpen={(e) => {console.log(e)}}
                 style={{backgroundColor: 'gray'}}
                 autoClose
