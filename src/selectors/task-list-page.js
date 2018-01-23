@@ -9,14 +9,14 @@ const taskStoreSlice = () => getState().task;
 const filterShowCompleted = createSimpleSelector(taskStoreSlice, 'filterShowCompleted');
 
 
-const categoryTitle = createSelector([categoryCollection, activeCategoryId],
+export const categoryTitleSelector = createSelector([categoryCollection, activeCategoryId],
     (categoryCollection, activeCategoryId) => {
-        return categoryCollection.find(v => v.get('id') === activeCategoryId).get('title');
+        return categoryCollection.find(category => category.get('id') === activeCategoryId).get('title');
     });
 
 
 export const taskListPageSelector = createSelector(
-    [categoryTitle, activeCategoryId],
+    [categoryTitleSelector, activeCategoryId],
     (categoryTitle, activeCategoryId) => ({
         categoryTitle,
         activeCategoryId
