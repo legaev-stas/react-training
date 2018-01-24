@@ -2,10 +2,8 @@ import {createSimpleSelector, createSelector} from '../helpers/selector';
 import {getState} from '../helpers/store';
 
 
-const categoryStateSlice = () => getState().category;
-const categoryCollection = createSimpleSelector(categoryStateSlice, 'collection');
-const taskStateSlice = () => getState().task;
-const taskCollection = createSimpleSelector(taskStateSlice, 'collection');
+const categoryCollection = () => getState().category;
+const taskCollection = () => getState().task;
 const uiStateSlice = () => getState().ui;
 const searchMode = createSimpleSelector(uiStateSlice, 'searchMode');
 const searchQuery = createSimpleSelector(uiStateSlice, 'searchQuery');

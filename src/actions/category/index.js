@@ -1,4 +1,4 @@
-import {createAction, createParallelActions} from '../../helpers/action';
+import {createAction} from '../../helpers/action';
 import uuid from 'uuid/v4';
 import {Modal} from 'antd-mobile';
 
@@ -8,12 +8,8 @@ import {
     CATEGORY_DELETE
 } from './constants';
 
-import {
-    TASK_DELETE_WITH_CATEGORY
-} from '../task/constants';
 
-
-export const deleteCategory = createParallelActions([TASK_DELETE_WITH_CATEGORY, CATEGORY_DELETE]);
+export const deleteCategory = createAction(CATEGORY_DELETE);
 export const createCategory = createAction(CATEGORY_ADD);
 export const editCategory = createAction(CATEGORY_EDIT);
 

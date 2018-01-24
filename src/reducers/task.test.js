@@ -4,39 +4,36 @@ import {fromJS, is} from 'immutable';
 import {
     TASK_DELETE,
     TASK_CREATE,
-    TASK_DELETE_WITH_CATEGORY,
     TASK_DESCRIPTION_CHANGE,
     TASK_CATEGORY_CHANGE,
     TASK_STATUS_CHANGE,
     TASK_TITLE_CHANGE
 } from '../actions/task/constants';
+import {
+    CATEGORY_DELETE
+} from '../actions/category/constants';
 
 
 let initialState;
 
 beforeEach(() => {
-    initialState = fromJS({
-        active: null,
-        filterShowCompleted: true,
-        collection: []
-    });
+    initialState = fromJS([]);
 });
 
 describe(`Task reducer should handle ${TASK_DELETE} action`, () => {
-    test('entity found by id should be dropped from the collection', () => {
+    test('should find entity by id and dropped it from the collection', () => {
         let action = {
             type: TASK_DELETE,
             payload: {id: 'id1'}
         };
-        initialState = initialState.update('collection', () => {
-            return fromJS([{
+        initialState = fromJS([{
                 id: 'id1',
                 title: 'Title 1'
             }, {
                 id: 'id2',
                 title: 'Title 2'
-            }])
-        });
+            }]);
+
         let expectedCollection = fromJS([{
             id: 'id2',
             title: 'Title 2'
@@ -44,7 +41,7 @@ describe(`Task reducer should handle ${TASK_DELETE} action`, () => {
 
         let modifiedState = reducer(initialState, action);
 
-        expect(is(modifiedState.get('collection'), expectedCollection)).toBe(true);
+        expect(is(modifiedState, expectedCollection)).toBe(true);
     });
 
 
@@ -53,15 +50,13 @@ describe(`Task reducer should handle ${TASK_DELETE} action`, () => {
             type: TASK_DELETE,
             payload: {id: 'id3'}
         };
-        initialState = initialState.update('collection', () => {
-            return fromJS([{
+        initialState = fromJS([{
                 id: 'id1',
                 title: 'Title 1'
             }, {
                 id: 'id2',
                 title: 'Title 2'
-            }])
-        });
+            }]);
 
         let modifiedState = reducer(initialState, action);
 
@@ -69,14 +64,13 @@ describe(`Task reducer should handle ${TASK_DELETE} action`, () => {
     });
 });
 
-describe(`Task reducer should handle ${TASK_DELETE_WITH_CATEGORY} action`, () => {
+describe(`Task reducer should handle ${CATEGORY_DELETE} action`, () => {
     test('tasks found by category id should be dropped from the collection', () => {
         let action = {
-            type: TASK_DELETE_WITH_CATEGORY,
-            payload: {category: 'c1'}
+            type: CATEGORY_DELETE,
+            payload: {id: 'c1'}
         };
-        initialState = initialState.update('collection', () => {
-            return fromJS([{
+        initialState = fromJS([{
                 id: 'id1',
                 title: 'Title 1',
                 category: 'c1'
@@ -88,8 +82,7 @@ describe(`Task reducer should handle ${TASK_DELETE_WITH_CATEGORY} action`, () =>
                 id: 'id3',
                 title: 'Title 3',
                 category: 'c2'
-            }])
-        });
+            }]);
         let expectedCollection = fromJS([{
             id: 'id3',
             title: 'Title 3',
@@ -98,24 +91,22 @@ describe(`Task reducer should handle ${TASK_DELETE_WITH_CATEGORY} action`, () =>
 
         let modifiedState = reducer(initialState, action);
 
-        expect(is(modifiedState.get('collection'), expectedCollection)).toBe(true);
+        expect(is(modifiedState, expectedCollection)).toBe(true);
     });
 
 
     test('state is not updated in case category does not have any associated task', () => {
         let action = {
-            type: TASK_DELETE_WITH_CATEGORY,
-            payload: {category: 'id3'}
+            type: CATEGORY_DELETE,
+            payload: {id: 'id3'}
         };
-        initialState = initialState.update('collection', () => {
-            return fromJS([{
+        initialState = fromJS([{
                 id: 'id1',
                 title: 'Title 1'
             }, {
                 id: 'id2',
                 title: 'Title 2'
-            }])
-        });
+            }]);
 
         let modifiedState = reducer(initialState, action);
 
@@ -132,13 +123,11 @@ describe(`Task reducer should handle ${TASK_CATEGORY_CHANGE} action`, () => {
                 id: 'id1'
             }
         };
-        initialState = initialState.update('collection', () => {
-            return fromJS([{
+        initialState = fromJS([{
                 id: 'id1',
                 title: 'Title 1',
                 category: 'c1'
-            }])
-        });
+            }]);
         let expectedTask = fromJS({
             id: 'id1',
             title: 'Title 1',
@@ -147,7 +136,7 @@ describe(`Task reducer should handle ${TASK_CATEGORY_CHANGE} action`, () => {
 
         let modifiedState = reducer(initialState, action);
 
-        expect(is(modifiedState.get('collection').get(0), expectedTask)).toBe(true);
+        expect(is(modifiedState.get(0), expectedTask)).toBe(true);
     });
 });
 
@@ -176,8 +165,8 @@ describe(`Category reducer should handle ${TASK_CREATE} action`, () => {
         };
         let modifiedState = reducer(initialState, action);
 
-        expect(modifiedState.get('collection').size).toBe(1);
-        expect(modifiedState.get('collection').includes(fromJS(payload))).toBe(true);
+        expect(modifiedState.size).toBe(1);
+        expect(modifiedState.includes(fromJS(payload))).toBe(true);
     });
 });
 
@@ -192,8 +181,7 @@ describe(`Category reducer should handle ${TASK_DESCRIPTION_CHANGE} action`, () 
                 description
             }
         };
-        initialState = initialState.update('collection', () => {
-            return fromJS([{
+        initialState = fromJS([{
                 id: 'id1',
                 title: 'Title 1',
                 description: 'old description'
@@ -201,11 +189,10 @@ describe(`Category reducer should handle ${TASK_DESCRIPTION_CHANGE} action`, () 
                 id: 'id2',
                 title: 'Title 2',
                 description: 'old description'
-            }])
-        });
+            }]);
         let modifiedState = reducer(initialState, action);
 
-        expect(modifiedState.get('collection').get(0).get('description')).toBe(description);
+        expect(modifiedState.get(0).get('description')).toBe(description);
     });
 });
 
@@ -219,8 +206,7 @@ describe(`Category reducer should handle ${TASK_STATUS_CHANGE} action`, () => {
                 completed: true
             }
         };
-        initialState = initialState.update('collection', () => {
-            return fromJS([{
+        initialState = fromJS([{
                 id: 'id1',
                 title: 'Title 1',
                 completed: false
@@ -228,11 +214,10 @@ describe(`Category reducer should handle ${TASK_STATUS_CHANGE} action`, () => {
                 id: 'id2',
                 title: 'Title 2',
                 completed: false
-            }])
-        });
+            }]);
         let modifiedState = reducer(initialState, action);
 
-        expect(modifiedState.get('collection').get(1).get('completed')).toBe(true);
+        expect(modifiedState.get(1).get('completed')).toBe(true);
     });
 });
 
@@ -247,8 +232,7 @@ describe(`Category reducer should handle ${TASK_TITLE_CHANGE} action`, () => {
                 title
             }
         };
-        initialState = initialState.update('collection', () => {
-            return fromJS([{
+        initialState = fromJS([{
                 id: 'id1',
                 title: 'Title 1',
                 completed: false
@@ -256,11 +240,9 @@ describe(`Category reducer should handle ${TASK_TITLE_CHANGE} action`, () => {
                 id: 'id2',
                 title: 'Title 2',
                 completed: false
-            }])
-        });
+            }]);
         let modifiedState = reducer(initialState, action);
 
-        expect(modifiedState.get('collection').get(0).get('title')).toBe(title);
+        expect(modifiedState.get(0).get('title')).toBe(title);
     });
 });
-

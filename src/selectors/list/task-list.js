@@ -8,8 +8,7 @@ const activeCategory = createSimpleSelector(uiStateSlice, 'activeCategory');
 const searchMode = createSimpleSelector(uiStateSlice, 'searchMode');
 const searchQuery = createSimpleSelector(uiStateSlice, 'searchQuery');
 const filterShowCompletedTasks = createSimpleSelector(uiStateSlice, 'filterShowCompletedTasks');
-const taskStateSlice = () => getState().task;
-const taskCollection = createSimpleSelector(taskStateSlice, 'collection');
+const taskCollection = () => getState().task;
 
 export const taskListSelector = createSelector(
     [taskCollection, activeCategory, filterShowCompletedTasks, searchMode, searchQuery],

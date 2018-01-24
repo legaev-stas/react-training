@@ -11,16 +11,11 @@ import {
 let initialState;
 
 beforeEach(() => {
-    initialState = fromJS({
-        active: null,
-        collection: [],
-        searchMode: false,
-        search: ''
-    });
+    initialState = fromJS([]);
 });
 
 describe(`Category reducer should handle ${CATEGORY_ADD} action`, () => {
-    test('reducer should not modify the state if payload.title is empty', () => {
+    test('should not modify the state if payload.title is empty', () => {
         let action = {
             type: CATEGORY_ADD,
             payload: {
@@ -33,7 +28,7 @@ describe(`Category reducer should handle ${CATEGORY_ADD} action`, () => {
         expect(initialState).toBe(modifiedState);
     });
 
-    test('reducer should create a new category and push it to "collection"', () => {
+    test('should create a new category and push it to the collection', () => {
         const payload = {
             id: 'dummy-id',
             title: 'New Title'
@@ -44,14 +39,14 @@ describe(`Category reducer should handle ${CATEGORY_ADD} action`, () => {
         };
         let modifiedState = reducer(initialState, action);
 
-        expect(modifiedState.get('collection').size).toBe(1);
-        expect(modifiedState.get('collection').includes(fromJS(payload))).toBe(true);
+        expect(modifiedState.size).toBe(1);
+        expect(modifiedState.includes(fromJS(payload))).toBe(true);
     });
 });
 
 
 describe(`Category reducer should handle ${CATEGORY_EDIT} action`, () => {
-    test('reducer should update "title" of category that is found by payload.id in the collection', () => {
+    test('should update "title" of category that is found by payload.id in the collection', () => {
         let action = {
             type: CATEGORY_EDIT,
             payload: {
@@ -59,23 +54,21 @@ describe(`Category reducer should handle ${CATEGORY_EDIT} action`, () => {
                 title: 'New Title 1'
             }
         };
-        initialState = initialState.update('collection', () => {
-            return fromJS([{
-                id: 'id1',
-                title: 'Title 1'
-            }, {
-                id: 'id2',
-                title: 'Title 2'
-            }])
-        });
+        initialState = fromJS([{
+            id: 'id1',
+            title: 'Title 1'
+        }, {
+            id: 'id2',
+            title: 'Title 2'
+        }]);
 
         let modifiedState = reducer(initialState, action);
 
-        expect(modifiedState.get('collection').get(0).get('title')).toBe('New Title 1');
+        expect(modifiedState.get(0).get('title')).toBe('New Title 1');
     });
 
 
-    test('reducer should not update "title" of category that is found by payload.id in the collection in case if payload.title is empty', () => {
+    test('should not update "title" of category that is found by payload.id in the collection in case if payload.title is empty', () => {
         let action = {
             type: CATEGORY_EDIT,
             payload: {
@@ -83,19 +76,17 @@ describe(`Category reducer should handle ${CATEGORY_EDIT} action`, () => {
                 title: ''
             }
         };
-        initialState = initialState.update('collection', () => {
-            return fromJS([{
-                id: 'id1',
-                title: 'Title 1'
-            }, {
-                id: 'id2',
-                title: 'Title 2'
-            }])
-        });
+        initialState = fromJS([{
+            id: 'id1',
+            title: 'Title 1'
+        }, {
+            id: 'id2',
+            title: 'Title 2'
+        }]);
 
         let modifiedState = reducer(initialState, action);
 
-        expect(modifiedState.get('collection').get(0).get('title')).toBe('Title 1');
+        expect(modifiedState.get(0).get('title')).toBe('Title 1');
     });
 
 
@@ -107,15 +98,13 @@ describe(`Category reducer should handle ${CATEGORY_EDIT} action`, () => {
                 title: 'Title 3'
             }
         };
-        initialState = initialState.update('collection', () => {
-            return fromJS([{
-                id: 'id1',
-                title: 'Title 1'
-            }, {
-                id: 'id2',
-                title: 'Title 2'
-            }])
-        });
+        initialState = fromJS([{
+            id: 'id1',
+            title: 'Title 1'
+        }, {
+            id: 'id2',
+            title: 'Title 2'
+        }]);
 
         let modifiedState = reducer(initialState, action);
 
@@ -128,17 +117,16 @@ describe(`Category reducer should handle ${CATEGORY_DELETE} action`, () => {
     test('entity found by id should be dropped from the collection', () => {
         let action = {
             type: CATEGORY_DELETE,
-            payload: {id:'id1'}
+            payload: {id: 'id1'}
         };
-        initialState = initialState.update('collection', () => {
-            return fromJS([{
-                id: 'id1',
-                title: 'Title 1'
-            }, {
-                id: 'id2',
-                title: 'Title 2'
-            }])
-        });
+        initialState = fromJS([{
+            id: 'id1',
+            title: 'Title 1'
+        }, {
+            id: 'id2',
+            title: 'Title 2'
+        }]);
+
         let expectedCollection = fromJS([{
             id: 'id2',
             title: 'Title 2'
@@ -146,24 +134,22 @@ describe(`Category reducer should handle ${CATEGORY_DELETE} action`, () => {
 
         let modifiedState = reducer(initialState, action);
 
-        expect(is(modifiedState.get('collection'), expectedCollection)).toBe(true);
+        expect(is(modifiedState, expectedCollection)).toBe(true);
     });
 
 
     test('state is not updated in case entity is not found', () => {
         let action = {
             type: CATEGORY_DELETE,
-            payload: {id:'id3'}
+            payload: {id: 'id3'}
         };
-        initialState = initialState.update('collection', () => {
-            return fromJS([{
-                id: 'id1',
-                title: 'Title 1'
-            }, {
-                id: 'id2',
-                title: 'Title 2'
-            }])
-        });
+        initialState = fromJS([{
+            id: 'id1',
+            title: 'Title 1'
+        }, {
+            id: 'id2',
+            title: 'Title 2'
+        }]);
 
         let modifiedState = reducer(initialState, action);
 

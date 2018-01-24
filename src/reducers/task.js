@@ -1,7 +1,6 @@
 import {fromJS} from 'immutable';
 
 import {
-    TASK_DELETE_WITH_CATEGORY,
     TASK_DELETE,
     TASK_CREATE,
     TASK_STATUS_CHANGE,
@@ -9,12 +8,10 @@ import {
     TASK_DESCRIPTION_CHANGE,
     TASK_CATEGORY_CHANGE
 } from '../actions/task/constants';
+import {
+    CATEGORY_DELETE
+} from '../actions/category/constants';
 
-const initialState = fromJS({
-    active: null,
-    filterShowCompleted: true,
-    collection: []
-});
 
 const findModelAndUpdateValue = (collection, id, key, value) => {
     let index = collection.findIndex(model => id === model.get('id'));
@@ -22,74 +19,71 @@ const findModelAndUpdateValue = (collection, id, key, value) => {
 };
 
 
-export default (state = initialState, action) => {
+export default (state = fromJS([]), action) => {
     const {type, payload} = action;
 
     switch (type) {
-        case TASK_DELETE_WITH_CATEGORY:
-            const collectionOfAssociatedTasks = state.get('collection').filter(task => payload.category === task.get('category'));
+        case CATEGORY_DELETE:
+            // payload here is category
+            const collectionOfAssociatedTasks = state.filter(task => payload.id === task.get('category'));
 
             if (collectionOfAssociatedTasks.size) {
-                return state.update('collection', collection => {
-                    return collection.filterNot(task => payload.category === task.get('category'));
-                });
+                return state.filterNot(task => payload.id === task.get('category'));
             }
 
             return state;
 
 
         case TASK_DELETE:
-            const deleteAtIndex = state.get('collection').findIndex(task => task.get('id') === payload.id);
+            const deleteAtIndex = state.findIndex(task => task.get('id') === payload.id);
 
             if (deleteAtIndex === -1) return state;
 
-            return state.update('collection', collection => {
-                return collection.delete(deleteAtIndex);
-            });
+            return state.delete(deleteAtIndex);
 
 
         case TASK_CREATE:
             if (payload.title.trim()) {
-                return state.update('collection', collection => collection.push(fromJS(payload)));
+                return state.push(fromJS(payload));
             } else {
                 return state;
             }
 
 
         case TASK_STATUS_CHANGE:
-            return state.update('collection', collection => findModelAndUpdateValue(
-                collection,
+            return findModelAndUpdateValue(
+                state,
                 payload.id,
                 'completed',
                 payload.completed
-            ));
+            );
 
 
         case TASK_TITLE_CHANGE:
-            return state.update('collection', collection => findModelAndUpdateValue(
-                collection,
+            return findModelAndUpdateValue(
+                state,
                 payload.id,
                 'title',
                 payload.title
-            ));
+            );
 
 
         case TASK_DESCRIPTION_CHANGE:
-            return state.update('collection', collection => findModelAndUpdateValue(
-                collection,
+            return findModelAndUpdateValue(
+                state,
                 payload.id,
                 'description',
                 payload.description
-            ));
+            );
 
 
         case TASK_CATEGORY_CHANGE:
-            return state.update('collection', collection => findModelAndUpdateValue(
-                collection,
+            return findModelAndUpdateValue(
+                state,
                 payload.id,
                 'category',
                 payload.category
-            ));
+            );
 
 
         default:

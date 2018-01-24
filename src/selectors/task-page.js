@@ -3,11 +3,8 @@ import {getState} from '../helpers/store';
 import {Map} from 'immutable';
 
 
-const categoryStoreSlice = () => getState().category;
-const categoryCollection = createSimpleSelector(categoryStoreSlice, 'collection');
-const taskStoreSlice = () => getState().task;
-const taskCollection = createSimpleSelector(taskStoreSlice, 'collection');
-
+const categoryCollection = () => getState().category;
+const taskCollection = () => getState().task;
 const uiStateSlice = () => getState().ui;
 const activeTask = createSimpleSelector(uiStateSlice, 'activeTask');
 

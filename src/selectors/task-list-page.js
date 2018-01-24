@@ -2,8 +2,7 @@ import {createSimpleSelector, createSelector} from '../helpers/selector';
 import {getState} from '../helpers/store';
 
 
-const categoryStoreSlice = () => getState().category;
-const categoryCollection = createSimpleSelector(categoryStoreSlice, 'collection');
+const categoryCollection = () => getState().category;
 
 const uiStateSlice = () => getState().ui;
 const activeCategory = createSimpleSelector(uiStateSlice, 'activeCategory');
