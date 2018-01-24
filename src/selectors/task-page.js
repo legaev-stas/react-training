@@ -6,14 +6,16 @@ import {Map} from 'immutable';
 const categoryStoreSlice = () => getState().category;
 const categoryCollection = createSimpleSelector(categoryStoreSlice, 'collection');
 const taskStoreSlice = () => getState().task;
-const activeTaskId = createSimpleSelector(taskStoreSlice, 'active');
 const taskCollection = createSimpleSelector(taskStoreSlice, 'collection');
-const filterShowCompleted = createSimpleSelector(taskStoreSlice, 'filterShowCompleted');
+
+const uiStateSlice = () => getState().ui;
+const activeTask = createSimpleSelector(uiStateSlice, 'activeTask');
+
 
 
 export const taskSelector = createSelector(
-    [activeTaskId, taskCollection],
-    (activeTaskId, taskCollection) => taskCollection.find(task => task.get('id') === activeTaskId)
+    [activeTask, taskCollection],
+    (activeTask, taskCollection) => taskCollection.find(task => task.get('id') === activeTask)
 );
 
 export const categoryPickerListSelector = createSelector([categoryCollection], (categoryCollection) =>

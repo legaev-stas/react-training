@@ -3,20 +3,22 @@ import {categoryListPageSelector} from '../selectors/category-list-page';
 import {
     createCategoryPrompt,
     editCategoryPrompt,
-    deleteCategoryConfirmation,
-    openCategory,
+    deleteCategoryConfirmation
+} from '../actions/category/index';
+import {
+    onSetActiveCategory,
     onSetSearchModeOn,
     onSetSearchModeOff,
-    onSearchChange
-} from '../actions/category/index';
+    onChangeSearchQuery
+} from '../actions/ui-state/index';
 
 
 export const categoryListPageConnector = connect(categoryListPageSelector, {
     editCategoryPrompt,
     deleteCategoryConfirmation,
-    openCategory,
     createCategoryPrompt,
+    onSetActiveCategory,
     onSetSearchModeOn,
     onSetSearchModeOff,
-    onSearchChange
+    onChangeSearchQuery
 });

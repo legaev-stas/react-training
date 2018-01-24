@@ -2,12 +2,9 @@ import {fromJS} from 'immutable';
 
 import {
     TASK_DELETE_WITH_CATEGORY,
-    TASK_EDIT,
     TASK_DELETE,
     TASK_CREATE,
     TASK_STATUS_CHANGE,
-    TASK_FILTER_CHANGE,
-    TASK_RESET_ACTIVE,
     TASK_TITLE_CHANGE,
     TASK_DESCRIPTION_CHANGE,
     TASK_CATEGORY_CHANGE
@@ -51,10 +48,6 @@ export default (state = initialState, action) => {
             });
 
 
-        case TASK_EDIT:
-            return state.set('active', payload.id);
-
-
         case TASK_CREATE:
             if (payload.title.trim()) {
                 return state.update('collection', collection => collection.push(fromJS(payload)));
@@ -70,14 +63,6 @@ export default (state = initialState, action) => {
                 'completed',
                 payload.completed
             ));
-
-
-        case TASK_FILTER_CHANGE:
-            return state.set('filterShowCompleted', payload);
-
-
-        case TASK_RESET_ACTIVE:
-            return state.set('active', null);
 
 
         case TASK_TITLE_CHANGE:

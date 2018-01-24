@@ -9,7 +9,7 @@ import {
     UI_SET_SEARCH_MODE_ON,
     UI_SET_SEARCH_MODE_OFF,
     UI_SET_SEARCH_QUERY,
-    UI_SET_FILTER_SHOW_COMPLETED_TASK
+    UI_CHANGE_FILTER_SHOW_COMPLETED_TASK
 } from '../actions/ui-state/constants';
 
 
@@ -136,10 +136,10 @@ describe(`UI state reducer should handle ${UI_SET_SEARCH_QUERY} action`, () => {
 });
 
 
-describe(`UI state reducer should handle ${UI_SET_FILTER_SHOW_COMPLETED_TASK} action`, () => {
+describe(`UI state reducer should handle ${UI_CHANGE_FILTER_SHOW_COMPLETED_TASK} action`, () => {
     test('should set passed value to filterShowCompletedTasks', () => {
         let action = {
-            type: UI_SET_FILTER_SHOW_COMPLETED_TASK,
+            type: UI_CHANGE_FILTER_SHOW_COMPLETED_TASK,
             payload: true
         };
         let modifiedState = reducer(initialState, action);

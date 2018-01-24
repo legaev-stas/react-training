@@ -13,7 +13,7 @@ export class TaskListPage extends React.Component {
     }
 
     createTaskPrompt() {
-        this.props.createTaskPrompt(this.props.activeCategoryId);
+        this.props.createTaskPrompt(this.props.activeCategory);
     }
 
     render() {

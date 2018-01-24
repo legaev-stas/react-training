@@ -3,12 +3,7 @@ import {fromJS} from 'immutable';
 import {
     CATEGORY_ADD,
     CATEGORY_EDIT,
-    CATEGORY_DELETE,
-    CATEGORY_SET_ACTIVE,
-    CATEGORY_RESET_ACTIVE,
-    CATEGORY_SET_SEARCH_MODE_ON,
-    CATEGORY_SET_SEARCH_MODE_OFF,
-    CATEGORY_SEARCH_STRING_UPDATE
+    CATEGORY_DELETE
 } from '../actions/category/constants';
 
 const initialState = fromJS({
@@ -52,26 +47,6 @@ export default (state = initialState, action) => {
             return state.update('collection', collection => {
                 return collection.delete(deleteAtIndex);
             });
-
-
-        case CATEGORY_SET_ACTIVE:
-            return state.set('active', payload.id);
-
-
-        case CATEGORY_RESET_ACTIVE:
-            return state.set('active', null);
-
-
-        case CATEGORY_SET_SEARCH_MODE_ON:
-            return state.set('searchMode', true);
-
-
-        case CATEGORY_SET_SEARCH_MODE_OFF:
-            return state.set('searchMode', false).set('search', '');
-
-
-        case CATEGORY_SEARCH_STRING_UPDATE:
-            return state.set('search', payload);
 
 
         default:

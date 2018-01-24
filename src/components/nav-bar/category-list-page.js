@@ -22,11 +22,11 @@ export class AppNavBar extends React.Component {
                     <Flex.Item>
                         <SearchBar
                             cancelText="Cancel"
-                            value={this.props.search}
+                            value={this.props.searchQuery}
                             showCancelButton={this.props.searchMode}
                             onFocus={this.onSetSearchModeOn}
                             onCancel={this.props.onSetSearchModeOff}
-                            onChange={this.props.onSearchChange}
+                            onChange={this.props.onChangeSearchQuery}
                         />
                     </Flex.Item>
                     <div className={this.props.searchMode ? 'hidden icon-holder' : 'icon-holder'}>

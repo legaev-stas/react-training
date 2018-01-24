@@ -1,16 +1,16 @@
 import {connect} from 'react-redux';
 import {taskPageSelector} from '../selectors/task-page';
 import {
-    goBack,
     onTitleChange,
     onDescriptionChange,
     onCategoryChange,
     onStatusChange
 } from '../actions/task';
+import {onUnsetActiveTask} from '../actions/ui-state';
 
 
 export const taskPageConnector = connect(taskPageSelector, {
-    goBack,
+    goBack: onUnsetActiveTask,
     onTitleChange,
     onDescriptionChange,
     onCategoryChange,

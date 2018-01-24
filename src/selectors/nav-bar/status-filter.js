@@ -2,6 +2,6 @@ import {createSimpleSelector, createSelector} from '../../helpers/selector';
 import {getState} from '../../helpers/store';
 
 
-const taskStoreSlice = () => getState().task;
-const filterShowCompleted = createSimpleSelector(taskStoreSlice, 'filterShowCompleted');
-export const statusFilterSelector = createSelector([filterShowCompleted], filterShowCompleted => ({filterShowCompleted}));
+const uiStateSlice = () => getState().ui;
+const filterShowCompletedTasks = createSimpleSelector(uiStateSlice, 'filterShowCompletedTasks');
+export const statusFilterSelector = createSelector([filterShowCompletedTasks], filterShowCompletedTasks => ({checked: filterShowCompletedTasks}));

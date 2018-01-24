@@ -8,7 +8,7 @@ import {
     UI_SET_SEARCH_MODE_ON,
     UI_SET_SEARCH_MODE_OFF,
     UI_SET_SEARCH_QUERY,
-    UI_SET_FILTER_SHOW_COMPLETED_TASK
+    UI_CHANGE_FILTER_SHOW_COMPLETED_TASK
 } from '../actions/ui-state/constants';
 
 const initialState = fromJS({
@@ -50,7 +50,7 @@ export default (state = initialState, action) => {
             return state.set('searchQuery', payload);
 
 
-        case UI_SET_FILTER_SHOW_COMPLETED_TASK:
+        case UI_CHANGE_FILTER_SHOW_COMPLETED_TASK:
             return state.set('filterShowCompletedTasks', payload);
 
 

@@ -4,12 +4,7 @@ import {fromJS, is} from 'immutable';
 import {
     CATEGORY_ADD,
     CATEGORY_EDIT,
-    CATEGORY_DELETE,
-    CATEGORY_SET_ACTIVE,
-    CATEGORY_RESET_ACTIVE,
-    CATEGORY_SET_SEARCH_MODE_ON,
-    CATEGORY_SET_SEARCH_MODE_OFF,
-    CATEGORY_SEARCH_STRING_UPDATE
+    CATEGORY_DELETE
 } from '../actions/category/constants';
 
 
@@ -173,75 +168,5 @@ describe(`Category reducer should handle ${CATEGORY_DELETE} action`, () => {
         let modifiedState = reducer(initialState, action);
 
         expect(initialState).toBe(modifiedState);
-    });
-});
-
-
-describe(`Category reducer should handle ${CATEGORY_SET_ACTIVE} action`, () => {
-    test('category id (payload value) should be set to state.active', () => {
-        const id = 'id1';
-        let action = {
-            type: CATEGORY_SET_ACTIVE,
-            payload: {id}
-        };
-
-        let modifiedState = reducer(initialState, action);
-
-        expect(modifiedState.get('active')).toBe(id);
-    });
-});
-
-
-describe(`Category reducer should handle ${CATEGORY_RESET_ACTIVE} action`, () => {
-    test('state.active should be set to null', () => {
-        let action = {
-            type: CATEGORY_RESET_ACTIVE
-        };
-
-        let modifiedState = reducer(initialState, action);
-
-        expect(modifiedState.get('active')).toBe(null);
-    });
-});
-
-
-describe(`Category reducer should handle ${CATEGORY_SET_SEARCH_MODE_ON} action`, () => {
-    test('state.searchMode should be set to true', () => {
-        let action = {
-            type: CATEGORY_SET_SEARCH_MODE_ON
-        };
-
-        let modifiedState = reducer(initialState, action);
-
-        expect(modifiedState.get('searchMode')).toBe(true);
-    });
-});
-
-
-describe(`Category reducer should handle ${CATEGORY_SET_SEARCH_MODE_OFF} action`, () => {
-    test('state.searchMode should be set to false and state.search should be set to empty string', () => {
-        let action = {
-            type: CATEGORY_SET_SEARCH_MODE_OFF
-        };
-
-        let modifiedState = reducer(initialState, action);
-
-        expect(modifiedState.get('searchMode')).toBe(false);
-        expect(modifiedState.get('search')).toBe('');
-    });
-});
-
-
-describe(`Category reducer should handle ${CATEGORY_SEARCH_STRING_UPDATE} action`, () => {
-    test('state.search should be set to value from payload', () => {
-        const payload = 'query';
-        let action = {
-            type: CATEGORY_SEARCH_STRING_UPDATE,
-            payload
-        };
-
-        let modifiedState = reducer(initialState, action);
-
-        expect(modifiedState.get('search')).toBe(payload);
     });
 });

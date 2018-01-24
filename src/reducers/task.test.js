@@ -5,11 +5,8 @@ import {
     TASK_DELETE,
     TASK_CREATE,
     TASK_DELETE_WITH_CATEGORY,
-    TASK_EDIT,
-    TASK_RESET_ACTIVE,
     TASK_DESCRIPTION_CHANGE,
     TASK_CATEGORY_CHANGE,
-    TASK_FILTER_CHANGE,
     TASK_STATUS_CHANGE,
     TASK_TITLE_CHANGE
 } from '../actions/task/constants';
@@ -184,31 +181,6 @@ describe(`Category reducer should handle ${TASK_CREATE} action`, () => {
     });
 });
 
-describe(`Category reducer should handle ${TASK_EDIT} action`, () => {
-    test('task ID should be set as active in appropriate state field', () => {
-        let id = 'dummy-id';
-        let action = {
-            type: TASK_EDIT,
-            payload: {id}
-        };
-        let modifiedState = reducer(initialState, action);
-
-        expect(modifiedState.get('active')).toBe(id);
-    });
-});
-
-
-describe(`Category reducer should handle ${TASK_RESET_ACTIVE} action`, () => {
-    test('active task ID should be removed from appropriate state field', () => {
-        let action = {
-            type: TASK_RESET_ACTIVE
-        };
-        let modifiedState = reducer(initialState, action);
-
-        expect(modifiedState.get('active')).toBe(null);
-    });
-});
-
 
 describe(`Category reducer should handle ${TASK_DESCRIPTION_CHANGE} action`, () => {
     test('Description of task found by id should be updated', () => {
@@ -234,19 +206,6 @@ describe(`Category reducer should handle ${TASK_DESCRIPTION_CHANGE} action`, () 
         let modifiedState = reducer(initialState, action);
 
         expect(modifiedState.get('collection').get(0).get('description')).toBe(description);
-    });
-});
-
-
-describe(`Category reducer should handle ${TASK_FILTER_CHANGE} action`, () => {
-    test('ShowCompleted Tasks filter is updated accordingly to the value', () => {
-        let action = {
-            type: TASK_FILTER_CHANGE,
-            payload: false
-        };
-        let modifiedState = reducer(initialState, action);
-
-        expect(modifiedState.get('filterShowCompleted')).toBe(false);
     });
 });
 

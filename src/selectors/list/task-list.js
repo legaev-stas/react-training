@@ -3,28 +3,28 @@ import {getState} from '../../helpers/store';
 import {List} from 'immutable';
 
 
-const categoryStoreSlice = () => getState().category;
-const activeCategoryId = createSimpleSelector(categoryStoreSlice, 'active');
-const taskStoreSlice = () => getState().task;
-const taskCollection = createSimpleSelector(taskStoreSlice, 'collection');
-const filterShowCompleted = createSimpleSelector(taskStoreSlice, 'filterShowCompleted');
-const searchMode = createSimpleSelector(categoryStoreSlice, 'searchMode');
-const search = createSimpleSelector(categoryStoreSlice, 'search');
+const uiStateSlice = () => getState().ui;
+const activeCategory = createSimpleSelector(uiStateSlice, 'activeCategory');
+const searchMode = createSimpleSelector(uiStateSlice, 'searchMode');
+const searchQuery = createSimpleSelector(uiStateSlice, 'searchQuery');
+const filterShowCompletedTasks = createSimpleSelector(uiStateSlice, 'filterShowCompletedTasks');
+const taskStateSlice = () => getState().task;
+const taskCollection = createSimpleSelector(taskStateSlice, 'collection');
 
 export const taskListSelector = createSelector(
-    [taskCollection, activeCategoryId, filterShowCompleted, searchMode, search],
-    (taskCollection, activeCategoryId, filterShowCompleted, searchMode, search) => {
+    [taskCollection, activeCategory, filterShowCompletedTasks, searchMode, searchQuery],
+    (taskCollection, activeCategory, filterShowCompletedTasks, searchMode, searchQuery) => {
         let collection = new List;
 
-        // search by title case
-        if (searchMode && search) {
-            collection = taskCollection.filter(task => task.get('title').indexOf(search) !== -1);
-        } else if (activeCategoryId) {
-            // search by active category
-            collection = taskCollection.filter(task => task.get('category') === activeCategoryId);
+        // searchQuery by title case
+        if (searchMode && searchQuery) {
+            collection = taskCollection.filter(task => task.get('title').indexOf(searchQuery) !== -1);
+        } else if (activeCategory) {
+            // searchQuery by active category
+            collection = taskCollection.filter(task => task.get('category') === activeCategory);
         }
 
-        if (!filterShowCompleted) {
+        if (!filterShowCompletedTasks) {
             collection = collection.filter(task => !task.get('completed'));
         }
 

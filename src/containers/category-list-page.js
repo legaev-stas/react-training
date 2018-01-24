@@ -8,27 +8,27 @@ import {StatusFilterContainer} from './nav-bar/status-filter';
 
 export const CategoryListPage = ({
                                      collection,
-                                     search,
+                                     searchQuery,
                                      searchMode,
                                      editCategoryPrompt,
                                      deleteCategoryConfirmation,
                                      createCategoryPrompt,
                                      onSetSearchModeOn,
                                      onSetSearchModeOff,
-                                     onSearchChange,
-                                     openCategory
+                                     onChangeSearchQuery,
+                                     onSetActiveCategory
                                  }) => (
     <Page>
         <Header>
             <AppNavBar
                 addItem={createCategoryPrompt}
-                search={search}
+                searchQuery={searchQuery}
                 searchMode={searchMode}
                 onSetSearchModeOn={onSetSearchModeOn}
                 onSetSearchModeOff={onSetSearchModeOff}
-                onSearchChange={onSearchChange}
+                onChangeSearchQuery={onChangeSearchQuery}
             />
-            {searchMode && search && <StatusFilterContainer/>}
+            {searchMode && searchQuery && <StatusFilterContainer/>}
         </Header>
         <Content>
             {searchMode ?
@@ -39,7 +39,7 @@ export const CategoryListPage = ({
                     arrow
                     onEdit={editCategoryPrompt}
                     onDelete={deleteCategoryConfirmation}
-                    onClick={openCategory}
+                    onClick={onSetActiveCategory}
                 />
             }
         </Content>
