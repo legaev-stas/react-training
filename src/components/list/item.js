@@ -1,38 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import Immutable from 'immutable';
 import {SwipeAction, List, Badge, Checkbox, Flex} from 'antd-mobile';
 import './styles.css';
 
 
 export class ListItem extends React.PureComponent {
-    constructor(props) {
-        super(props);
-
-        this.onEdit = this.onEdit.bind(this);
-        this.onDelete = this.onDelete.bind(this);
-        this.onClick = this.onClick.bind(this);
-        this.onStatusChange = this.onStatusChange.bind(this);
-        this.preventScrollWhenSwipe = this.preventScrollWhenSwipe.bind(this);
-    }
-
-    onDelete() {
-        this.props.onDelete && this.props.onDelete(this.props.model.toJS());
-    }
-
-    onClick() {
-        this.props.onClick && this.props.onClick(this.props.model.toJS());
-    }
-
-    onEdit() {
-        this.props.onEdit && this.props.onEdit(this.props.model.toJS());
-    }
-
-    onStatusChange(e){
-        e.stopPropagation();
-        this.props.onStatusChange({
-            id: this.props.model.get('id'),
-            completed: !this.props.model.get('completed')
-        });
+    propTypes = {
+        model: PropTypes.instanceOf(Immutable.Map).isRequired,
+        onDelete: PropTypes.func,
+        onEdit: PropTypes.func,
+        onClick: PropTypes.func,
+        onStatusChange: PropTypes.func,
+        arrow: PropTypes.bool,
+        checkable: PropTypes.bool
     }
 
     componentDidMount(){
@@ -42,10 +24,30 @@ export class ListItem extends React.PureComponent {
         ReactDOM.findDOMNode(this).removeEventListener('touchmove', this.preventScrollWhenSwipe, false);
     }
 
-    preventScrollWhenSwipe(e){
+    preventScrollWhenSwipe = (e) => {
         if(ReactDOM.findDOMNode(this).querySelector('.am-swipe-swiping')){
             e.preventDefault();
         }
+    }
+
+    onDelete = () => {
+        this.props.onDelete && this.props.onDelete(this.props.model.toJS());
+    }
+
+    onClick = () => {
+        this.props.onClick && this.props.onClick(this.props.model.toJS());
+    }
+
+    onEdit = () => {
+        this.props.onEdit && this.props.onEdit(this.props.model.toJS());
+    }
+
+    onStatusChange = (e) => {
+        e.stopPropagation();
+        this.props.onStatusChange({
+            id: this.props.model.get('id'),
+            completed: !this.props.model.get('completed')
+        });
     }
 
     render() {

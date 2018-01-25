@@ -1,0 +1,270 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render left (edit) swipe option when onEdit property is provided 1`] = `
+<ListItem
+  model={
+    Immutable.Map {
+      "id": "id",
+      "completed": false,
+      "badge": 0,
+      "title": "Title",
+    }
+  }
+  onEdit={[Function]}
+>
+  <SwipeAction
+    autoClose={true}
+    disabled={false}
+    left={
+      Array [
+        Object {
+          "onPress": [Function],
+          "style": Object {
+            "backgroundColor": "blue",
+            "color": "white",
+          },
+          "text": "Edit",
+        },
+      ]
+    }
+    onClose={[Function]}
+    onOpen={[Function]}
+    prefixCls="am-swipe"
+    right={Array []}
+    style={
+      Object {
+        "backgroundColor": "gray",
+      }
+    }
+  >
+    <ListItem
+      align="middle"
+      error={false}
+      extra={
+        <Badge
+          corner={false}
+          dot={false}
+          overflowCount={10}
+          prefixCls="am-badge"
+          size="small"
+          text={0}
+        />
+      }
+      multipleLine={false}
+      onClick={[Function]}
+      platform="ios"
+      prefixCls="am-list"
+      wrap={false}
+    >
+      <Flex
+        align="center"
+        prefixCls="am-flexbox"
+      >
+        <FlexItem
+          prefixCls="am-flexbox"
+        >
+          Title
+        </FlexItem>
+      </Flex>
+    </ListItem>
+  </SwipeAction>
+</ListItem>
+`;
+
+exports[`should render right (delete) swipe option when onDelete property is provided 1`] = `
+<ListItem
+  model={
+    Immutable.Map {
+      "id": "id",
+      "completed": false,
+      "badge": 0,
+      "title": "Title",
+    }
+  }
+  onDelete={[Function]}
+>
+  <SwipeAction
+    autoClose={true}
+    disabled={false}
+    left={Array []}
+    onClose={[Function]}
+    onOpen={[Function]}
+    prefixCls="am-swipe"
+    right={
+      Array [
+        Object {
+          "onPress": [Function],
+          "style": Object {
+            "backgroundColor": "red",
+            "color": "white",
+          },
+          "text": "Delete",
+        },
+      ]
+    }
+    style={
+      Object {
+        "backgroundColor": "gray",
+      }
+    }
+  >
+    <ListItem
+      align="middle"
+      error={false}
+      extra={
+        <Badge
+          corner={false}
+          dot={false}
+          overflowCount={10}
+          prefixCls="am-badge"
+          size="small"
+          text={0}
+        />
+      }
+      multipleLine={false}
+      onClick={[Function]}
+      platform="ios"
+      prefixCls="am-list"
+      wrap={false}
+    >
+      <Flex
+        align="center"
+        prefixCls="am-flexbox"
+      >
+        <FlexItem
+          prefixCls="am-flexbox"
+        >
+          Title
+        </FlexItem>
+      </Flex>
+    </ListItem>
+  </SwipeAction>
+</ListItem>
+`;
+
+exports[`should rendered nested Checkbox when checkable property is provided 1`] = `
+<ListItem
+  checkable={true}
+  model={
+    Immutable.Map {
+      "id": "id",
+      "completed": false,
+      "badge": 0,
+      "title": "Title",
+    }
+  }
+>
+  <SwipeAction
+    autoClose={true}
+    disabled={false}
+    left={Array []}
+    onClose={[Function]}
+    onOpen={[Function]}
+    prefixCls="am-swipe"
+    right={Array []}
+    style={
+      Object {
+        "backgroundColor": "gray",
+      }
+    }
+  >
+    <ListItem
+      align="middle"
+      error={false}
+      extra={
+        <Badge
+          corner={false}
+          dot={false}
+          overflowCount={10}
+          prefixCls="am-badge"
+          size="small"
+          text={0}
+        />
+      }
+      multipleLine={false}
+      onClick={[Function]}
+      platform="ios"
+      prefixCls="am-list"
+      wrap={false}
+    >
+      <Flex
+        align="center"
+        prefixCls="am-flexbox"
+      >
+        <Checkbox
+          checked={false}
+          onClick={[Function]}
+          prefixCls="am-checkbox"
+          wrapLabel={true}
+        />
+        <FlexItem
+          prefixCls="am-flexbox"
+        >
+          Title
+        </FlexItem>
+      </Flex>
+    </ListItem>
+  </SwipeAction>
+</ListItem>
+`;
+
+exports[`should set arrow="horizontal" on nested List.Item when arrow property is provided 1`] = `
+<ListItem
+  arrow={true}
+  model={
+    Immutable.Map {
+      "id": "id",
+      "completed": false,
+      "badge": 0,
+      "title": "Title",
+    }
+  }
+>
+  <SwipeAction
+    autoClose={true}
+    disabled={false}
+    left={Array []}
+    onClose={[Function]}
+    onOpen={[Function]}
+    prefixCls="am-swipe"
+    right={Array []}
+    style={
+      Object {
+        "backgroundColor": "gray",
+      }
+    }
+  >
+    <ListItem
+      align="middle"
+      arrow="horizontal"
+      error={false}
+      extra={
+        <Badge
+          corner={false}
+          dot={false}
+          overflowCount={10}
+          prefixCls="am-badge"
+          size="small"
+          text={0}
+        />
+      }
+      multipleLine={false}
+      onClick={[Function]}
+      platform="ios"
+      prefixCls="am-list"
+      wrap={false}
+    >
+      <Flex
+        align="center"
+        prefixCls="am-flexbox"
+      >
+        <FlexItem
+          prefixCls="am-flexbox"
+        >
+          Title
+        </FlexItem>
+      </Flex>
+    </ListItem>
+  </SwipeAction>
+</ListItem>
+`;

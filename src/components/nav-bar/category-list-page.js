@@ -4,14 +4,8 @@ import './category-list-page.css';
 
 
 export class AppNavBar extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.onSetSearchModeOn = this.onSetSearchModeOn.bind(this);
-    }
-
     // bug fixing when component doesn't show cancel button after focus
-    onSetSearchModeOn() {
+    onSetSearchModeOn = () => {
         setTimeout(this.props.onSetSearchModeOn, 0)
     }
 
