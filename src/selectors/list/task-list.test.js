@@ -49,6 +49,13 @@ describe('Tasks selector for Search Mode case', () => {
         expect(collection.size).toBe(2);
     });
 
+    test('search should not be case sensitive', () => {
+        dataSearch = 'TITLE';
+        let {collection} = taskListSelector.resultFunc(dataTaskCollection, dataActiveCategoryId, dataFilterShowCompleted, dataSearchMode, dataSearch);
+
+        expect(collection.size).toBe(2);
+    });
+
     test('Collection of found tasks should not contain any task that is completed in case filter filterShowCompleted  set to false', () => {
         dataSearch = 'title';
         dataFilterShowCompleted = false;

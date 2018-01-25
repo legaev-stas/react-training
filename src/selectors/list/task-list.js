@@ -17,7 +17,8 @@ export const taskListSelector = createSelector(
 
         // searchQuery by title case
         if (searchMode && searchQuery) {
-            collection = taskCollection.filter(task => task.get('title').indexOf(searchQuery) !== -1);
+            collection = taskCollection.filter(task => task.get('title').toLocaleLowerCase()
+                .indexOf(searchQuery.toLocaleLowerCase()) !== -1);
         } else if (activeCategory) {
             // searchQuery by active category
             collection = taskCollection.filter(task => task.get('category') === activeCategory);
