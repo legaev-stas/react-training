@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component should hide add category icon when it is searchMode 1`] = `
+<div
+  className="search-bar"
+>
+  <Flex
+    align="center"
+    alignContent="center"
+    prefixCls="am-flexbox"
+  >
+    <FlexItem
+      prefixCls="am-flexbox"
+    >
+      <SearchBar
+        cancelText="Cancel"
+        disabled={false}
+        onBlur={[Function]}
+        onChange={[Function]}
+        onClear={[Function]}
+        onFocus={[Function]}
+        onSubmit={[Function]}
+        placeholder=""
+        prefixCls="am-search"
+        showCancelButton={true}
+      />
+    </FlexItem>
+    <div
+      className="hidden icon-holder"
+    >
+      <WingBlank
+        prefixCls="am-wingblank"
+        size="lg"
+      >
+        <Icon
+          color="#108ee9"
+          size="sm"
+          type="plus"
+        />
+      </WingBlank>
+    </div>
+  </Flex>
+</div>
+`;
+
+exports[`Component should show add category icon when it is not searchMode 1`] = `
+<div
+  className="search-bar"
+>
+  <Flex
+    align="center"
+    alignContent="center"
+    prefixCls="am-flexbox"
+  >
+    <FlexItem
+      prefixCls="am-flexbox"
+    >
+      <SearchBar
+        cancelText="Cancel"
+        disabled={false}
+        onBlur={[Function]}
+        onChange={[Function]}
+        onClear={[Function]}
+        onFocus={[Function]}
+        onSubmit={[Function]}
+        placeholder=""
+        prefixCls="am-search"
+        showCancelButton={false}
+      />
+    </FlexItem>
+    <div
+      className="icon-holder"
+    >
+      <WingBlank
+        prefixCls="am-wingblank"
+        size="lg"
+      >
+        <Icon
+          color="#108ee9"
+          size="sm"
+          type="plus"
+        />
+      </WingBlank>
+    </div>
+  </Flex>
+</div>
+`;

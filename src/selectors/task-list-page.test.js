@@ -1,4 +1,4 @@
-import {categoryTitleSelector} from './task-list-page';
+import {categoryTitleSelector, taskListPageSelector} from './task-list-page';
 import {fromJS} from 'immutable';
 
 
@@ -23,5 +23,18 @@ describe('categoryTitle selector for Task Page', () => {
         let title = categoryTitleSelector.resultFunc(dataCategoryCollection, dataActiveCategoryId);
 
         expect(title).toBe('c2 title');
+    });
+});
+
+describe('Task List page selector', () => {
+    test('should return data of right scheme', () => {
+        const categoryTitle = 'title';
+        const activeCategory = 'c1';
+        const data = taskListPageSelector.resultFunc(categoryTitle, activeCategory);
+
+        expect(data).toEqual({
+            categoryTitle,
+            activeCategory
+        });
     });
 });
