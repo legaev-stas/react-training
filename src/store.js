@@ -11,12 +11,14 @@ import {setStore} from './helpers/store';
 import category from './reducers/category';
 import task from './reducers/task';
 import ui from './reducers/ui-state';
+import syncQueue from './reducers/sync-queue';
 
 
 const reducer = combineReducers({
     category,
     task,
-    ui
+    ui,
+    syncQueue
 });
 const persistedReducer = persistReducer({
     transforms: [immutableTransform()],

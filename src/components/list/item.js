@@ -7,7 +7,7 @@ import './styles.css';
 
 
 export class ListItem extends React.PureComponent {
-    propTypes = {
+    static propTypes = {
         model: PropTypes.instanceOf(Immutable.Map).isRequired,
         onDelete: PropTypes.func,
         onEdit: PropTypes.func,

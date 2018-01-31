@@ -3,11 +3,15 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/es/integration/react';
 
+import {initWsSync} from './ws';
+
 import 'antd-mobile/dist/antd-mobile.css';
 import './styles.css';
 
 import {store, persistor} from './store';
 import TodoApp from './containers/app';
+
+initWsSync();
 
 document.addEventListener('deviceready', () => {
     // WebView configuration; it fixes issue when scrollable content is visible behind the status bar on iOS
