@@ -2,8 +2,8 @@ import reducer from './category';
 import {fromJS, is} from 'immutable';
 
 import {
-    CATEGORY_ADD,
-    CATEGORY_EDIT,
+    CATEGORY_CREATE,
+    CATEGORY_UPDATE,
     CATEGORY_DELETE
 } from '../actions/category/constants';
 
@@ -14,10 +14,10 @@ beforeEach(() => {
     initialState = fromJS([]);
 });
 
-describe(`Category reducer should handle ${CATEGORY_ADD} action`, () => {
+describe(`Category reducer should handle ${CATEGORY_CREATE} action`, () => {
     test('should not modify the state if payload.title is empty', () => {
         let action = {
-            type: CATEGORY_ADD,
+            type: CATEGORY_CREATE,
             payload: {
                 id: 'dummy-id',
                 title: ' '
@@ -34,7 +34,7 @@ describe(`Category reducer should handle ${CATEGORY_ADD} action`, () => {
             title: 'New Title'
         };
         let action = {
-            type: CATEGORY_ADD,
+            type: CATEGORY_CREATE,
             payload
         };
         let modifiedState = reducer(initialState, action);
@@ -45,10 +45,10 @@ describe(`Category reducer should handle ${CATEGORY_ADD} action`, () => {
 });
 
 
-describe(`Category reducer should handle ${CATEGORY_EDIT} action`, () => {
+describe(`Category reducer should handle ${CATEGORY_UPDATE} action`, () => {
     test('should update "title" of category that is found by payload.id in the collection', () => {
         let action = {
-            type: CATEGORY_EDIT,
+            type: CATEGORY_UPDATE,
             payload: {
                 id: 'id1',
                 title: 'New Title 1'
@@ -70,7 +70,7 @@ describe(`Category reducer should handle ${CATEGORY_EDIT} action`, () => {
 
     test('should not update "title" of category that is found by payload.id in the collection in case if payload.title is empty', () => {
         let action = {
-            type: CATEGORY_EDIT,
+            type: CATEGORY_UPDATE,
             payload: {
                 id: 'id1',
                 title: ''
@@ -92,7 +92,7 @@ describe(`Category reducer should handle ${CATEGORY_EDIT} action`, () => {
 
     test('reducer should not update the state if there is no entities found by payload.id in the collection', () => {
         let action = {
-            type: CATEGORY_EDIT,
+            type: CATEGORY_UPDATE,
             payload: {
                 id: 'id3',
                 title: 'Title 3'

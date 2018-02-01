@@ -1,9 +1,10 @@
-import {fromJS} from 'immutable';
+import {fromJS, List} from 'immutable';
 
 import {
-    CATEGORY_ADD,
-    CATEGORY_EDIT,
-    CATEGORY_DELETE
+    CATEGORY_CREATE,
+    CATEGORY_UPDATE,
+    CATEGORY_DELETE,
+    CATEGORY_SYNC
 } from '../actions/category/constants';
 
 
@@ -11,7 +12,7 @@ export default (state = fromJS([]), action) => {
     const {type, payload} = action;
 
     switch (type) {
-        case CATEGORY_ADD:
+        case CATEGORY_CREATE:
             if (payload.title.trim()) {
                 return state.push(fromJS(payload));
             } else {
@@ -19,7 +20,7 @@ export default (state = fromJS([]), action) => {
             }
 
 
-        case CATEGORY_EDIT:
+        case CATEGORY_UPDATE:
             const updateAtIndex = state.findIndex(category => category.get('id') === payload.id);
 
             if (payload.title.trim() && updateAtIndex !== -1) {
@@ -35,6 +36,10 @@ export default (state = fromJS([]), action) => {
             if (deleteAtIndex === -1) return state;
 
             return state.delete(deleteAtIndex);
+
+
+        case CATEGORY_SYNC:
+            return new List(fromJS(payload));
 
 
         default:

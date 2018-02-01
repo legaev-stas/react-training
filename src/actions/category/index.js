@@ -3,28 +3,47 @@ import uuid from 'uuid/v4';
 import {Modal} from 'antd-mobile';
 
 import {
-    CATEGORY_ADD,
-    CATEGORY_EDIT,
-    CATEGORY_DELETE
+    CATEGORY_CREATE,
+    CATEGORY_UPDATE,
+    CATEGORY_DELETE,
+    CATEGORY_ADD_TO_SYNC_QUEUE,
+    CATEGORY_CLEAN_SYNC_QUEUE
 } from './constants';
+import {initCategorySync} from "../ws";
 
 
 export const deleteCategory = createAction(CATEGORY_DELETE);
-export const createCategory = createAction(CATEGORY_ADD);
-export const editCategory = createAction(CATEGORY_EDIT);
+export const createCategory = createAction(CATEGORY_CREATE);
+export const editCategory = createAction(CATEGORY_UPDATE);
+
+export const addCategoryToSyncQueue = createAction(CATEGORY_ADD_TO_SYNC_QUEUE);
+export const cleanCategorySyncQueue = createAction(CATEGORY_CLEAN_SYNC_QUEUE);
 
 
 export const deleteCategoryConfirmation = (category) => (dispatch) => {
+    console.log(category)
     const heading = 'Delete Category';
     const message = `Are you sure? The category contains ${category.badge} uncompleted tasks`;
 
     if (category.badge) {
         Modal.alert(heading, message, [
             {text: 'Cancel', style: 'default'},
-            {text: 'OK', onPress: () => dispatch(deleteCategory(category))},
+            {
+                text: 'OK', onPress: () => {
+                    dispatch(deleteCategory(category));
+                    dispatch(initCategorySync({
+                        type: CATEGORY_DELETE,
+                        payload: category
+                    }));
+                }
+            },
         ]);
     } else {
         dispatch(deleteCategory(category));
+        dispatch(initCategorySync({
+            type: CATEGORY_DELETE,
+            payload: category
+        }));
     }
 };
 
@@ -35,10 +54,18 @@ export const editCategoryPrompt = (category) => (dispatch) => {
             {
                 text: 'Update',
                 onPress: title => new Promise((resolve) => {
-                    dispatch(editCategory({
+                    const model = {
                         id: category.id,
                         title
+                    };
+
+                    dispatch(editCategory(model));
+
+                    dispatch(initCategorySync({
+                        type: CATEGORY_UPDATE,
+                        payload: model
                     }));
+
                     resolve();
                 }),
             },
@@ -52,10 +79,17 @@ export const createCategoryPrompt = () => (dispatch) => {
             {
                 text: 'Create',
                 onPress: title => new Promise((resolve) => {
-                    dispatch(createCategory({
+                    const model = {
                         id: uuid(),
                         title
+                    };
+                    dispatch(createCategory(model));
+
+                    dispatch(initCategorySync({
+                        type: CATEGORY_CREATE,
+                        payload: model
                     }));
+
                     resolve();
                 }),
             },

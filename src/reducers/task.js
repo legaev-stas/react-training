@@ -1,23 +1,17 @@
-import {fromJS} from 'immutable';
+import {fromJS, List} from 'immutable';
 
 import {
     TASK_DELETE,
     TASK_CREATE,
+    TASK_UPDATE,
     TASK_STATUS_CHANGE,
-    TASK_TITLE_CHANGE,
-    TASK_DESCRIPTION_CHANGE,
-    TASK_CATEGORY_CHANGE
+    TASK_SYNC
 } from '../actions/task/constants';
 import {
     CATEGORY_DELETE
 } from '../actions/category/constants';
 
-
-const findModelAndUpdateValue = (collection, id, key, value) => {
-    let index = collection.findIndex(model => id === model.get('id'));
-    return collection.update(index, model => model.set(key, value));
-};
-
+let indexToUpdate;
 
 export default (state = fromJS([]), action) => {
     const {type, payload} = action;
@@ -50,40 +44,18 @@ export default (state = fromJS([]), action) => {
             }
 
 
+        case TASK_UPDATE:
+            indexToUpdate = state.findIndex(model => payload.id === model.get('id'));
+            return state.update(indexToUpdate, () => fromJS(payload));
+
+
         case TASK_STATUS_CHANGE:
-            return findModelAndUpdateValue(
-                state,
-                payload.id,
-                'completed',
-                payload.completed
-            );
+            indexToUpdate = state.findIndex(model => payload.id === model.get('id'));
+            return state.update(indexToUpdate, model => model.set('completed', payload.completed));
 
 
-        case TASK_TITLE_CHANGE:
-            return findModelAndUpdateValue(
-                state,
-                payload.id,
-                'title',
-                payload.title
-            );
-
-
-        case TASK_DESCRIPTION_CHANGE:
-            return findModelAndUpdateValue(
-                state,
-                payload.id,
-                'description',
-                payload.description
-            );
-
-
-        case TASK_CATEGORY_CHANGE:
-            return findModelAndUpdateValue(
-                state,
-                payload.id,
-                'category',
-                payload.category
-            );
+        case TASK_SYNC:
+            return new List(fromJS(payload));
 
 
         default:

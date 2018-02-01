@@ -15,7 +15,7 @@ import {taskPageConnector} from '../connector/task-page';
 const TaskPageContainer = taskPageConnector(TaskPage);
 
 
-const App = ({activeCategory, activeTask}) => {
+const App = ({activeCategory, editableTask}) => {
     let pageView = <CategoryListPageContainer/>;
 
     // TODO: add search result view
@@ -24,7 +24,7 @@ const App = ({activeCategory, activeTask}) => {
         pageView = <TaskListPageContainer/>;
     }
 
-    if (activeTask) {
+    if (editableTask) {
         pageView = <TaskPageContainer/>
     }
 

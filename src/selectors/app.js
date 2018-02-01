@@ -4,11 +4,11 @@ import {getState} from '../helpers/store';
 
 const uiStateSlice = () => getState().ui;
 const activeCategory = createSimpleSelector(uiStateSlice, 'activeCategory');
-const activeTask = createSimpleSelector(uiStateSlice, 'activeTask');
+const editableTask = createSimpleSelector(uiStateSlice, 'editableTask');
 
-export const app = createSelector([activeCategory, activeTask], (activeCategory, activeTask) => {
+export const app = createSelector([activeCategory, editableTask], (activeCategory, editableTask) => {
     return {
         activeCategory,
-        activeTask
+        editableTask
     };
 });

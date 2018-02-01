@@ -4,10 +4,6 @@ import {fromJS, is} from 'immutable';
 import {
     TASK_DELETE,
     TASK_CREATE,
-    TASK_DESCRIPTION_CHANGE,
-    TASK_CATEGORY_CHANGE,
-    TASK_STATUS_CHANGE,
-    TASK_TITLE_CHANGE
 } from '../actions/task/constants';
 import {
     CATEGORY_DELETE
@@ -114,31 +110,6 @@ describe(`Task reducer should handle ${CATEGORY_DELETE} action`, () => {
     });
 });
 
-describe(`Task reducer should handle ${TASK_CATEGORY_CHANGE} action`, () => {
-    test('task can change category it associated to', () => {
-        let action = {
-            type: TASK_CATEGORY_CHANGE,
-            payload: {
-                category: 'c2',
-                id: 'id1'
-            }
-        };
-        initialState = fromJS([{
-                id: 'id1',
-                title: 'Title 1',
-                category: 'c1'
-            }]);
-        let expectedTask = fromJS({
-            id: 'id1',
-            title: 'Title 1',
-            category: 'c2'
-        });
-
-        let modifiedState = reducer(initialState, action);
-
-        expect(is(modifiedState.get(0), expectedTask)).toBe(true);
-    });
-});
 
 describe(`Category reducer should handle ${TASK_CREATE} action`, () => {
     test('state should not be modified if payload.title is empty', () => {
@@ -167,82 +138,5 @@ describe(`Category reducer should handle ${TASK_CREATE} action`, () => {
 
         expect(modifiedState.size).toBe(1);
         expect(modifiedState.includes(fromJS(payload))).toBe(true);
-    });
-});
-
-
-describe(`Category reducer should handle ${TASK_DESCRIPTION_CHANGE} action`, () => {
-    test('Description of task found by id should be updated', () => {
-        let description = 'new decription';
-        let action = {
-            type: TASK_DESCRIPTION_CHANGE,
-            payload: {
-                id: 'id1',
-                description
-            }
-        };
-        initialState = fromJS([{
-                id: 'id1',
-                title: 'Title 1',
-                description: 'old description'
-            }, {
-                id: 'id2',
-                title: 'Title 2',
-                description: 'old description'
-            }]);
-        let modifiedState = reducer(initialState, action);
-
-        expect(modifiedState.get(0).get('description')).toBe(description);
-    });
-});
-
-
-describe(`Category reducer should handle ${TASK_STATUS_CHANGE} action`, () => {
-    test('Completed status of task found by id should be updated', () => {
-        let action = {
-            type: TASK_STATUS_CHANGE,
-            payload: {
-                id: 'id2',
-                completed: true
-            }
-        };
-        initialState = fromJS([{
-                id: 'id1',
-                title: 'Title 1',
-                completed: false
-            }, {
-                id: 'id2',
-                title: 'Title 2',
-                completed: false
-            }]);
-        let modifiedState = reducer(initialState, action);
-
-        expect(modifiedState.get(1).get('completed')).toBe(true);
-    });
-});
-
-
-describe(`Category reducer should handle ${TASK_TITLE_CHANGE} action`, () => {
-    test('Title of task found by id should be updated', () => {
-        const title = 'New Title'
-        let action = {
-            type: TASK_TITLE_CHANGE,
-            payload: {
-                id: 'id1',
-                title
-            }
-        };
-        initialState = fromJS([{
-                id: 'id1',
-                title: 'Title 1',
-                completed: false
-            }, {
-                id: 'id2',
-                title: 'Title 2',
-                completed: false
-            }]);
-        let modifiedState = reducer(initialState, action);
-
-        expect(modifiedState.get(0).get('title')).toBe(title);
     });
 });

@@ -1,18 +1,18 @@
 import {connect} from 'react-redux';
 import {taskPageSelector} from '../selectors/task-page';
 import {
-    onTitleChange,
-    onDescriptionChange,
-    onCategoryChange,
-    onStatusChange
+    onEditableTaskTitleChange,
+    onEditableTaskDescriptionChange,
+    onEditableTaskCategoryChange,
+    onEditableTaskStatusChange
 } from '../actions/task';
-import {onUnsetActiveTask} from '../actions/ui-state';
+import {onLeaveEditTaskPage} from '../actions/ui-state';
 
 
 export const taskPageConnector = connect(taskPageSelector, {
-    goBack: onUnsetActiveTask,
-    onTitleChange,
-    onDescriptionChange,
-    onCategoryChange,
-    onStatusChange
+    goBack: onLeaveEditTaskPage,
+    onTitleChange: onEditableTaskTitleChange,
+    onDescriptionChange: onEditableTaskDescriptionChange,
+    onCategoryChange: onEditableTaskCategoryChange,
+    onStatusChange: onEditableTaskStatusChange
 });

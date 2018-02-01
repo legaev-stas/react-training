@@ -1,9 +1,8 @@
 import {categoryPickerListSelector, taskSelector, categoryTitleSelector, taskPageSelector} from './task-page';
 import {fromJS, is} from 'immutable';
-import {taskListPageSelector} from "./task-list-page";
 
 
-let dataActiveTaskId, dataTaskCollection, dataCategoryCollection, dataTask;
+let dataActiveTask, dataTaskCollection, dataCategoryCollection, dataTask;
 
 beforeEach(() => {
     dataCategoryCollection = fromJS([{
@@ -33,23 +32,7 @@ beforeEach(() => {
         completed: false
     }]);
     dataTask = null;
-    dataActiveTaskId = null;
-});
-
-
-describe('taskSelector selector for Task Page', () => {
-    test('Task found by ID should be returned', () => {
-        dataActiveTaskId = 't2';
-        let task = taskSelector.resultFunc(dataActiveTaskId, dataTaskCollection);
-
-        expect(is(task, fromJS({
-            id: 't2',
-            category: 'c1',
-            title: "t2 title",
-            description: "",
-            completed: false
-        }))).toBe(true);
-    });
+    dataActiveTask = null;
 });
 
 

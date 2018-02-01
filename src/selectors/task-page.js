@@ -4,16 +4,9 @@ import {Map} from 'immutable';
 
 
 const categoryCollection = () => getState().category;
-const taskCollection = () => getState().task;
 const uiStateSlice = () => getState().ui;
-const activeTask = createSimpleSelector(uiStateSlice, 'activeTask');
+const editableTask = createSimpleSelector(uiStateSlice, 'editableTask');
 
-
-
-export const taskSelector = createSelector(
-    [activeTask, taskCollection],
-    (activeTask, taskCollection) => taskCollection.find(task => task.get('id') === activeTask)
-);
 
 export const categoryPickerListSelector = createSelector([categoryCollection], (categoryCollection) =>
     categoryCollection.map(category => new Map({
@@ -22,12 +15,12 @@ export const categoryPickerListSelector = createSelector([categoryCollection], (
     }))
 );
 
-export const categoryTitleSelector = createSelector([categoryCollection, taskSelector], (categoryCollection, task) =>
+export const categoryTitleSelector = createSelector([categoryCollection, editableTask], (categoryCollection, task) =>
     categoryCollection.find(category => category.get('id') === task.get('category')).get('title')
 );
 
 export const taskPageSelector = createSelector(
-    [categoryPickerListSelector, taskSelector, categoryTitleSelector],
+    [categoryPickerListSelector, editableTask, categoryTitleSelector],
     (categoryPickerList, task, categoryTitle) => ({
         categoryPickerList,
         task,

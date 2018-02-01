@@ -44,10 +44,8 @@ export class ListItem extends React.PureComponent {
 
     onStatusChange = (e) => {
         e.stopPropagation();
-        this.props.onStatusChange({
-            id: this.props.model.get('id'),
-            completed: !this.props.model.get('completed')
-        });
+        let model = this.props.model.set('completed', !this.props.model.get('completed'));
+        this.props.onStatusChange(model.toJS());
     }
 
     render() {

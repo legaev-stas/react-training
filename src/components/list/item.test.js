@@ -40,7 +40,7 @@ it('should rendered nested Checkbox when checkable property is provided', () => 
     expect(toJson(tree)).toMatchSnapshot();
 });
 
-it('onStatusChange callback is invoked with correct arguments when Checkbox is clicked', () => {
+it('onEditableTaskStatusChange callback is invoked with correct arguments when Checkbox is clicked', () => {
     const onStatusChange = jest.fn();
     const tree = mount(<ListItem model={model} onStatusChange={onStatusChange} checkable/>, {mode: 'shallow'});
     const eventMock = {
@@ -51,7 +51,9 @@ it('onStatusChange callback is invoked with correct arguments when Checkbox is c
     expect(onStatusChange).toHaveBeenCalledWith({
         id: 'id',
         completed: true,
-    })
+        badge: 0,
+        title: 'Title'
+    });
 });
 
 it('onDelete method should invoke callback onDelete with correct argument (model)', () => {

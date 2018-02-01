@@ -2,15 +2,15 @@ import {connect} from 'react-redux';
 import {taskListSelector} from '../../selectors/list/task-list';
 import {
     deleteTask,
-    onStatusChange
+    onTaskStatusChange
 } from '../../actions/task';
 import {
-    onSetActiveTask
+    onSetEditableTask
 } from '../../actions/ui-state';
 
 
 export const taskListConnector = connect(taskListSelector, {
     deleteTask,
-    editTask: onSetActiveTask,
-    onStatusChange
+    editableTask: onSetEditableTask,
+    onStatusChange: onTaskStatusChange
 });
