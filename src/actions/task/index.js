@@ -2,7 +2,7 @@ import {createAction} from '../../helpers/action';
 import {getState} from '../../helpers/store';
 import uuid from 'uuid/v4';
 import {Modal} from 'antd-mobile';
-import {initTaskSync} from '../ws';
+import {initActionPropagationToServer} from '../sync-queue';
 
 import {
     TASK_DELETE,
@@ -12,17 +12,13 @@ import {
     EDITABLE_TASK_STATUS_CHANGE,
     EDITABLE_TASK_TITLE_CHANGE,
     EDITABLE_TASK_DESCRIPTION_CHANGE,
-    EDITABLE_TASK_CATEGORY_CHANGE,
-    TASK_ADD_TO_SYNC_QUEUE,
-    TASK_CLEAN_SYNC_QUEUE
+    EDITABLE_TASK_CATEGORY_CHANGE
 } from './constants';
 
 
 export const deleteTaskLocally = createAction(TASK_DELETE);
 export const createTask = createAction(TASK_CREATE);
 export const updateTaskLocally = createAction(TASK_UPDATE);
-export const addTaskToSyncQueue = createAction(TASK_ADD_TO_SYNC_QUEUE);
-export const cleanTaskSyncQueue = createAction(TASK_CLEAN_SYNC_QUEUE);
 export const onTaskStatusChangeLocally = createAction(TASK_STATUS_CHANGE);
 export const onEditableTaskStatusChange = createAction(EDITABLE_TASK_STATUS_CHANGE);
 export const onEditableTaskTitleChange = createAction(EDITABLE_TASK_TITLE_CHANGE);
@@ -32,7 +28,7 @@ export const onEditableTaskCategoryChange = createAction(EDITABLE_TASK_CATEGORY_
 
 export const onTaskStatusChange = (payload) => (dispatch) => {
     dispatch(onTaskStatusChangeLocally(payload));
-    dispatch(initTaskSync({
+    dispatch(initActionPropagationToServer({
         type: TASK_UPDATE,
         payload
     }));
@@ -41,7 +37,7 @@ export const onTaskStatusChange = (payload) => (dispatch) => {
 export const updateTask = () => (dispatch) => {
     const payload = getState().ui.get('editableTask').toJS();
     dispatch(updateTaskLocally(payload));
-    dispatch(initTaskSync({
+    dispatch(initActionPropagationToServer({
         type: TASK_UPDATE,
         payload
     }));
@@ -49,7 +45,7 @@ export const updateTask = () => (dispatch) => {
 
 export const deleteTask = (payload) => (dispatch) => {
     dispatch(deleteTaskLocally(payload));
-    dispatch(initTaskSync({
+    dispatch(initActionPropagationToServer({
         type: TASK_DELETE,
         payload
     }));
@@ -70,7 +66,7 @@ export const createTaskPrompt = (category) => (dispatch) => {
                         completed: false
                     };
                     dispatch(createTask(payload));
-                    dispatch(initTaskSync({
+                    dispatch(initActionPropagationToServer({
                         type: TASK_CREATE,
                         payload
                     }));

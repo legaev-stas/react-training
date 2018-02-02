@@ -9,19 +9,15 @@ import {
     CATEGORY_ADD_TO_SYNC_QUEUE,
     CATEGORY_CLEAN_SYNC_QUEUE
 } from './constants';
-import {initCategorySync} from "../ws";
+import {initActionPropagationToServer} from "../sync-queue";
 
 
 export const deleteCategory = createAction(CATEGORY_DELETE);
 export const createCategory = createAction(CATEGORY_CREATE);
 export const editCategory = createAction(CATEGORY_UPDATE);
 
-export const addCategoryToSyncQueue = createAction(CATEGORY_ADD_TO_SYNC_QUEUE);
-export const cleanCategorySyncQueue = createAction(CATEGORY_CLEAN_SYNC_QUEUE);
-
 
 export const deleteCategoryConfirmation = (category) => (dispatch) => {
-    console.log(category)
     const heading = 'Delete Category';
     const message = `Are you sure? The category contains ${category.badge} uncompleted tasks`;
 
@@ -31,7 +27,7 @@ export const deleteCategoryConfirmation = (category) => (dispatch) => {
             {
                 text: 'OK', onPress: () => {
                     dispatch(deleteCategory(category));
-                    dispatch(initCategorySync({
+                    dispatch(initActionPropagationToServer({
                         type: CATEGORY_DELETE,
                         payload: category
                     }));
@@ -40,7 +36,7 @@ export const deleteCategoryConfirmation = (category) => (dispatch) => {
         ]);
     } else {
         dispatch(deleteCategory(category));
-        dispatch(initCategorySync({
+        dispatch(initActionPropagationToServer({
             type: CATEGORY_DELETE,
             payload: category
         }));
@@ -61,7 +57,7 @@ export const editCategoryPrompt = (category) => (dispatch) => {
 
                     dispatch(editCategory(model));
 
-                    dispatch(initCategorySync({
+                    dispatch(initActionPropagationToServer({
                         type: CATEGORY_UPDATE,
                         payload: model
                     }));
@@ -85,7 +81,7 @@ export const createCategoryPrompt = () => (dispatch) => {
                     };
                     dispatch(createCategory(model));
 
-                    dispatch(initCategorySync({
+                    dispatch(initActionPropagationToServer({
                         type: CATEGORY_CREATE,
                         payload: model
                     }));
