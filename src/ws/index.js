@@ -1,10 +1,13 @@
 import {store} from '../store';
+import {wsEndpoint} from '../config';
 import {syncRequest} from "../actions/sync-queue";
 
 let ws;
+let timer;
 
 const establishConnection = () => {
-    ws = new WebSocket('ws://localhost:3001/');
+    clearTimeout(timer);
+    ws = new WebSocket(wsEndpoint);
 
     ws.addEventListener('open', sendSyncMessage);
     ws.addEventListener('message', dispatchServerAction);
@@ -28,7 +31,7 @@ const sendSyncMessage = () => {
 
 const establishDelayedConnection = () => {
     terminateConnection();
-    setTimeout(establishConnection, 10000);
+    timer = setTimeout(establishConnection, 10000);
 };
 
 const dispatchServerAction = e => store.dispatch(JSON.parse(e.data));
