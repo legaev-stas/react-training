@@ -12,7 +12,7 @@ const establishConnection = () => {
 };
 
 const terminateConnection = () => {
-    if(ws){
+    if (ws) {
         ws.removeEventListener('open', sendSyncMessage);
         ws.removeEventListener('message', dispatchServerAction);
         ws.removeEventListener('close', establishDelayedConnection);
@@ -45,6 +45,19 @@ export const connect = () => {
         establishConnection();
     }
 
-    window.addEventListener('online', establishConnection);
+    window.addEventListener('online', () => {
+        if (!document.hidden) {
+            establishConnection();
+        }
+    });
     window.addEventListener('offline', terminateConnection);
+
+    // handle connection accordingly to application visibility
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            terminateConnection();
+        } else if (navigator.onLine) {
+            establishConnection();
+        }
+    });
 };
