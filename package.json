@@ -1,6 +1,6 @@
 {
   "name": "todo-phonegap-application",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "A PhoneGap Hello World template",
   "main": "index.js",
   "scripts": {
