@@ -1,6 +1,15 @@
-node_modules
-/.idea
-/www/build
-/platforms/browser/www/build
+# Mac
+.DS_Store
 
+# Node
+npm-debug.log
+/node_modules
+
+# Cordova
+/platforms
+/plugins
+
+
+/.idea
 /coverage
+/www/build
