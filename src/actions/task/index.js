@@ -1,7 +1,7 @@
 import {createAction} from '../../helpers/action';
 import {getState} from '../../helpers/store';
 import uuid from 'uuid/v4';
-import {Modal} from 'antd-mobile';
+import Modal from 'antd-mobile/lib/modal';
 import {initActionPropagationToServer} from '../sync-queue';
 
 import {

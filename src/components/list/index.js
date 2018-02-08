@@ -1,5 +1,5 @@
 import React from 'react';
-import {List as AntdList} from 'antd-mobile';
+import AntdList from 'antd-mobile/lib/list';
 import {ListItem} from './item';
 
 export const List = ({collection, checkable, arrow, onEdit, onDelete, onClick, onStatusChange}) => (

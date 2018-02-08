@@ -2,7 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
-import {SwipeAction, List, Badge, Checkbox, Flex} from 'antd-mobile';
+import SwipeAction from 'antd-mobile/lib/swipe-action';
+import List from 'antd-mobile/lib/list';
+import Badge from 'antd-mobile/lib/badge';
+import Checkbox from 'antd-mobile/lib/checkbox';
+import Flex from 'antd-mobile/lib/flex';
 import './styles.css';
 
 

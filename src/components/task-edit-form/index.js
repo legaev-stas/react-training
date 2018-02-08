@@ -1,5 +1,9 @@
 import React from 'react';
-import {List, InputItem, TextareaItem, Picker, Switch} from 'antd-mobile';
+import List from 'antd-mobile/lib/list';
+import InputItem from 'antd-mobile/lib/input-item';
+import TextareaItem from 'antd-mobile/lib/textarea-item';
+import Picker from 'antd-mobile/lib/picker';
+import Switch from 'antd-mobile/lib/switch';
 
 
 export const Form = ({

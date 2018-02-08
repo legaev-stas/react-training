@@ -1,5 +1,8 @@
 import React from 'react';
-import {SearchBar, Flex, WingBlank, Icon} from 'antd-mobile';
+import SearchBar from 'antd-mobile/lib/search-bar';
+import Flex from 'antd-mobile/lib/flex';
+import WingBlank from 'antd-mobile/lib/wing-blank';
+import Icon from 'antd-mobile/lib/icon';
 import './category-list-page.css';
 
 
