@@ -9,6 +9,7 @@ module.exports = {
         '\\.(css|less)$': '<rootDir>/__mocks__/styleMock.js'
     },
     collectCoverage: true,
+    coverageReporters: ['cobertura', /*'text'*/],
     collectCoverageFrom: [
         'src/**/*.{js,jsx}'
     ],
