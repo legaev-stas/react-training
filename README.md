@@ -4,8 +4,7 @@
 Install Node.JS
 
 ## Initialisation
-1. install npm dependencies by running following command in project root directory > npm i
-2. install cordova plugins and platforms by running following command in project root directory > cordova prepare
+Install npm dependencies by running following command in project root directory > npm i
 
 ## Run
 run > npm run serve
