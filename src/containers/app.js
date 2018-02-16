@@ -4,28 +4,40 @@ import {appConnector} from '../connector/app';
 
 import {CategoryListPage} from './category-list-page';
 import {categoryListPageConnector} from '../connector/category-list-page';
+
 const CategoryListPageContainer = categoryListPageConnector(CategoryListPage);
 
 import {TaskListPage} from './task-list-page';
 import {taskListPageConnector} from '../connector/task-list-page';
+
 const TaskListPageContainer = taskListPageConnector(TaskListPage);
 
 import {TaskPage} from './task-page';
 import {taskPageConnector} from '../connector/task-page';
+
 const TaskPageContainer = taskPageConnector(TaskPage);
 
+import {LoginPage} from './login-page';
+import {loginPageConnector} from '../connector/login-page';
 
-const App = ({activeCategory, editableTask}) => {
-    let pageView = <CategoryListPageContainer/>;
+const LoginPageContainer = loginPageConnector(LoginPage);
 
-    // TODO: add search result view
 
-    if (activeCategory) {
-        pageView = <TaskListPageContainer/>;
-    }
+const App = ({activeCategory, editableTask, user}) => {
+    let pageView;
 
-    if (editableTask) {
-        pageView = <TaskPageContainer/>
+    if (user.isEmpty()) {
+        pageView = <LoginPageContainer/>
+    } else {
+        pageView = <CategoryListPageContainer/>;
+
+        if (activeCategory) {
+            pageView = <TaskListPageContainer/>;
+        }
+
+        if (editableTask) {
+            pageView = <TaskPageContainer/>
+        }
     }
 
     return (

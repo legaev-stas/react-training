@@ -1,3 +1,5 @@
 {
-  "wsEndpoint": "ws://test.scti2rqbrm.us-east-2.elasticbeanstalk.com/"
+  "wsEndpoint1": "ws://test.scti2rqbrm.us-east-2.elasticbeanstalk.com/",
+  "wsEndpoint": "ws://localhost:3001/",
+  "fbAppId": "254681075070412"
 }
